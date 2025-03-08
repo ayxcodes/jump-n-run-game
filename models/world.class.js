@@ -5,7 +5,10 @@ class World {
     camera_x = 0;
     character = new Character();
     level = level1;
-    statusBar = new StatusBar();
+    characterEnergyBar = new characterEnergyBar();
+    endbossEnergyBar = new endbossEnergyBar();
+    coinBar = new CoinBar();
+    bottleBar = new BottleBar();
     throwableObjects = [];
 
     constructor(canvas) {
@@ -32,7 +35,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
-                this.statusBar.setPercentage(this.character.energy)
+                this.characterEnergyBar.setPercentage(this.character.energy)
             } ;
         });
     }
@@ -53,7 +56,19 @@ class World {
         this.addObjectsToMap(this.level.clouds);
 
         this.ctx.translate(-this.camera_x, 0)
-        this.addToMap(this.statusBar);
+        this.addToMap(this.characterEnergyBar);
+        this.ctx.translate(this.camera_x, 0)
+
+        this.ctx.translate(-this.camera_x, 0)
+        this.addToMap(this.coinBar);
+        this.ctx.translate(this.camera_x, 0)
+
+        this.ctx.translate(-this.camera_x, 0)
+        this.addToMap(this.bottleBar);
+        this.ctx.translate(this.camera_x, 0)
+
+        this.ctx.translate(-this.camera_x, 0)
+        this.addToMap(this.endbossEnergyBar);
         this.ctx.translate(this.camera_x, 0)
 
         this.addToMap(this.character);

@@ -2,6 +2,7 @@ class DrawableObject {
     img;
     imageCache = [];
     currentImage = 0;
+    otherDirection = false;
     x = 100;
     y = 280;
     height = 150;
@@ -19,8 +20,8 @@ class DrawableObject {
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken) {
             ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
+            ctx.lineWidth = '0';
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0)';
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }

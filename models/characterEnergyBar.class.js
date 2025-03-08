@@ -1,0 +1,18 @@
+class characterEnergyBar extends StatusBar {
+    percentage = 100;
+    images = [
+        'img/7_statusbars/1_statusbar/2_statusbar_health/0.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/20.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/40.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/60.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/80.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/100.png'
+    ];
+
+    constructor() {
+        super().loadImages(this.images);
+        this.x = 30;
+        this.y =80;
+        this.setPercentage(100);
+    }
+}

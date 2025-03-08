@@ -1,31 +1,18 @@
 class StatusBar extends DrawableObject {
-    percentage = 100;
-    images = [
-        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png'
-    ];
 
     constructor() {
         super();
-        this.loadImages(this.images);
-        this.x = 40;
-        this.y = 0;
         this.width = 200;
-        this.height = 60;
-        this.setPercentage(100);
+        this.height = 50;
     }
 
     setPercentage(percentage) {
         this.percentage = percentage;
-        let path = this.images[this.resolveImageIndex()];
+        let path = this.images[this.resolvePercentageIndex()];
         this.img = this.imageCache[path];
     }
 
-    resolveImageIndex() {
+    resolvePercentageIndex() {
         if (this.percentage == 100) {
             return 5;
         } else
@@ -39,6 +26,32 @@ class StatusBar extends DrawableObject {
                         return 2;
                     } else 
                         if (this.percentage > 20) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+    }
+
+    setAmount(amount) {
+        this.amount = amount;
+        let path = this.images[this.resolveAmountIndex()];
+        this.img = this.imageCache[path];
+    }
+
+    resolveAmountIndex() {
+        if (this.amount == 15) {
+            return 5;
+        } else
+            if (this.amount > 12) {
+                return 4;
+            } else 
+                if (this.amount > 9) {
+                    return 3;
+                } else 
+                    if (this.amount > 6) {
+                        return 2;
+                    } else 
+                        if (this.amount > 3) {
                             return 1;
                         } else {
                             return 0;
