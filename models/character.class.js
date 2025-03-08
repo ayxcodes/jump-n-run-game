@@ -4,6 +4,24 @@ class Character extends MovableObject {
     width = 140;
     speed = 10;
     world;
+    imagesIdle = [
+        'img/2_character_pepe/1_idle/idle/I_1.png',
+        'img/2_character_pepe/1_idle/idle/I_6.png',
+        'img/2_character_pepe/1_idle/idle/I_7.png',
+        'img/2_character_pepe/1_idle/idle/I_8.png',
+        'img/2_character_pepe/1_idle/idle/I_9.png',
+        'img/2_character_pepe/1_idle/idle/I_10.png',
+        'img/2_character_pepe/1_idle/long_idle/I_11.png',
+        'img/2_character_pepe/1_idle/long_idle/I_12.png',
+        'img/2_character_pepe/1_idle/long_idle/I_13.png',
+        'img/2_character_pepe/1_idle/long_idle/I_14.png',
+        'img/2_character_pepe/1_idle/long_idle/I_15.png',
+        'img/2_character_pepe/1_idle/long_idle/I_16.png',
+        'img/2_character_pepe/1_idle/long_idle/I_17.png',
+        'img/2_character_pepe/1_idle/long_idle/I_18.png',
+        'img/2_character_pepe/1_idle/long_idle/I_19.png',
+        'img/2_character_pepe/1_idle/long_idle/I_20.png'
+    ];
     imagesWalking = [
         'img/2_character_pepe/2_walk/W_21.png',
         'img/2_character_pepe/2_walk/W_22.png',
@@ -39,11 +57,13 @@ class Character extends MovableObject {
     ];
 
     constructor() {
-        super().loadImage(this.imagesWalking[0]);
+        super().loadImage(this.imagesIdle[0]);
+        this.loadImages(this.imagesIdle);
         this.loadImages(this.imagesWalking);
         this.loadImages(this.imagesJumping);
-        this.loadImages(this.imagesDead);
         this.loadImages(this.imagesHurt);
+        this.loadImages(this.imagesDead);
+        
         this.applyGravity();
         this.animate();
     }
