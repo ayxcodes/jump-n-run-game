@@ -122,7 +122,6 @@ class Character extends MovableObject {
         }, 150);
     }
     
-    
     playJumpAnimation() {
         if (this.speedY > 0) {
             this.img = this.imageCache[this.imagesJumping[1]];
