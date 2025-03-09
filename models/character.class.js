@@ -100,6 +100,9 @@ class Character extends MovableObject {
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.imagesWalking);
             }
+
+            this.checkCollectables(this.world.level.coins);
+            this.checkCollectables(this.world.level.bottles);
         }, 50);
     }
     
@@ -135,6 +138,12 @@ class Character extends MovableObject {
         }
     }
 
+    checkCollectables(objects) {
+        objects.forEach((object) => {
+            object.collect(this);
+        });
+    }
+
     collectItem(item) {
         if (item instanceof Coin) {
             this.collectedCoins.push(item);
@@ -142,11 +151,5 @@ class Character extends MovableObject {
             this.collectedBottles.push(item);
         }
         item.removeFromCanvas();
-    }
-
-    checkCollectables(objects) {
-        objects.forEach((object) => {
-            object.collect(this);
-        });
     }
 }

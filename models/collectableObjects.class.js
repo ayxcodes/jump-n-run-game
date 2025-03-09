@@ -1,4 +1,4 @@
-class CollectableObject extends DrawableObject {
+class CollectableObject extends MovableObject {
     constructor() {
         super();
         this.collected = false;
