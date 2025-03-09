@@ -3,9 +3,9 @@ class Coin extends CollectableObject {
 
     constructor(x, y) {
         super().loadImage(this.image);
-        this.x = 100;
-        this.y = 100;
-        this.width = 50;
-        this.height = 50;
+        this.x = x;
+        this.y = y;
+        this.width = 120;
+        this.height = 120;
     }
 }

@@ -1,5 +1,8 @@
 class Bottle extends CollectableObject {
-    imageBottle = ['img/6_salsa_bottle/1_salsa_bottle_on_ground.png'];
+    imageBottle = [
+        'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
+        'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
+    ];
     imagesRotation = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -15,13 +18,17 @@ class Bottle extends CollectableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ];
 
-    constructor(x, y) {
-        super().loadImage(this.imageBottle);
+    constructor() {
+        super();
+
+        let randomImage = this.imageBottle[Math.floor(Math.random() * this.imageBottle.length)];
+        this.loadImage(randomImage);
         this.loadImages(this.imagesRotation);
         this.loadImages(this.imagesSplash);
-        this.x = 100;
-        this.y = 100;
-        this.width = 50;
-        this.height = 50;
+
+        this.x = 200 + Math.random() * 5000;
+        this.y = 325;
+        this.width = 100;
+        this.height = 100;
     }
 }

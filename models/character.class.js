@@ -141,6 +141,7 @@ class Character extends MovableObject {
         } else if (item instanceof Bottle) {
             this.collectedBottles.push(item);
         }
+        item.removeFromCanvas();
     }
 
     checkCollectables(objects) {

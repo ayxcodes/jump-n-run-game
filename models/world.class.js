@@ -16,12 +16,29 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.setWorld();
+        this.generateCoins(); 
         this.draw();
         this.run();
     }
 
     setWorld() {
         this.character.world = this;
+    }
+
+    generateCoins() {
+        let totalWidth = 5000;
+        let numArcs = 5;
+        let arcWidth = 350;
+        let spacing = (totalWidth - numArcs * arcWidth) / (numArcs + 1);
+    
+        for (let i = 0; i < numArcs; i++) {
+            let startX = spacing + i * (arcWidth + spacing);
+            let startY = 200;
+            let width = arcWidth;
+            let height = 100;
+            let coins = generateCoinArc(startX, startY, width, height, 5);
+            this.level.coins.push(...coins);
+        }
     }
 
     run() {
