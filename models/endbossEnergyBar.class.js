@@ -13,7 +13,8 @@ class endbossEnergyBar extends StatusBar {
         super().loadImages(this.images);
         this.x = 480;
         this.y = 0;
-        this.height = 55; 
+        this.height = 72;
+        this.width = 210; 
         this.setPercentage(100);
     }
 } 

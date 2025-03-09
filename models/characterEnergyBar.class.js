@@ -12,7 +12,7 @@ class characterEnergyBar extends StatusBar {
     constructor() {
         super().loadImages(this.images);
         this.x = 30;
-        this.y =80;
+        this.y = 0;
         this.setPercentage(100);
     }
 }

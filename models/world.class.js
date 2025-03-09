@@ -7,8 +7,8 @@ class World {
     level = level1;
     characterEnergyBar = new characterEnergyBar();
     endbossEnergyBar = new endbossEnergyBar();
-    coinBar = new CoinBar();
-    bottleBar = new BottleBar();
+    coinCount = new CoinCount();
+    bottleCount = new BottleCount();
     throwableObjects = [];
 
     constructor(canvas) {
@@ -59,8 +59,11 @@ class World {
 
     checkThrowableObjects() {
         if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 120);
-            this.throwableObjects.push(bottle);
+            if (this.bottleCount.amount > 0) {
+                let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 120);
+                this.throwableObjects.push(bottle);
+                this.bottleCount.amount = this.bottleCount.amount - 1;
+            }
         }
     }
 
@@ -79,11 +82,11 @@ class World {
         this.ctx.translate(this.camera_x, 0)
 
         this.ctx.translate(-this.camera_x, 0)
-        this.addToMap(this.coinBar);
+        this.addToMap(this.coinCount);
         this.ctx.translate(this.camera_x, 0)
 
         this.ctx.translate(-this.camera_x, 0)
-        this.addToMap(this.bottleBar);
+        this.addToMap(this.bottleCount);
         this.ctx.translate(this.camera_x, 0)
 
         this.ctx.translate(-this.camera_x, 0)

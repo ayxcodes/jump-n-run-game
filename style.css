@@ -3,6 +3,11 @@
     src: url('assets/fonts/zabars.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'markin';
+    src: url('assets/fonts/markin-lt-regular.ttf') format('truetype');
+}
+
 body {
     margin: 0;
     height: 100vh;
@@ -22,7 +27,6 @@ h1 {
     font-size: 72px;
     letter-spacing: 5px;
     text-shadow: 2px 2px 8px rgba(100, 20, 5, 0.5);
-    padding: 80px 0 0 0;
 }
 
 canvas {

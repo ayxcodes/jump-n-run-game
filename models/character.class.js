@@ -4,8 +4,6 @@ class Character extends MovableObject {
     width = 140;
     speed = 10;
     world;
-    collectedCoins = [];
-    collectedBottles = [];
     imagesIdle = [
         'img/2_character_pepe/1_idle/idle/I_1.png',
         'img/2_character_pepe/1_idle/idle/I_6.png',
@@ -146,9 +144,9 @@ class Character extends MovableObject {
 
     collectItem(item) {
         if (item instanceof Coin) {
-            this.collectedCoins.push(item);
+            this.world.coinCount.amount = this.world.coinCount.amount + 1;
         } else if (item instanceof Bottle) {
-            this.collectedBottles.push(item);
+            this.world.bottleCount.amount = this.world.bottleCount.amount + 1;
         }
         item.removeFromCanvas();
     }
