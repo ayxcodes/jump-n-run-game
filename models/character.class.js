@@ -4,6 +4,8 @@ class Character extends MovableObject {
     width = 140;
     speed = 10;
     world;
+    collectedCoins = [];
+    collectedBottles = [];
     imagesIdle = [
         'img/2_character_pepe/1_idle/idle/I_1.png',
         'img/2_character_pepe/1_idle/idle/I_6.png',
@@ -39,11 +41,12 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J_36.png',
         'img/2_character_pepe/3_jump/J_37.png',
         'img/2_character_pepe/3_jump/J_38.png',
+        'img/2_character_pepe/3_jump/J_31.png'
     ];
     imagesHurt = [
         'img/2_character_pepe/4_hurt/H_41.png',
         'img/2_character_pepe/4_hurt/H_42.png',
-        'img/2_character_pepe/4_hurt/H_43.png',
+        'img/2_character_pepe/4_hurt/H_43.png'
     ];
     imagesDead = [
         'img/2_character_pepe/5_dead/D_51.png',
@@ -99,7 +102,7 @@ class Character extends MovableObject {
             }
         }, 50);
     }
-
+    
     startJump() {
         if (this.isJumping) return;
     
@@ -116,7 +119,8 @@ class Character extends MovableObject {
                 this.jump();
             }
         }, 150);
-    }    
+    }
+    
     
     playJumpAnimation() {
         if (this.speedY > 0) {
@@ -129,5 +133,19 @@ class Character extends MovableObject {
         if (!this.isAboveGround()) {
             this.isJumping = false;
         }
+    }
+
+    collectItem(item) {
+        if (item instanceof Coin) {
+            this.collectedCoins.push(item);
+        } else if (item instanceof Bottle) {
+            this.collectedBottles.push(item);
+        }
+    }
+
+    checkCollectables(objects) {
+        objects.forEach((object) => {
+            object.collect(this);
+        });
     }
 }
