@@ -15,12 +15,13 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    color: rgb(100, 20, 5);
 }
 
 h1 {
     font-size: 72px;
     letter-spacing: 5px;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 8px rgba(100, 20, 5, 0.5);
     padding: 80px 0 0 0;
 }
 
