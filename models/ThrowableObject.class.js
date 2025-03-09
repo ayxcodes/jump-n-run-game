@@ -23,6 +23,7 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.height = 80;
         this.width = 80;
+        this.world = world;
         this.throw();
     }
 
@@ -31,14 +32,41 @@ class ThrowableObject extends MovableObject {
         this.applyGravity();
         let throwInterval = setInterval(() => {
             this.x += 10;
+            this.checkCollision();
         }, 25);
 
         this.animateRotation();
+    }
+
+    checkCollision() {
+        this.world.level.enemies.forEach((enemy) => {
+            if (this.isColliding(enemy) && !this.splashAnimationPlaying) {
+                this.playSplashAnimation();
+            }
+        });
+
+        if (this.y >= 330) {
+            this.playSplashAnimation();
+        }
     }
 
     animateRotation() {
         setInterval(() => {
             this.playAnimation(this.imagesRotation);
         }, 50);
+    }
+
+    playSplashAnimation() {
+        this.imagesRotation = this.imagesSplash;
+        this.speedY = 0;
+        this.animationSplash();
+    }
+
+    animationSplash() {
+        this.playAnimation(this.imagesSplash);
+        setTimeout(() => {
+            this.removeFromCanvas();
+        }, 100);
+        
     }
 }

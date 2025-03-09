@@ -72,4 +72,9 @@ class MovableObject extends DrawableObject{
     isDead() {
         return this.energy == 0;
     }
+
+    removeFromCanvas() {
+        this.x = -1000;
+        this.y = -1000;
+    }
 }
