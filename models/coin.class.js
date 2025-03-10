@@ -8,4 +8,11 @@ class Coin extends CollectableObject {
         this.width = 120;
         this.height = 120;
     }
+
+    offset = {
+        top: 40,
+        bottom: 40,
+        left: 40,
+        right: 40
+    };
 }

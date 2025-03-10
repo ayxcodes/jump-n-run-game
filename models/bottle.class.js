@@ -31,4 +31,11 @@ class Bottle extends CollectableObject {
         this.width = 100;
         this.height = 100;
     }
+
+    offset = {
+        top: 20,
+        bottom: 10,
+        left: 45,
+        right: 20
+    };
 }

@@ -27,6 +27,13 @@ class ThrowableObject extends MovableObject {
         this.throw();
     }
 
+    offset = {
+        top: 10,
+        bottom: 10,
+        left: 30,
+        right: 30
+    };
+
     throw() {
         this.speedY = 25;
         this.applyGravity();

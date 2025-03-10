@@ -51,6 +51,13 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    offset = {
+        top: 50,
+        bottom: 20,
+        left: 30,
+        right: 10
+    };
+
     animate() {
         setInterval(() => {
             this.moveLeft();

@@ -69,6 +69,13 @@ class Character extends MovableObject {
         this.animate();
     }
 
+    offset = {
+        top: 85,
+        bottom: 10,
+        left: 30,
+        right: 35
+    };
+
     animate() {
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEnd_x) {
