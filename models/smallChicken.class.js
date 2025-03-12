@@ -1,7 +1,8 @@
 class SmallChicken extends MovableObject {
-    y = 350;
+    y = 355;
     height = 70;
     width = 70;
+    isDead = false;
     imagesWalking = [
         'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
         'img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
@@ -31,11 +32,15 @@ class SmallChicken extends MovableObject {
 
     animate() {
         setInterval(() => {
-            this.moveLeft();
-        }, 1000/60);
-
+            if (!this.isDead) {
+                this.moveLeft();
+            }
+        }, 1000 / 60);
+    
         setInterval(() => {
-            this.playAnimation(this.imagesWalking);
+            if (!this.isDead) {
+                this.playAnimation(this.imagesWalking);
+            }
         }, 100);
     }
 }

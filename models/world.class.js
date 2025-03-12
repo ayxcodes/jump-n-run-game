@@ -49,11 +49,22 @@ class World {
     }
 
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+        this.level.enemies.forEach((enemy, index) => {
+            if (this.character.isColliding(enemy, index) && this.character.isAboveGround() && this.character.speedY < 0) {
+                if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
+                    enemy.img = enemy.imageCache[enemy.imageDead[0]];
+                    enemy.isDead = true;
+
+                    setTimeout(() => {
+                        this.level.enemies.splice(index, 1);
+                    }, 200);
+
+                    this.character.jump();
+                }
+            } else if (!enemy.dead && this.character.isColliding(enemy)) {
                 this.character.hit();
-                this.characterEnergyBar.setPercentage(this.character.energy)
-            } ;
+                this.characterEnergyBar.setPercentage(this.character.energy);
+            }
         });
     }
 
@@ -104,8 +115,6 @@ class World {
             self.draw();
         });
     }
-
-    update() {}
 
     addObjectsToMap(objects) {
         objects.forEach(o => {

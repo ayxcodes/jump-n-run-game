@@ -39,15 +39,23 @@ class ThrowableObject extends MovableObject {
         this.applyGravity();
         let throwInterval = setInterval(() => {
             this.x += 10;
-            this.checkCollision();
+            this.checkCollisionBottle();
         }, 25);
 
         this.animateRotation();
     }
 
-    checkCollision() {
-        this.world.level.enemies.forEach((enemy) => {
-            if (this.isColliding(enemy) && !this.splashAnimationPlaying) {
+    checkCollisionBottle() {
+        this.world.level.enemies.forEach((enemy, index) => {
+            if (this.isColliding(enemy, index) && !this.splashAnimationPlaying) {
+                if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
+                    enemy.img = enemy.imageCache[enemy.imageDead[0]];
+                    enemy.isDead = true;
+
+                    setTimeout(() => {
+                        this.world.level.enemies.splice(index, 1);
+                    }, 200);
+                }
                 this.playSplashAnimation();
             }
         });
