@@ -52,10 +52,10 @@ class Endboss extends MovableObject {
     }
 
     offset = {
-        top: 50,
+        top: 60,
         bottom: 20,
-        left: 30,
-        right: 10
+        left: 40,
+        right: 20
     };
 
     animate() {
