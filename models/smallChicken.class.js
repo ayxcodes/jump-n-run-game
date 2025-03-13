@@ -23,13 +23,6 @@ class SmallChicken extends MovableObject {
         this.animate();
     }
 
-    offset = {
-        top: 10,
-        bottom: 10,
-        left: 15,
-        right: 10
-    };
-
     animate() {
         setInterval(() => {
             if (!this.isDead) {

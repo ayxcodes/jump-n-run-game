@@ -50,7 +50,7 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isColliding(enemy, index) && this.character.isAboveGround() && this.character.speedY < 0) {
+            if (this.character.isColliding(enemy, index) && this.character.isAboveGround() && this.character.speedY <= 0) {
                 if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
                     enemy.img = enemy.imageCache[enemy.imageDead[0]];
                     enemy.isDead = true;
