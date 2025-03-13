@@ -106,7 +106,7 @@ class Character extends MovableObject {
 
     playAnimationCharacter() {
         if (this.isDead()) {
-            this.playAnimation(this.imagesDead);
+            this.playDeadAnimation();
         } else if (this.isHurt()) {
             this.playAnimation(this.imagesHurt);
         } else if (this.isJumping || this.isAboveGround()) {
@@ -120,7 +120,6 @@ class Character extends MovableObject {
     
     startJump() {
         if (this.isJumping) return;
-    
         this.isJumping = true;
         this.currentImage = 0;
         
@@ -147,6 +146,18 @@ class Character extends MovableObject {
         if (!this.isAboveGround()) {
             this.isJumping = false;
         }
+    }
+
+    playDeadAnimation() {
+        let index = 0;
+        let deadInterval = setInterval(() => {
+            this.img = this.imageCache[this.imagesDead[index]];
+            index++;
+    
+            if (index >= this.imagesJumping.length) {
+                clearInterval(deadInterval);
+            }
+        }, 150);
     }
 
     checkCollectables(objects) {
