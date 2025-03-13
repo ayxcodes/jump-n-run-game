@@ -1,16 +1,18 @@
 class Character extends MovableObject {
     y = 30;
-    height = 300;
-    width = 140;
-    speed = 10;
     world;
+    speed = 10;
+    width = 140;
+    height = 300;
     imagesIdle = [
         'img/2_character_pepe/1_idle/idle/I_1.png',
         'img/2_character_pepe/1_idle/idle/I_6.png',
         'img/2_character_pepe/1_idle/idle/I_7.png',
         'img/2_character_pepe/1_idle/idle/I_8.png',
         'img/2_character_pepe/1_idle/idle/I_9.png',
-        'img/2_character_pepe/1_idle/idle/I_10.png',
+        'img/2_character_pepe/1_idle/idle/I_10.png'
+    ];
+    imagesSleeping = [
         'img/2_character_pepe/1_idle/long_idle/I_11.png',
         'img/2_character_pepe/1_idle/long_idle/I_12.png',
         'img/2_character_pepe/1_idle/long_idle/I_13.png',
@@ -56,9 +58,17 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D_57.png'
     ];
 
+    offset = {
+        top: 120,
+        bottom: 20,
+        left: 30,
+        right: 35
+    };
+
     constructor() {
         super().loadImage(this.imagesIdle[0]);
         this.loadImages(this.imagesIdle);
+        this.loadImages(this.imagesSleeping);
         this.loadImages(this.imagesWalking);
         this.loadImages(this.imagesJumping);
         this.loadImages(this.imagesFalling);
@@ -69,46 +79,43 @@ class Character extends MovableObject {
         this.animate();
     }
 
-    offset = {
-        top: 120,
-        bottom: 20,
-        left: 30,
-        right: 35
-    };
-
     animate() {
         setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEnd_x) {
-                this.moveRight();
-                this.otherDirection = false;
-            }
-    
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-            }
-    
-            if (this.world.keyboard.SPACE && !this.isAboveGround() && !this.isJumping) {
-                this.startJump();
-            }
-    
-            this.world.camera_x = -this.x + 100;
+            this.characterMoving();
         }, 1000 / 60);
     
         setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.imagesDead);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.imagesHurt);
-            } else if (this.isJumping || this.isAboveGround()) {
-                this.playJumpAnimation();
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.playAnimation(this.imagesWalking);
-            }
-
-            this.checkCollectables(this.world.level.coins);
-            this.checkCollectables(this.world.level.bottles);
+            this.playAnimationCharacter();
         }, 50);
+    }
+
+    characterMoving() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEnd_x) {
+            this.moveRight();
+            this.otherDirection = false;
+        }
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.moveLeft();
+            this.otherDirection = true;
+        }
+        if (this.world.keyboard.SPACE && !this.isAboveGround() && !this.isJumping) {
+            this.startJump();
+        }
+        this.world.camera_x = -this.x + 100;
+    }
+
+    playAnimationCharacter() {
+        if (this.isDead()) {
+            this.playAnimation(this.imagesDead);
+        } else if (this.isHurt()) {
+            this.playAnimation(this.imagesHurt);
+        } else if (this.isJumping || this.isAboveGround()) {
+            this.playJumpAnimation();
+        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.playAnimation(this.imagesWalking);
+        }
+        this.checkCollectables(this.world.level.coins);
+        this.checkCollectables(this.world.level.bottles);
     }
     
     startJump() {
