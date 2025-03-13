@@ -3,13 +3,14 @@ class World {
     canvas;
     keyboard;
     camera_x = 0;
-    character = new Character();
     level = level1;
-    characterEnergyBar = new characterEnergyBar();
-    endbossEnergyBar = new endbossEnergyBar();
+    throwableObjects = [];
+    endboss = new Endboss();
+    character = new Character();
     coinCount = new CoinCount();
     bottleCount = new BottleCount();
-    throwableObjects = [];
+    characterEnergyBar = new characterEnergyBar();
+    endbossEnergyBar = new endbossEnergyBar();
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -80,40 +81,35 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-        this.ctx.translate(this.camera_x, 0)
-
-        this.addObjectsToMap(this.level.backgroundObjects);
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.bottles);
-
-        this.ctx.translate(-this.camera_x, 0)
-        this.addToMap(this.characterEnergyBar);
-        this.ctx.translate(this.camera_x, 0)
-
-        this.ctx.translate(-this.camera_x, 0)
-        this.addToMap(this.coinCount);
-        this.ctx.translate(this.camera_x, 0)
-
-        this.ctx.translate(-this.camera_x, 0)
-        this.addToMap(this.bottleCount);
-        this.ctx.translate(this.camera_x, 0)
-
-        this.ctx.translate(-this.camera_x, 0)
-        this.addToMap(this.endbossEnergyBar);
-        this.ctx.translate(this.camera_x, 0)
-
+        this.ctx.translate(this.camera_x, 0);
+        this.addComponents();
+        this.ctx.translate(-this.camera_x, 0);
+        this.addFixedObjects();
+        this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableObjects);
-
-        this.ctx.translate(-this.camera_x, 0)
-
+        this.ctx.translate(-this.camera_x, 0);
         self = this;
         requestAnimationFrame(function() {
             self.draw();
         });
+    }
+
+    addComponents() {
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
+    }
+
+    addFixedObjects() {
+        this.addToMap(this.characterEnergyBar);
+        this.addToMap(this.coinCount);
+        this.addToMap(this.bottleCount);
+        if (this.endboss.showEndbossEnergyBar) {
+            this.addToMap(this.endbossEnergyBar);
+        }
     }
 
     addObjectsToMap(objects) {
@@ -126,10 +122,8 @@ class World {
         if(mo.otherDirection) {
             this.flipImage(mo);
         }
-
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
-
+        // mo.drawFrame(this.ctx);
         if(mo.otherDirection) {
             this.flipImageBack(mo);
         }
