@@ -31,7 +31,7 @@ class DrawableObject {
             this.imageCache[path] = img;  
         });
     }
-
+}
     // drawFrame(ctx) {
     //    if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof SmallChicken) {
     //        ctx.beginPath();
@@ -52,4 +52,3 @@ class DrawableObject {
     //        ctx.stroke();
     //    }
     //}
-}

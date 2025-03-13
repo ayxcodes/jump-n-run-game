@@ -1,6 +1,6 @@
 class Character extends MovableObject {
-    y = 30;
     world;
+    y = 30;
     speed = 10;
     width = 140;
     height = 300;
@@ -54,8 +54,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D_53.png',
         'img/2_character_pepe/5_dead/D_54.png',
         'img/2_character_pepe/5_dead/D_55.png',
-        'img/2_character_pepe/5_dead/D_56.png',
-        'img/2_character_pepe/5_dead/D_57.png'
+        'img/2_character_pepe/5_dead/D_56.png'
     ];
 
     offset = {
@@ -142,7 +141,7 @@ class Character extends MovableObject {
             let fallingIndex = Math.min(Math.floor(Math.abs(this.speedY) / 10), this.imagesFalling.length - 1);
             this.img = this.imageCache[this.imagesFalling[fallingIndex]];
         }
-    
+
         if (!this.isAboveGround()) {
             this.isJumping = false;
         }
@@ -153,8 +152,8 @@ class Character extends MovableObject {
         let deadInterval = setInterval(() => {
             this.img = this.imageCache[this.imagesDead[index]];
             index++;
-    
-            if (index >= this.imagesJumping.length) {
+        
+            if (index >= this.imagesDead.length) {
                 clearInterval(deadInterval);
             }
         }, 150);
