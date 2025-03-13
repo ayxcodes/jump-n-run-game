@@ -33,7 +33,7 @@ class World {
     
         for (let i = 0; i < numArcs; i++) {
             let startX = spacing + i * (arcWidth + spacing);
-            let startY = 200;
+            let startY = 150;
             let width = arcWidth;
             let height = 100;
             let coins = generateCoinArc(startX, startY, width, height, 5);
