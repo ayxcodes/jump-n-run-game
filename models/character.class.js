@@ -97,7 +97,7 @@ class Character extends MovableObject {
             this.moveLeft();
             this.otherDirection = true;
         }
-        if (this.world.keyboard.SPACE && !this.isAboveGround() && !this.isJumping) {
+        if (this.world.keyboard.UP && !this.isAboveGround() && !this.isJumping) {
             this.startJump();
         }
         this.world.camera_x = -this.x + 100;
@@ -131,7 +131,7 @@ class Character extends MovableObject {
                 clearInterval(jumpInterval);
                 this.jump();
             }
-        }, 150);
+        }, 50);
     }
     
     playJumpAnimation() {

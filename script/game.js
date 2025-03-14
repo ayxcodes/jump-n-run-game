@@ -245,7 +245,6 @@ function handleKeyEvent(e, isPressed) {
         38: 'UP',
         40: 'DOWN',
         32: 'SPACE',
-        68: 'D'
     };
     
     if (keyMap[e.keyCode] !== undefined) {

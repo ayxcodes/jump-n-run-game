@@ -70,7 +70,7 @@ class World {
     }
 
     checkThrowableObjects() {
-        if (this.keyboard.D) {
+        if (this.keyboard.SPACE) {
             if (this.bottleCount.amount > 0) {
                 let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 120);
                 this.throwableObjects.push(bottle);
@@ -123,7 +123,6 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        // mo.drawFrame(this.ctx);
         if(mo.otherDirection) {
             this.flipImageBack(mo);
         }

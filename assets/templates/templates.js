@@ -41,9 +41,9 @@ function getControlsTemplate() {
     return `
         <div id="settingsMenu" class="settingsMenu">
             <h2>Controls</h2>
-            <p>Arrows Left/right = Walk</p>
-            <p>Space = Jump</p>
-            <p>D = Throw Bottle</p>
+            <p>◄/► = Walk</p>
+            <p>▲ = Jump</p>
+            <p>SPACE = Throw Bottle</p>
             <a onclick="showSettings()">Back</a>
         </div>
     `;

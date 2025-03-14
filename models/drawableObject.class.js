@@ -1,12 +1,12 @@
 class DrawableObject {
     img;
+    x = 100;
+    y = 280;
+    width = 100;
+    height = 150;
     imageCache = [];
     currentImage = 0;
     otherDirection = false;
-    x = 100;
-    y = 280;
-    height = 150;
-    width = 100;
 
     loadImage(path) {
         this.img = new Image();
@@ -32,23 +32,3 @@ class DrawableObject {
         });
     }
 }
-    // drawFrame(ctx) {
-    //    if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof SmallChicken) {
-    //        ctx.beginPath();
-    //        ctx.lineWidth = '0';
-    //        ctx.strokeStyle = 'rgba(0, 0, 0, 0)';
-    //        ctx.rect(this.x, this.y, this.width, this.height);
-    //        ctx.stroke();
-
-    //        ctx.beginPath();
-    //        ctx.lineWidth = '0';
-    //        ctx.strokeStyle = 'rgba(0, 0, 0, 0)';
-    //        ctx.rect(
-    //            this.x + this.offset.left,
-    //            this.y + this.offset.top,
-    //            this.width - this.offset.left - this.offset.right,
-    //            this.height - this.offset.top - this.offset.bottom
-    //        );
-    //        ctx.stroke();
-    //    }
-    //}
