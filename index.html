@@ -8,11 +8,18 @@
     <!--CSS-->
     <link rel="stylesheet" href="style.css" />
 </head>
-<body onload="init()">
-    
-    <h1>El Pollo Loco</h1>
+<body>
+    <h1 id="title">El Pollo Loco</h1>
 
-    <canvas id="canvas" width="720" height="480"></canvas>
+    <div id="gameScreen" class="gameScreen">
+        <div id="headerScreen" class="headerScreen">
+            <button id="playBtn" class="btn" onclick="startGame()">Play</button>
+            <img id="settings" class="settings" src="img/settings.png" onclick="openSettings()" />
+        </div>
+        <div id="footerScreen" class="footerScreen">
+            <img id="fullScreen" class="fullScreen inactive" src="img/fullscreen.png" onclick="toggleFullScreen()" />
+        </div>
+    </div>
 
     <!--SCRIPT-->
     <script src="models/drawableObject.class.js"></script>
@@ -36,6 +43,7 @@
     <script src="models/throwableObject.class.js"></script>
     <script src="models/endboss.class.js"></script>
     <script src="levels/level1.js"></script>
+    <script src="assets/templates/templates.js"></script>
     <script src="script/game.js"></script>
 </body>
 </html>

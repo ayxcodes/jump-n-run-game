@@ -29,6 +29,104 @@ h1 {
     text-shadow: 2px 2px 8px rgba(100, 20, 5, 0.5);
 }
 
+.gameScreen {
+    background-image: url("img/startscreen.png");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    max-width: 720px;
+    max-height: 480px;
+    overflow: hidden;
+}
+
+.headerScreen {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.btn {
+    color: rgb(100, 20, 5);
+    font-size: 24px;
+    font-family: 'markin', Arial, Helvetica, sans-serif;
+    background: linear-gradient(to bottom, #FFDF00, #FFA300);
+    border: 2px solid #9A3A18;
+    border-radius: 10px;
+    transition: 0.2s;
+    padding: 10px 20px;
+    box-shadow: -4px 4px 0 #9A3A18;
+}
+
+img.settings {
+    height: 40px;
+    width: 40px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.fullScreen {
+    position: absolute;
+    bottom: 5px;
+    right: 8px;
+    transition: 0.3s;
+}
+
+.inactive {
+    height: 45px;
+    width: 45px;
+}
+
+.active {
+    height: 50px;
+    width: 50px;
+}
+
 canvas {
-    background-color: black;
+    display: block;
+    height: 100%;
+    width: 100%;
+    max-width: 720px;
+    max-height: 480px;
+    overflow: hidden;
+}
+
+/*--- HOVER ---*/
+img.settings:hover {
+    cursor: pointer;
+    transform: rotate(90deg)
+}
+
+img.inactive:hover {
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+}
+
+img.active:hover {
+    cursor: pointer;
+    height: 45px;
+    width: 45px;
+}
+
+.btn:hover {
+    cursor: pointer;
+    transform: translateY(2px);
+    box-shadow: -2px 2px 0 #9A3A18;
+}
+
+/*--- SMARTPHONES ---*/
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
 }
