@@ -1,59 +1,102 @@
 let world;
 let keyboard = new Keyboard();
+let canvas = document.getElementById('canvas');
 const gameScreen = document.getElementById("gameScreen");
 const startScreen = document.getElementById("startScreen");
-let canvas = document.getElementById('canvas');
 const playBtn = document.getElementById("playBtn");
 const settings = document.getElementById("settings");
 const overlay = document.getElementById("overlaySettings");
 
+/**
+ * Initializes the game by checking screen width and resizing the game screen.
+ */
 function init() {
     checkScreenWidth();
     resizeGameScreen();
 }
 
+/**
+ * Checks if the screen width is below or above 720px and hides/shows full-screen image accordingly.
+ */
 function checkScreenWidth() {
     const screenWidth = window.innerWidth;
     const fullScreenImage = document.getElementById('fullScreen');
 
     if (screenWidth <= 720) {
-        if (!fullScreenImage.classList.contains('dNone')) {
-            fullScreenImage.classList.add('dNone');
-        }
-    } else if (fullScreenImage.classList.contains('dNone')) {
+        hideFullScreenImage(fullScreenImage);
+    } else {
+        showFullScreenImage(fullScreenImage);
+    }
+}
+
+/**
+ * Hides the full-screen image.
+ * @param {HTMLElement} fullScreenImage - The full-screen image element.
+ */
+function hideFullScreenImage(fullScreenImage) {
+    if (!fullScreenImage.classList.contains('dNone')) {
+        fullScreenImage.classList.add('dNone');
+    }
+}
+
+/**
+ * Shows the full-screen image.
+ * @param {HTMLElement} fullScreenImage - The full-screen image element.
+ */
+function showFullScreenImage(fullScreenImage) {
+    if (fullScreenImage.classList.contains('dNone')) {
         fullScreenImage.classList.remove('dNone');
     }
 }
 
+/**
+ * Resizes the game screen when the window is resized.
+ */
 function resizeGameScreen() {
     window.addEventListener('resize', checkScreenWidth);
 }
 
+/**
+ * Starts the game by displaying the canvas and initializing the world.
+ */
 function startGame() {
     showCanvas();
-    canvas = document.getElementById('canvas');
+    initializeWorld();
+}
+
+/**
+ * Initializes the world with the canvas and keyboard.
+ */
+function initializeWorld() {
     world = new World(canvas, keyboard);
 }
 
+/**
+ * Displays the game canvas and hides the start screen elements.
+ */
 function showCanvas() {
     startScreen.classList.add("dNone");
     playBtn.classList.add("dNone");
     canvas.classList.remove("dNone");
-
 }
 
+/**
+ * Toggles full-screen mode.
+ */
 function toggleFullScreen() {
     const img = document.getElementById("fullScreen");
-
     if (!document.fullscreenElement) {
         requestFullScreen();
-        fullscreenActiveStyles(img);
+        applyFullscreenStyles(img);
     } else {
         exitFullScreen();
-        fullscreenInactiveStyles(img);
+        removeFullscreenStyles(img);
     }
 }
 
+/**
+ * Requests full-screen mode for the game screen.
+ */
 function requestFullScreen() {
     if (gameScreen.requestFullscreen) {
         gameScreen.requestFullscreen();
@@ -66,6 +109,9 @@ function requestFullScreen() {
     }
 }
 
+/**
+ * Exits full-screen mode.
+ */
 function exitFullScreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -78,53 +124,75 @@ function exitFullScreen() {
     }
 }
 
-function fullscreenInactiveStyles(img) {
-    img.src = "img/fullscreen-on.png";
-    img.classList.remove("active");
-    img.classList.add("inactive");
-    settings.classList.remove("fullscreenSettings");
-    settings.classList.add("settings");
-
-    if (playBtn) {
-        playBtn.classList.add("btn");
-        playBtn.classList.remove("fullscreenBtn");
-    }
-}
-
-function fullscreenActiveStyles(img) {
+/**
+ * Applies styles when fullscreen mode is activated.
+ */
+function applyFullscreenStyles(img) {
     img.src = "img/fullscreen-off.png";
     img.classList.add("active");
-    img.classList.remove("inactive");
     settings.classList.add("fullscreenSettings");
-    settings.classList.remove("settings");
+    updateButtonStyles("fullscreenBtn", "btn");
+}
 
+/**
+ * Removes styles when fullscreen mode is deactivated.
+ */
+function removeFullscreenStyles(img) {
+    img.src = "img/fullscreen-on.png";
+    img.classList.remove("active");
+    settings.classList.remove("fullscreenSettings");
+    updateButtonStyles("btn", "fullscreenBtn");
+}
+
+/**
+ * Updates button styles based on fullscreen state.
+ */
+function updateButtonStyles(addClass, removeClass) {
     if (playBtn) {
-        playBtn.classList.add("fullscreenBtn");
-        playBtn.classList.remove("btn");
+        playBtn.classList.add(addClass);
+        playBtn.classList.remove(removeClass);
     }
 }
 
+/**
+ * Displays the settings menu overlay.
+ */
 function showSettings() {
-    overlay.classList.remove("dNone");
-    overlay.innerHTML = ``;
-    overlay.innerHTML += getSettingsTemplate();
+    showOverlay(getSettingsTemplate());
 }
 
+/**
+ * Displays the sound settings overlay.
+ */
 function showSound() {
-    overlay.innerHTML = ``;
-    overlay.innerHTML += getSoundTemplate();
+    showOverlay(getSoundTemplate());
 }
 
+/**
+ * Displays the controls settings overlay.
+ */
 function showControls() {
-    overlay.innerHTML = ``;
-    overlay.innerHTML += getControlsTemplate();
+    showOverlay(getControlsTemplate());
 }
 
+/**
+ * Displays the imprint overlay.
+ */
 function showImprint() {
-    overlay.innerHTML = ``;
-    overlay.innerHTML += getImprintTemplate();
+    showOverlay(getImprintTemplate());
 }
 
+/**
+ * Shows the overlay with the given content.
+ */
+function showOverlay(content) {
+    overlay.classList.remove("dNone");
+    overlay.innerHTML = content;
+}
+
+/**
+ * Closes the settings overlay.
+ */
 function closeSettings() {
     overlay.classList.add("dNone");
 }
@@ -133,6 +201,15 @@ function toggleSound() {
 
 }
 
+/**
+ * Generates a coin arc in a parabolic path.
+ * @param {number} startX - The starting X coordinate.
+ * @param {number} startY - The starting Y coordinate.
+ * @param {number} width - The width of the arc.
+ * @param {number} height - The height of the arc.
+ * @param {number} numCoins - The number of coins in the arc.
+ * @returns {Coin[]} An array of coin objects positioned in an arc.
+ */
 function generateCoinArc(startX, startY, width, height, numCoins) {
     let coins = [];
     for (let i = 0; i < numCoins; i++) {
@@ -144,54 +221,34 @@ function generateCoinArc(startX, startY, width, height, numCoins) {
     return coins;
 }
 
+/**
+ * Handles keydown events and updates keyboard state.
+ */
 window.addEventListener('keydown', (e) => {
-    if (e.keyCode == 39) {
-        keyboard.RIGHT = true;
-    }
-
-    if (e.keyCode == 37) {
-        keyboard.LEFT = true;
-    }
-
-    if (e.keyCode == 38) {
-        keyboard.UP = true;
-    }
-
-    if (e.keyCode == 40) {
-        keyboard.DOWN = true;
-    }
-
-    if (e.keyCode == 32) {
-        keyboard.SPACE = true;
-    }
-
-    if (e.keyCode == 68) {
-        keyboard.D = true;
-    }
+    handleKeyEvent(e, true);
 });
 
+/**
+ * Handles keyup events and updates keyboard state.
+ */
 window.addEventListener('keyup', (e) => {
-    if (e.keyCode == 39) {
-        keyboard.RIGHT = false;
-    }
-
-    if (e.keyCode == 37) {
-        keyboard.LEFT = false;
-    }
-
-    if (e.keyCode == 38) {
-        keyboard.UP = false;
-    }
-
-    if (e.keyCode == 40) {
-        keyboard.DOWN = false;
-    }
-
-    if (e.keyCode == 32) {
-        keyboard.SPACE = false;
-    }
-
-    if (e.keyCode == 68) {
-        keyboard.D = false;
-    }
+    handleKeyEvent(e, false);
 });
+
+/**
+ * Updates keyboard state based on key events.
+ */
+function handleKeyEvent(e, isPressed) {
+    const keyMap = {
+        39: 'RIGHT',
+        37: 'LEFT',
+        38: 'UP',
+        40: 'DOWN',
+        32: 'SPACE',
+        68: 'D'
+    };
+    
+    if (keyMap[e.keyCode] !== undefined) {
+        keyboard[keyMap[e.keyCode]] = isPressed;
+    }
+}

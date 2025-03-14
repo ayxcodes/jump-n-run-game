@@ -1,14 +1,3 @@
-function getCanvasTemplate() {
-    return `
-        <div class="activeGame">
-            <img id="settings" class="settings" src="img/settings.png" onclick="showSettings()" />
-            <img id="fullScreen" class="fullScreen inactive" src="img/fullscreen-on.png" onclick="toggleFullScreen()" />
-            <div id="overlaySettings" class="overlay dNone"></div>
-            <canvas id="canvas" width="720px" height="480px"></canvas>
-        </div>
-    `;
-}
-
 function getSettingsTemplate() {
     return `
         <div id="settingsMenu" class="settingsMenu">
