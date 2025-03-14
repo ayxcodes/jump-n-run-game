@@ -33,18 +33,23 @@ h1 {
     text-shadow: 2px 2px 8px rgba(100, 20, 5, 0.5);
 }
 
+.gameScreen {
+    width: 720px;
+    height: 480px;
+}
+
 .gameScreen,
 .startScreen {
     position: relative;
-    width: 720px;
-    height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     overflow: hidden;
 }
 
 .startScreen {
-    display: flex;  
-    flex-direction: column;
-    justify-content: space-between;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
     background-image: url("img/startscreen.png");
@@ -75,14 +80,14 @@ img.settings {
 
 .fullScreen {
     position: absolute;
-    right: 8px;
-    bottom: 5px;
+    right: 15px;
+    bottom: 10px;
     transition: 0.3s;
 }
 
 .inactive {
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
 }
 
 .active {
@@ -102,8 +107,8 @@ img.settings:hover {
 }
 
 img.inactive:hover {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
 }
 
@@ -124,10 +129,24 @@ img.active:hover {
     canvas {
         width: 100%;
     }
+
+    .gameScreen,
+    .startScreen {
+        width: 100%;
+    }
 }
 
 @media only screen and (max-height: 480px) {
     canvas {
+        height: 100vh;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    .gameScreen,
+    .startScreen {
         height: 100vh;
     }
 }

@@ -3,7 +3,7 @@ function getStartScreenTemplate() {
     <div id="startScreen" class="startScreen">
         <button id="playBtn" class="btn" onclick="startGame()">Play</button>
         <img id="settings" class="settings" src="img/settings.png" onclick="openSettings()" />
-        <img id="fullScreen" class="fullScreen inactive" src="img/fullscreen.png" onclick="toggleFullScreen()" />
+        <img id="fullScreen" class="fullScreen inactive" src="img/fullscreen-on.png" onclick="toggleFullScreen()" />
     </div>
     `;
 }
@@ -14,7 +14,7 @@ function getCanvasTemplate() {
             <div id="headerScreen" class="headerScreen">
                 <img id="settings" class="settings" src="img/settings.png" onclick="openSettings()" />
             </div>
-            <img id="fullScreen" class="fullScreen inactive" src="img/fullscreen.png" onclick="toggleFullScreen()" />
+            <img id="fullScreen" class="fullScreen inactive" src="img/fullscreen-on.png" onclick="toggleFullScreen()" />
         </div>
         <canvas id="canvas" width="720px" height="480px">
         </canvas>

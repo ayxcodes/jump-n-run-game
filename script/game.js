@@ -90,11 +90,13 @@ function exitFullScreen() {
 }
 
 function fullscreenInactiveStyles(img) {
+    img.src = 'img/fullscreen-on.png';
     img.classList.remove("active");
     img.classList.add("inactive");
 }
 
 function fullscreenActiveStyles(img) {
+    img.src = 'img/fullscreen-off.png';
     img.classList.add("active");
     img.classList.remove("inactive");
 }
