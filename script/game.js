@@ -1,17 +1,15 @@
-let canvas;
 let world;
 let keyboard = new Keyboard();
 const gameScreen = document.getElementById("gameScreen");
+const startScreen = document.getElementById("startScreen");
+let canvas = document.getElementById('canvas');
+const playBtn = document.getElementById("playBtn");
+const settings = document.getElementById("settings");
+const overlay = document.getElementById("overlaySettings");
 
 function init() {
-    showStartScreen();
     checkScreenWidth();
     resizeGameScreen();
-}
-
-function showStartScreen() {
-    gameScreen.innerHTML = ``;
-    gameScreen.innerHTML += getStartScreenTemplate();
 }
 
 function checkScreenWidth() {
@@ -38,19 +36,10 @@ function startGame() {
 }
 
 function showCanvas() {
-    gameScreen.innerHTML = ``;
-    gameScreen.innerHTML += getCanvasTemplate();
-}
+    startScreen.classList.add("dNone");
+    playBtn.classList.add("dNone");
+    canvas.classList.remove("dNone");
 
-function generateCoinArc(startX, startY, width, height, numCoins) {
-    let coins = [];
-    for (let i = 0; i < numCoins; i++) {
-        let progress = i / (numCoins - 1);
-        let x = startX + progress * width;
-        let y = startY + Math.pow(progress - 0.5, 2) * 4 * height;
-        coins.push(new Coin(x, y));
-    }
-    return coins;
 }
 
 function toggleFullScreen() {
@@ -90,9 +79,6 @@ function exitFullScreen() {
 }
 
 function fullscreenInactiveStyles(img) {
-    const playBtn = document.getElementById("playBtn");
-    const settings = document.getElementById("settings");
-
     img.src = "img/fullscreen-on.png";
     img.classList.remove("active");
     img.classList.add("inactive");
@@ -106,9 +92,6 @@ function fullscreenInactiveStyles(img) {
 }
 
 function fullscreenActiveStyles(img) {
-    const playBtn = document.getElementById("playBtn");
-    const settings = document.getElementById("settings");
-    
     img.src = "img/fullscreen-off.png";
     img.classList.add("active");
     img.classList.remove("inactive");
@@ -121,8 +104,44 @@ function fullscreenActiveStyles(img) {
     }
 }
 
-function toggleMute() {
+function showSettings() {
+    overlay.classList.remove("dNone");
+    overlay.innerHTML = ``;
+    overlay.innerHTML += getSettingsTemplate();
+}
 
+function showSound() {
+    overlay.innerHTML = ``;
+    overlay.innerHTML += getSoundTemplate();
+}
+
+function showControls() {
+    overlay.innerHTML = ``;
+    overlay.innerHTML += getControlsTemplate();
+}
+
+function showImprint() {
+    overlay.innerHTML = ``;
+    overlay.innerHTML += getImprintTemplate();
+}
+
+function closeSettings() {
+    overlay.classList.add("dNone");
+}
+
+function toggleSound() {
+
+}
+
+function generateCoinArc(startX, startY, width, height, numCoins) {
+    let coins = [];
+    for (let i = 0; i < numCoins; i++) {
+        let progress = i / (numCoins - 1);
+        let x = startX + progress * width;
+        let y = startY + Math.pow(progress - 0.5, 2) * 4 * height;
+        coins.push(new Coin(x, y));
+    }
+    return coins;
 }
 
 window.addEventListener('keydown', (e) => {

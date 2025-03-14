@@ -23,7 +23,7 @@ body {
 }
 
 .dNone {
-    display: none;
+    display: none !important;
 }
 
 h1 {
@@ -45,6 +45,7 @@ h1 {
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
+    z-index: 0;
 }
 
 .startScreen {
@@ -117,9 +118,70 @@ img.fullscreenSettings {
     height: 50px;
 }
 
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.settingsMenu {
+    width: 260px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgba(100, 20, 5);
+    border-radius: 15px;
+    border: 3px solid #9A3A18;
+    box-shadow: -5px 5px 0 #9A3A18;
+    font-family: 'markin', Arial, Helvetica, sans-serif;
+    background: linear-gradient(to bottom, #FFDF00, #FFA300);
+    font-family: 'markin', Arial, Helvetica, sans-serif;
+}
+
+h2 {
+    font-size: 38px;
+}
+
+p {
+    margin: 8px;
+    font-size: 24px;
+}
+
+.settingsLinks {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    font-size: 24px;
+}
+
+.activeGame {
+    position: relative;
+}
+
+.soundBtn {
+    margin: 15px;
+    font-size: 24px;
+    color: rgb(100, 20, 5);
+    border-radius: 10px;
+    border: none;
+    font-family: 'markin', Arial, Helvetica, sans-serif;
+    background: transparent;
+    transition: 0.3s;
+}
+
 canvas {
     display: block;
     overflow: hidden;
+    z-index: 0;
 }
 
 /*--- HOVER ---*/
@@ -146,6 +208,17 @@ img.active:hover {
     cursor: pointer;
     transform: translateY(2px);
     box-shadow: -2px 2px 0 #9A3A18;
+}
+
+a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.soundBtn:hover {
+    cursor: pointer;
+    color: white;
+    background-color: rgba(100, 20, 5);
 }
 
 /*--- SMARTPHONES ---*/

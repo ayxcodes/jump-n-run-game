@@ -11,9 +11,17 @@
 <body onload="init()">
     <h1 id="title">El Pollo Loco</h1>
 
-    <div id="gameScreen" class="gameScreen"></div>
+    <div id="gameScreen" class="gameScreen">
+        <div id="startScreen" class="startScreen"></div>
+        <canvas id="canvas" width="720px" height="480px" class="dNone"></canvas>
+        <button id="playBtn" class="btn" onclick="startGame()">Play</button>
+        <img id="settings" class="settings" src="img/settings.png" onclick="showSettings()" />
+        <img id="fullScreen" class="fullScreen inactive" src="img/fullscreen-on.png" onclick="toggleFullScreen()" />
+        <div id="overlaySettings" class="overlay dNone"></div>
+    </div>
 
     <!--SCRIPT-->
+    <script src="assets/templates/templates.js"></script>
     <script src="models/drawableObject.class.js"></script>
     <script src="models/movableObject.class.js"></script>
     <script src="models/character.class.js"></script>
@@ -35,7 +43,6 @@
     <script src="models/throwableObject.class.js"></script>
     <script src="models/endboss.class.js"></script>
     <script src="levels/level1.js"></script>
-    <script src="assets/templates/templates.js"></script>
     <script src="script/game.js"></script>
 </body>
 </html>
