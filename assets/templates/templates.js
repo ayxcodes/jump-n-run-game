@@ -1,3 +1,8 @@
+/**
+ * Generates the HTML template for the settings menu.
+ *
+ * @returns {string} The HTML template as a string.
+ */
 function getSettingsTemplate() {
     return `
         <div id="settingsMenu" class="settingsMenu">
@@ -12,6 +17,11 @@ function getSettingsTemplate() {
     `;
 }
 
+/**
+ * Generates the HTML template for the sound section.
+ *
+ * @returns {string} The HTML template as a string.
+ */
 function getSoundTemplate() {
     return `
         <div id="settingsMenu" class="settingsMenu">
@@ -22,6 +32,11 @@ function getSoundTemplate() {
     `;
 }
 
+/**
+ * Generates the HTML template for the controls section.
+ *
+ * @returns {string} The HTML template as a string.
+ */
 function getControlsTemplate() {
     return `
         <div id="settingsMenu" class="settingsMenu">
@@ -34,6 +49,11 @@ function getControlsTemplate() {
     `;
 }
 
+/**
+ * Generates the HTML template for the imprint section.
+ *
+ * @returns {string} The HTML template as a string.
+ */
 function getImprintTemplate() {
     return `
         <div id="settingsMenu" class="settingsMenu">
