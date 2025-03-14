@@ -90,15 +90,35 @@ function exitFullScreen() {
 }
 
 function fullscreenInactiveStyles(img) {
-    img.src = 'img/fullscreen-on.png';
+    const playBtn = document.getElementById("playBtn");
+    const settings = document.getElementById("settings");
+
+    img.src = "img/fullscreen-on.png";
     img.classList.remove("active");
     img.classList.add("inactive");
+    settings.classList.remove("fullscreenSettings");
+    settings.classList.add("settings");
+
+    if (playBtn) {
+        playBtn.classList.add("btn");
+        playBtn.classList.remove("fullscreenBtn");
+    }
 }
 
 function fullscreenActiveStyles(img) {
-    img.src = 'img/fullscreen-off.png';
+    const playBtn = document.getElementById("playBtn");
+    const settings = document.getElementById("settings");
+    
+    img.src = "img/fullscreen-off.png";
     img.classList.add("active");
     img.classList.remove("inactive");
+    settings.classList.add("fullscreenSettings");
+    settings.classList.remove("settings");
+
+    if (playBtn) {
+        playBtn.classList.add("fullscreenBtn");
+        playBtn.classList.remove("btn");
+    }
 }
 
 function toggleMute() {

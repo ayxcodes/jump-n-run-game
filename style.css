@@ -55,10 +55,9 @@ h1 {
     background-image: url("img/startscreen.png");
 }
 
-.btn {
+.btn,
+.fullscreenBtn {
     position: absolute;
-    top: 20px;
-    left: 20px;
     font-size: 36px;
     color: rgb(100, 20, 5);
     border-radius: 10px;
@@ -69,13 +68,36 @@ h1 {
     transition: 0.2s;
 }
 
-img.settings {
+.btn {
+    top: 20px;
+    left: 20px;
+    font-size: 36px;
+}
+
+.fullscreenBtn {
+    top: 30px;
+    left: 30px;
+    font-size: 56px;
+}
+
+img.settings,
+img.fullscreenSettings {
     position: absolute;
+    transition: transform 0.3s ease-in-out;
+}
+
+img.settings {
     top: 20px;
     right: 20px;
     width: 40px;
     height: 40px;
-    transition: transform 0.3s ease-in-out;
+}
+
+img.fullscreenSettings {
+    top: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
 }
 
 .fullScreen {
@@ -101,7 +123,8 @@ canvas {
 }
 
 /*--- HOVER ---*/
-img.settings:hover {
+img.settings:hover,
+img.fullscreenSettings:hover {
     cursor: pointer;
     transform: rotate(90deg)
 }
@@ -118,7 +141,8 @@ img.active:hover {
     cursor: pointer;
 }
 
-.btn:hover {
+.btn:hover,
+.fullscreenBtn:hover {
     cursor: pointer;
     transform: translateY(2px);
     box-shadow: -2px 2px 0 #9A3A18;
