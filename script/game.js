@@ -1,6 +1,9 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+const gameScreen = document.getElementById("gameScreen");
+const playBtn = document.getElementById('playBtn');
+const settings = document.getElementById('settings');
 
 function startGame() {
     canvas = document.getElementById('canvas');
@@ -20,20 +23,17 @@ function generateCoinArc(startX, startY, width, height, numCoins) {
 
 function toggleFullScreen() {
     const img = document.getElementById("fullScreen");
-    const gameScreen = document.getElementById("gameScreen");
 
     if (!document.fullscreenElement) {
-        requestFullScreen(gameScreen);
-        img.classList.add("active");
-        img.classList.remove("inactive");
+        requestFullScreen();
+        fullscreenActiveStyles(img);
     } else {
         exitFullScreen();
-        img.classList.remove("active");
-        img.classList.add("inactive");
+        fullscreenInactiveStyles(img);
     }
 }
 
-function requestFullScreen(gameScreen) {
+function requestFullScreen() {
     if (gameScreen.requestFullscreen) {
         gameScreen.requestFullscreen();
     } else if (gameScreen.mozRequestFullScreen) {
@@ -55,6 +55,22 @@ function exitFullScreen() {
     } else if (document.msExitFullscreen) {
         document.msExitFullscreen();
     }
+}
+
+function fullscreenInactiveStyles(img) {
+    img.classList.remove("active");
+    img.classList.add("inactive");
+    playBtn.style.fontSize = '24px';
+    settings.width = '40px';
+    settings.height = '40px';
+}
+
+function fullscreenActiveStyles(img) {
+    img.classList.add("active");
+    img.classList.remove("inactive");
+    playBtn.style.fontSize = '40px';
+    settings.width = '60px';
+    settings.height = '60px';
 }
 
 function toggleMute() {
