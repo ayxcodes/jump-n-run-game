@@ -16,7 +16,7 @@ function getSettingsTemplate() {
             <div class="settingsLinks">
                 <a onclick="showSound()">Sounds</a>
                 <a onclick="showControls()">Controls</a>
-                <a onclick="showImpressum()">Impressum</a>
+                <a onclick="showImprint()">Imprint</a>
                 <a onclick="closeSettings()">Close</a>
             </div>
         </div>
@@ -50,8 +50,7 @@ function getImprintTemplate() {
         <div id="settingsMenu" class="settingsMenu">
             <h2>Imprint</h2>
             <p>DA 2025</p>
-            <p>Aylin Celikhan</p>
-            <p>a.celikhan@outlook.de</p>
+            <p>Aylin C.</p>
             <a onclick="showSettings()">Back</a>
         </div>
     `;
