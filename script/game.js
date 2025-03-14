@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+const gameScreen = document.getElementById("gameScreen");
 
 function init() {
     showStartScreen();
@@ -65,8 +66,6 @@ function toggleFullScreen() {
 }
 
 function requestFullScreen() {
-    const gameScreen = document.getElementById("gameScreen");
-    
     if (gameScreen.requestFullscreen) {
         gameScreen.requestFullscreen();
     } else if (gameScreen.mozRequestFullScreen) {

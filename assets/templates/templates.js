@@ -1,10 +1,8 @@
 function getStartScreenTemplate() {
     return `
     <div id="startScreen" class="startScreen">
-        <div id="headerScreen" class="headerScreen">
-            <button id="playBtn" class="btn" onclick="startGame()">Play</button>
-            <img id="settings" class="settings" src="img/settings.png" onclick="openSettings()" />
-        </div>
+        <button id="playBtn" class="btn" onclick="startGame()">Play</button>
+        <img id="settings" class="settings" src="img/settings.png" onclick="openSettings()" />
         <img id="fullScreen" class="fullScreen inactive" src="img/fullscreen.png" onclick="toggleFullScreen()" />
     </div>
     `;
