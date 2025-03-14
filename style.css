@@ -10,85 +10,96 @@
 
 body {
     margin: 0;
-    height: 100vh;
     width: 100vw;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    font-family: 'zabars', Arial, Helvetica, sans-serif;
-    background-image: url("img/desert_background.png");
-    background-repeat: no-repeat;
-    background-position: center;
+    flex-direction: column;
     background-size: cover;
-    color: rgb(100, 20, 5);
+    background-position: center;
+    background-repeat: no-repeat;   
+    background-image: url("img/desert_background.png");    
+    font-family: 'zabars', Arial, Helvetica, sans-serif;
+}
+
+.dNone {
+    display: none;
 }
 
 h1 {
     font-size: 72px;
     letter-spacing: 5px;
+    color: rgb(100, 20, 5);
     text-shadow: 2px 2px 8px rgba(100, 20, 5, 0.5);
 }
 
 .gameScreen {
-    background-image: url("img/startscreen.png");
-    background-position: center;
-    background-size: cover;
+    display: block;
+}
+
+.gameScreen,
+.startScreen {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
     width: 100%;
+    height: 100%;
     max-width: 720px;
     max-height: 480px;
     overflow: hidden;
 }
 
-.headerScreen {
-    display: flex;
+.startScreen {
+    display: flex;  
+    flex-direction: column;
     justify-content: space-between;
-    padding: 16px;
+    background-size: cover;
+    background-position: center;
+    background-image: url("img/startscreen.png");
 }
 
 .btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 36px;
     color: rgb(100, 20, 5);
-    font-size: 24px;
+    border-radius: 10px;
+    border: 2px solid #9A3A18;
+    box-shadow: -4px 4px 0 #9A3A18;
     font-family: 'markin', Arial, Helvetica, sans-serif;
     background: linear-gradient(to bottom, #FFDF00, #FFA300);
-    border: 2px solid #9A3A18;
-    border-radius: 10px;
     transition: 0.2s;
-    padding: 10px 20px;
-    box-shadow: -4px 4px 0 #9A3A18;
 }
 
 img.settings {
-    height: 40px;
+    position: absolute;
+    top: 20px;
+    left: 660px;
     width: 40px;
+    height: 40px;
     transition: transform 0.3s ease-in-out;
 }
 
 .fullScreen {
     position: absolute;
-    bottom: 5px;
     right: 8px;
+    bottom: 5px;
     transition: 0.3s;
 }
 
 .inactive {
-    height: 45px;
     width: 45px;
+    height: 45px;
 }
 
 .active {
-    height: 50px;
     width: 50px;
+    height: 50px;
 }
 
 canvas {
     display: block;
-    height: 100%;
     width: 100%;
+    height: 100%;
     max-width: 720px;
     max-height: 480px;
     overflow: hidden;
@@ -101,15 +112,15 @@ img.settings:hover {
 }
 
 img.inactive:hover {
-    cursor: pointer;
-    height: 50px;
     width: 50px;
+    height: 50px;
+    cursor: pointer;
 }
 
 img.active:hover {
-    cursor: pointer;
-    height: 45px;
     width: 45px;
+    height: 45px;
+    cursor: pointer;
 }
 
 .btn:hover {

@@ -8,18 +8,10 @@
     <!--CSS-->
     <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body onload="init()">
     <h1 id="title">El Pollo Loco</h1>
 
-    <div id="gameScreen" class="gameScreen">
-        <div id="headerScreen" class="headerScreen">
-            <button id="playBtn" class="btn" onclick="startGame()">Play</button>
-            <img id="settings" class="settings" src="img/settings.png" onclick="openSettings()" />
-        </div>
-        <div id="footerScreen" class="footerScreen">
-            <img id="fullScreen" class="fullScreen inactive" src="img/fullscreen.png" onclick="toggleFullScreen()" />
-        </div>
-    </div>
+    <div id="gameScreen" class="gameScreen"></div>
 
     <!--SCRIPT-->
     <script src="models/drawableObject.class.js"></script>

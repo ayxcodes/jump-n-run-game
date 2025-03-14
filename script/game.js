@@ -1,13 +1,44 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-const gameScreen = document.getElementById("gameScreen");
-const playBtn = document.getElementById('playBtn');
-const settings = document.getElementById('settings');
+
+function init() {
+    showStartScreen();
+    checkScreenWidth();
+    resizeGameScreen();
+}
+
+function showStartScreen() {
+    gameScreen.innerHTML = ``;
+    gameScreen.innerHTML += getStartScreenTemplate();
+}
+
+function checkScreenWidth() {
+    const screenWidth = window.innerWidth;
+    const fullScreenImage = document.getElementById('fullScreen');
+
+    if (screenWidth <= 720) {
+        if (!fullScreenImage.classList.contains('dNone')) {
+            fullScreenImage.classList.add('dNone');
+        }
+    } else if (fullScreenImage.classList.contains('dNone')) {
+        fullScreenImage.classList.remove('dNone');
+    }
+}
+
+function resizeGameScreen() {
+    window.addEventListener('resize', checkScreenWidth);
+}
 
 function startGame() {
+    showCanvas();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+}
+
+function showCanvas() {
+    gameScreen.innerHTML = ``;
+    gameScreen.innerHTML += getCanvasTemplate();
 }
 
 function generateCoinArc(startX, startY, width, height, numCoins) {
@@ -34,6 +65,8 @@ function toggleFullScreen() {
 }
 
 function requestFullScreen() {
+    const gameScreen = document.getElementById("gameScreen");
+    
     if (gameScreen.requestFullscreen) {
         gameScreen.requestFullscreen();
     } else if (gameScreen.mozRequestFullScreen) {
@@ -60,17 +93,11 @@ function exitFullScreen() {
 function fullscreenInactiveStyles(img) {
     img.classList.remove("active");
     img.classList.add("inactive");
-    playBtn.style.fontSize = '24px';
-    settings.width = '40px';
-    settings.height = '40px';
 }
 
 function fullscreenActiveStyles(img) {
     img.classList.add("active");
     img.classList.remove("inactive");
-    playBtn.style.fontSize = '40px';
-    settings.width = '60px';
-    settings.height = '60px';
 }
 
 function toggleMute() {
