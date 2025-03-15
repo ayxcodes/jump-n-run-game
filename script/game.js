@@ -220,34 +220,3 @@ function generateCoinArc(startX, startY, width, height, numCoins) {
     }
     return coins;
 }
-
-/**
- * Handles keydown events and updates keyboard state.
- */
-window.addEventListener('keydown', (e) => {
-    handleKeyEvent(e, true);
-});
-
-/**
- * Handles keyup events and updates keyboard state.
- */
-window.addEventListener('keyup', (e) => {
-    handleKeyEvent(e, false);
-});
-
-/**
- * Updates keyboard state based on key events.
- */
-function handleKeyEvent(e, isPressed) {
-    const keyMap = {
-        39: 'RIGHT',
-        37: 'LEFT',
-        38: 'UP',
-        40: 'DOWN',
-        32: 'SPACE',
-    };
-    
-    if (keyMap[e.keyCode] !== undefined) {
-        keyboard[keyMap[e.keyCode]] = isPressed;
-    }
-}

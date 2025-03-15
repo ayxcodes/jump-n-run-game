@@ -13,11 +13,25 @@
 
     <div id="gameScreen" class="gameScreen">
         <div id="startScreen" class="startScreen"></div>
+        
         <canvas id="canvas" width="720px" height="480px" class="dNone"></canvas>
+
         <button id="playBtn" class="btn" onclick="startGame()">Play</button>
         <img id="settings" class="settings" src="img/settings.png" onclick="showSettings()" />
         <img id="fullScreen" class="fullScreen inactive" src="img/fullscreen-on.png" onclick="toggleFullScreen()" />
+
         <div id="overlaySettings" class="overlay dNone"></div>
+
+        <div id="mobileControls">
+            <div class="panelWrapper1">
+                <img id="btnLeft" class="mobileBtn" src="img/arrow-left.png"/>
+                <img id="btnRight" class="mobileBtn" src="img/arrow-right.png" />
+            </div>
+            <div class="panelWrapper2">
+                <img id="btnJump" class="mobileBtn" src="img/arrow-jump.png" />
+                <img id="btnThrow" class="mobileBtn" src="img/arrow-throw.png" />
+            </div>
+        </div>
     </div>
 
     <!--SCRIPT-->
