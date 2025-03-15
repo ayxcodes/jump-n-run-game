@@ -6,9 +6,10 @@
     <title>El Pollo Loco</title>
     <link rel="icon" href="img/favicon.png" />
     <!--CSS-->
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/mediaQuery.css" />
 </head>
-<body onload="init()">
+<body>
     <h1 id="title">El Pollo Loco</h1>
 
     <div id="gameScreen" class="gameScreen">
@@ -22,7 +23,7 @@
 
         <div id="overlaySettings" class="overlay dNone"></div>
 
-        <div id="mobileControls" class="dNone">
+        <div id="mobileControls" class="mobileControls">
             <div class="panelWrapper1">
                 <img id="btnLeft" class="mobileBtn" src="img/arrow-left.png"/>
                 <img id="btnRight" class="mobileBtn" src="img/arrow-right.png" />
@@ -33,6 +34,8 @@
             </div>
         </div>
     </div>
+
+    <div class="rotateDevice"></div>
 
     <!--SCRIPT-->
     <script src="assets/templates/templates.js"></script>

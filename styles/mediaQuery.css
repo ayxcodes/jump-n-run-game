@@ -1,0 +1,134 @@
+/*
+ * Devices with max. width 720px.
+ */
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+
+    .gameScreen,
+    .startScreen {
+        width: 100%;
+    }
+}
+
+/*
+ * Devices with max. height 480px.
+ */
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    .gameScreen,
+    .startScreen {
+        height: 100vh;
+    }
+}
+
+/*
+ * Devices with max. height 480px.
+ */
+@media(max-height: 480px) {
+    .gameScreen {
+        height: 100%;
+        width: 100%;
+    }
+
+    .startScreen {
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
+
+/*
+ * Touch devices with landscape orientation.
+ */
+@media (pointer: coarse) and (orientation: landscape) {
+    body {
+        justify-content: center;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    .mobileControls {
+        display: flex;
+    }
+
+    /*
+     * Hover styles disabled
+     */
+    a:hover {
+        cursor: inherit !important;
+        text-decoration: none;
+    }
+
+    img.settings:hover,
+    img.fullscreenSettings:hover {
+        cursor: inherit !important;
+        transform: none;
+    }
+
+    img.inactive:hover {
+        width: 35px;
+        height: 35px;
+        cursor: inherit !important;
+    }
+
+    img.active:hover {
+        width: 50px;
+        height: 50px;
+        cursor: inherit !important;
+    }
+
+    .btn:hover,
+    .fullscreenBtn:hover {
+        cursor: inherit !important;
+        transform: none;
+        box-shadow: -4px 4px 0 #9A3A18;
+    }
+
+    .soundBtn:hover {
+        cursor: inherit !important;
+        color: rgba(100, 20, 5);
+        background-color: transparent;
+    }
+}
+
+/*
+ * Touch devices with landscape orientation and max. width 720px.
+ */
+@media (pointer: coarse) and (orientation: landscape) and (max-width: 720px) {
+    .fullScreen {
+        display: none;
+    }
+}
+
+/*
+ * Touch devices with landscape orientation and max. height 480px.
+ */
+
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 480px) {
+    .fullScreen {
+        display: none;
+    }
+}
+
+/*
+ * Touch devices with portrait orientation.
+ */
+@media (pointer: coarse) and (orientation: portrait) {
+    .gameScreen {
+        display: none;
+    }
+
+    .rotateDevice {
+        display: flex;
+    }
+}

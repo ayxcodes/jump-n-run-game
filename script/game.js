@@ -8,55 +8,6 @@ const settings = document.getElementById("settings");
 const overlay = document.getElementById("overlaySettings");
 
 /**
- * Initializes the game by checking screen width and resizing the game screen.
- */
-function init() {
-    checkScreenWidth();
-    resizeGameScreen();
-}
-
-/**
- * Checks if the screen width is below or above 720px and hides/shows full-screen image accordingly.
- */
-function checkScreenWidth() {
-    const screenWidth = window.innerWidth;
-    const fullScreenImage = document.getElementById('fullScreen');
-
-    if (screenWidth <= 720) {
-        hideFullScreenImage(fullScreenImage);
-    } else {
-        showFullScreenImage(fullScreenImage);
-    }
-}
-
-/**
- * Hides the full-screen image.
- * @param {HTMLElement} fullScreenImage - The full-screen image element.
- */
-function hideFullScreenImage(fullScreenImage) {
-    if (!fullScreenImage.classList.contains('dNone')) {
-        fullScreenImage.classList.add('dNone');
-    }
-}
-
-/**
- * Shows the full-screen image.
- * @param {HTMLElement} fullScreenImage - The full-screen image element.
- */
-function showFullScreenImage(fullScreenImage) {
-    if (fullScreenImage.classList.contains('dNone')) {
-        fullScreenImage.classList.remove('dNone');
-    }
-}
-
-/**
- * Resizes the game screen when the window is resized.
- */
-function resizeGameScreen() {
-    window.addEventListener('resize', checkScreenWidth);
-}
-
-/**
  * Starts the game by displaying the canvas and initializing the world.
  */
 function startGame() {
@@ -196,6 +147,10 @@ function showOverlay(content) {
  */
 function closeSettings() {
     overlay.classList.add("dNone");
+}
+
+function stopGame() {
+
 }
 
 function toggleSound() {
