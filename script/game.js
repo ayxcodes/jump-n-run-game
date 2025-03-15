@@ -61,6 +61,7 @@ function resizeGameScreen() {
  */
 function startGame() {
     showCanvas();
+    initLevel();
     initializeWorld();
 }
 
@@ -176,7 +177,7 @@ function showControls() {
 }
 
 /**
- * Displays the imprint overlay.
+ * Displays the imprint settings overlay.
  */
 function showImprint() {
     showOverlay(getImprintTemplate());
@@ -191,7 +192,7 @@ function showOverlay(content) {
 }
 
 /**
- * Closes the settings overlay.
+ * Closes the settings menu overlay.
  */
 function closeSettings() {
     overlay.classList.add("dNone");

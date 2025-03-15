@@ -1,8 +1,8 @@
 class Keyboard {
     RIGHT = false;
     LEFT = false;
-    UP = false;
     SPACE = false;
+    D = false;
 
     /**
      * Initializes the keyboard event listeners.
@@ -24,11 +24,11 @@ class Keyboard {
             if (e.keyCode == 37) {
                 keyboard.LEFT = true;
             }
-            if (e.keyCode == 38) {
-                keyboard.UP = true;
-            }
             if (e.keyCode == 32) {
                 keyboard.SPACE = true;
+            }
+            if (e.keyCode == 68) {
+                keyboard.D = true;
             }
         });
         window.addEventListener('keyup', (e) => {
@@ -38,11 +38,11 @@ class Keyboard {
             if (e.keyCode == 37) {
                 keyboard.LEFT = false;
             }
-            if (e.keyCode == 38) {
-                keyboard.UP = false;
-            }
             if (e.keyCode == 32) {
                 keyboard.SPACE = false;
+            }
+            if (e.keyCode == 68) {
+                keyboard.D = false;
             }
         });
     }
@@ -70,19 +70,19 @@ class Keyboard {
         });
         document.getElementById('btnJump').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            this.UP = true;
+            this.SPACE = true;
         });
         document.getElementById('btnJump').addEventListener('touchend', (e) => {
             e.preventDefault();
-            this.UP = false;
+            this.SPACE = false;
         });
         document.getElementById('btnThrow').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            this.SPACE = true;
+            this.D = true;
         });
         document.getElementById('btnThrow').addEventListener('touchend', (e) => {
             e.preventDefault();
-            this.SPACE = false;
+            this.D = false;
         });
     }
 }
