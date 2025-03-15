@@ -106,6 +106,39 @@ function updateButtonStyles(addClass, removeClass) {
     }
 }
 
+function gameLost() {
+    clearAllIntervals();
+    showLostScreen();
+}
+
+function gameWon() {
+    clearAllIntervals();
+    showWonScreen();
+}
+
+function toggleSounds() {
+
+}
+
+function toggleMusic() {
+
+}
+
+/**
+ * Shows the overlay with the given content.
+ */
+function showOverlay(content) {
+    overlay.classList.remove("dNone");
+    overlay.innerHTML = content;
+}
+
+/**
+ * Closes the settings menu overlay.
+ */
+function closeSettings() {
+    overlay.classList.add("dNone");
+}
+
 /**
  * Displays the settings menu overlay.
  */
@@ -134,31 +167,19 @@ function showImprint() {
     showOverlay(getImprintTemplate());
 }
 
-/**
- * Shows the overlay with the given content.
- */
-function showOverlay(content) {
-    overlay.classList.remove("dNone");
-    overlay.innerHTML = content;
+function showLostScreen() {
+    showOverlay(getLostScreenTemplate());
+}
+
+function showWonScreen() {
+    showOverlay(getWonScreenTemplate());
 }
 
 /**
- * Closes the settings menu overlay.
+ * Clears all active intervals.
  */
-function closeSettings() {
-    overlay.classList.add("dNone");
-}
-
-function stopGame() {
-
-}
-
-function toggleSounds() {
-
-}
-
-function toggleMusic() {
-
+function clearAllIntervals() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 
 /**

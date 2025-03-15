@@ -8,10 +8,10 @@ function getSettingsTemplate() {
         <div id="settingsMenu" class="settingsMenu">
             <h2>Settings</h2>
             <div class="settingsLinks">
-                <a onclick="showSounds()">Sounds</a>
+                <a onclick="showSound()">Sounds</a>
                 <a onclick="showControls()">Controls</a>
                 <a onclick="showImprint()">Imprint</a>
-                <a onclick="closeSettings()">Close</a>
+                <button class="settingsBtn" onclick="closeSettings()">X</button>
             </div>
         </div>
     `;
@@ -28,7 +28,7 @@ function getSoundTemplate() {
             <h2>Sound</h2>
             <button id="sounds" class="soundBtn" onclick="toggleSound()">Sound off</button>
             <button id="music" class="musicBtn" onclick="toggleMusic()">Music off</button>
-            <a onclick="showSettings()">Back</a>
+            <button class="settingsBtn" onclick="showSettings()">←</button>
         </div>
     `;
 }
@@ -45,7 +45,7 @@ function getControlsTemplate() {
             <p>◄/► = Walk</p>
             <p>SPACE = Jump</p>
             <p>D = Throw Bottle</p>
-            <a onclick="showSettings()">Back</a>
+            <button class="settingsBtn" onclick="showSettings()">←</button>
         </div>
     `;
 }
@@ -61,7 +61,25 @@ function getImprintTemplate() {
             <h2>Imprint</h2>
             <p>DA 2025</p>
             <p>Aylin C.</p>
-            <a onclick="showSettings()">Back</a>
+            <button class="settingsBtn" onclick="showSettings()">←</button>
         </div>
     `;
+}
+
+/**
+ * Generates the HTML template for the game lost screen.
+ *
+ * @returns {string} The HTML template as a string.
+ */
+function getLostScreenTemplate() {
+
+}
+
+/**
+ * Generates the HTML template for the game won screen.
+ *
+ * @returns {string} The HTML template as a string.
+ */
+function getWonScreenTemplate() {
+
 }

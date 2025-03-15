@@ -7,7 +7,8 @@
     }
 
     .gameScreen,
-    .startScreen {
+    .startScreen,
+    .endScreen {
         width: 100%;
     }
 }
@@ -52,7 +53,8 @@
         width: 100%;
     }
 
-    .startScreen {
+    .startScreen,
+    .endScreen {
         background-repeat: no-repeat;
         background-size: cover;
     }
@@ -112,6 +114,11 @@
         cursor: inherit !important;
         color: rgba(100, 20, 5);
         background-color: transparent;
+    }
+
+    .settingsBtn:hover {
+        cursor: inherit !important;
+        font-size: 20px;
     }
 }
 
