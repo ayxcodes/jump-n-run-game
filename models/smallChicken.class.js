@@ -1,13 +1,12 @@
 /**
  * Represents a small chicken that can move and animate on the screen.
- * Extends the `MovableObject` class and provides functionality to move,
+ * Extends the Chicken class and provides functionality to move,
  * animate walking, and change state when dead.
  */
-class SmallChicken extends MovableObject {
+class SmallChicken extends Chicken {
     y = 355;
     height = 70;
     width = 70;
-    isDead = false;
     imagesWalking = [
         'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
         'img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
@@ -31,24 +30,5 @@ class SmallChicken extends MovableObject {
         this.speed = 0.15 + Math.random() * 0.5;
 
         this.animate();
-    }
-
-    /**
-     * Starts two animation loops:
-     * - Moves the chicken to the left every frame if it's not dead.
-     * - Plays the walking animation every 100ms if the chicken is not dead.
-     */
-    animate() {
-        setInterval(() => {
-            if (!this.isDead) {
-                this.moveLeft();
-            }
-        }, 1000 / 60);
-    
-        setInterval(() => {
-            if (!this.isDead) {
-                this.playAnimation(this.imagesWalking);
-            }
-        }, 100);
     }
 }

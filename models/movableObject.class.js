@@ -100,11 +100,17 @@ class MovableObject extends DrawableObject{
 
     /**
      * Applies damage to the object by reducing its energy.
+     * If Endboss is hit, energy is reduced by 40.
+     * Else energy is reduced by 5.
      * 
      * @param {number} damage - The amount of energy to reduce.
      */
     hit() {
-        this.energy -= 5;
+        if (this instanceof Endboss) {
+            this.energy -= 40;
+        } else {
+            this.energy -= 5;
+        }
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -113,13 +119,13 @@ class MovableObject extends DrawableObject{
     }
 
     /**
-     * Checks if the object was recently hit (within the last 1 second).
+     * Checks if the object was recently hit (within the last 2 milliseconds).
      * 
      * @returns {boolean} `true` if the object was hit recently, `false` otherwise.
      */
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;
-        timePassed = timePassed / 1000;
+        timePassed = timePassed / 200;
         return timePassed < 1;
     }
 

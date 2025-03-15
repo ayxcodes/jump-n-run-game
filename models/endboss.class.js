@@ -80,7 +80,20 @@ class Endboss extends MovableObject {
         }, 1000/60);
 
         setInterval(() => {
-            this.playAnimation(this.imagesWalking);
+            this.playAnimationEndboss();
         }, 500);
     }
+
+    /**
+     * Plays the correct animation based on endboss state.
+     */
+        playAnimationEndboss() {
+            if (this.isDead()) {
+                this.playAnimation(this.imagesDead);
+            } else if (this.isHurt()) {
+                this.playAnimation(this.imagesHurt);
+            } else {
+                this.playAnimation(this.imagesWalking);
+            }
+        }
 }

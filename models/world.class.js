@@ -16,7 +16,6 @@ class World {
     characterEnergyBar = new characterEnergyBar();
     endbossEnergyBar = new endbossEnergyBar();
 
-
     /**
      * Creates an instance of the World.
      * @param {HTMLCanvasElement} canvas - The canvas element used for rendering the game world.

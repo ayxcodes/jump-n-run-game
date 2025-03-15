@@ -84,15 +84,19 @@ a {
 .endScreen {
     width: 100%;
     height: 100%;
-    background-size: cover;
-    background-position: center;
 }
 
 .startScreen {
+    background-size: cover;
+    background-position: center;
     background-image: url("../img/startscreen.png");
 }
 
-.endScreenWon,
+.endScreenWon {
+    width: 100%;
+    height: 100%;
+}
+
 .endScreenLost {
     width: 100%;
     height: 100%;
@@ -117,13 +121,13 @@ a {
 }
 
 .playAgain {
-    bottom: 20px;
-    left: 150px;
+    bottom: 17px;
+    left: 200px;
 }
 
 .back {
-    bottom: 20px;
-    right: 150px;
+    bottom: 17px;
+    right: 200px;
 }
 
 .fullscreenBtn {
@@ -247,7 +251,7 @@ img.fullscreenSettings {
 .panelWrapper2 {
     position: absolute;
     bottom: 15px;
-    gap: 40px;
+    gap: 20px;
     display: flex;
     flex-direction: row;
 }
