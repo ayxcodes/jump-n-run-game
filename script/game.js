@@ -33,6 +33,14 @@ function showCanvas() {
 }
 
 /**
+ * Displays the start screen and shows the start screen elements.
+ */
+function showStart() {
+    toggleScreen("startScreen");
+    playBtn.classList.remove("dNone");
+}
+
+/**
  * Toggles full-screen mode.
  */
 function toggleFullScreen() {

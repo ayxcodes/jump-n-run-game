@@ -74,8 +74,8 @@ function getImprintTemplate() {
 function getLostScreenTemplate() {
     return `
         <img class="endScreenLost" src="img/lost_endscreen.png" />
-        <button class="playAgain btn">Play Again</button>
-        <button class="back btn">Back to start</button>
+        <button class="playAgain btn" onclick="startGame()">Play Again</button>
+        <button class="back btn" onclick="showStart()">Back to start</button>
     `;
 }
 
@@ -87,7 +87,7 @@ function getLostScreenTemplate() {
 function getWonScreenTemplate() {
     return `
         <img class="endScreenWon" src="img/won_endscreen.png" />
-        <button class="playAgain btn">Play Again</button>
-        <button class="back btn">Back to start</button>
+        <button class="playAgain btn" onclick="startGame()">Play Again</button>
+        <button class="back btn" onclick="showStart()">Back to start</button>
     `;
 }
