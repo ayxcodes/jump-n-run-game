@@ -49,12 +49,8 @@ class Character extends MovableObject {
         'img/2_character_pepe/4_hurt/H_43.png'
     ];
     imagesDead = [
-        'img/2_character_pepe/5_dead/D_51.png',
         'img/2_character_pepe/5_dead/D_52.png',
-        'img/2_character_pepe/5_dead/D_53.png',
-        'img/2_character_pepe/5_dead/D_54.png',
-        'img/2_character_pepe/5_dead/D_55.png',
-        'img/2_character_pepe/5_dead/D_56.png'
+        'img/2_character_pepe/5_dead/D_51.png'
     ];
 
     offset = {
@@ -149,14 +145,14 @@ class Character extends MovableObject {
 
     playDeadAnimation() {
         let index = 0;
-        let deadInterval = setInterval(() => {
+        setInterval(() => {
             this.img = this.imageCache[this.imagesDead[index]];
             index++;
-        
+    
             if (index >= this.imagesDead.length) {
-                clearInterval(deadInterval);
+                gameLost();
             }
-        }, 150);
+        }, 400);
     }
 
     checkCollectables(objects) {
