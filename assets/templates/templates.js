@@ -26,7 +26,7 @@ function getSoundTemplate() {
     return `
         <div id="settingsMenu" class="settingsMenu">
             <h2>Sound</h2>
-            <button id="sounds" class="soundBtn" onclick="toggleSound()">Sound off</button>
+            <button id="sounds" class="soundBtn" onclick="toggleSound()">Sounds off</button>
             <button id="music" class="musicBtn" onclick="toggleMusic()">Music off</button>
             <button class="settingsBtn" onclick="showSettings()">←</button>
         </div>
@@ -72,7 +72,11 @@ function getImprintTemplate() {
  * @returns {string} The HTML template as a string.
  */
 function getLostScreenTemplate() {
-
+    return `
+        <img class="endScreenLost" src="img/lost_endscreen.png" />
+        <button class="playAgain btn">Play Again</button>
+        <button class="back btn">Back to start</button>
+    `;
 }
 
 /**
@@ -81,5 +85,9 @@ function getLostScreenTemplate() {
  * @returns {string} The HTML template as a string.
  */
 function getWonScreenTemplate() {
-
+    return `
+        <img class="endScreenWon" src="img/won_endscreen.png" />
+        <button class="playAgain btn">Play Again</button>
+        <button class="back btn">Back to start</button>
+    `;
 }

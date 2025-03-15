@@ -3,6 +3,7 @@ let keyboard = new Keyboard();
 let canvas = document.getElementById('canvas');
 const gameScreen = document.getElementById("gameScreen");
 const startScreen = document.getElementById("startScreen");
+const endScreen = document.getElementById("endScreen");
 const playBtn = document.getElementById("playBtn");
 const settings = document.getElementById("settings");
 const overlay = document.getElementById("overlaySettings");
@@ -27,9 +28,8 @@ function initWorld() {
  * Displays the game canvas and hides the start screen elements.
  */
 function showCanvas() {
-    startScreen.classList.add("dNone");
+    toggleScreen("canvas");
     playBtn.classList.add("dNone");
-    canvas.classList.remove("dNone");
 }
 
 /**
@@ -106,14 +106,69 @@ function updateButtonStyles(addClass, removeClass) {
     }
 }
 
+/**
+ * Handles the game lost scenario by clearing all active intervals 
+ * and displaying the lost screen.
+ */
 function gameLost() {
     clearAllIntervals();
     showLostScreen();
 }
 
+/**
+ * Handles the game won scenario by clearing all active intervals 
+ * and displaying the winning screen.
+ */
 function gameWon() {
     clearAllIntervals();
     showWonScreen();
+}
+
+/**
+ * Clears all active intervals to stop any running game logic.
+ */
+function clearAllIntervals() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
+}
+
+/**
+ * Displays the lost screen by toggling the end screen 
+ * and updating its content.
+ */
+function showLostScreen() {
+    toggleScreen("endScreen");
+    endScreen.innerHTML = ``;
+    endScreen.innerHTML += getLostScreenTemplate();
+}
+
+/**
+ * Displays the winning screen by toggling the end screen 
+ * and updating its content.
+ */
+function showWonScreen() {
+    toggleScreen("endScreen");
+    endScreen.innerHTML = ``;
+    endScreen.innerHTML += getWonScreenTemplate();
+}
+
+/**
+ * Toggles the visibility of different game screens.
+ * 
+ * @param {string} screenId - The ID of the screen to be displayed.
+ */
+function toggleScreen(screenId) {
+    const screens = ["startScreen", "endScreen", "canvas"];
+    
+    screens.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            if (id === screenId) {
+                element.classList.remove("dNone");
+            } else {
+                element.classList.add("dNone");
+            }
+        }
+    });
 }
 
 function toggleSounds() {
@@ -165,21 +220,6 @@ function showControls() {
  */
 function showImprint() {
     showOverlay(getImprintTemplate());
-}
-
-function showLostScreen() {
-    showOverlay(getLostScreenTemplate());
-}
-
-function showWonScreen() {
-    showOverlay(getWonScreenTemplate());
-}
-
-/**
- * Clears all active intervals.
- */
-function clearAllIntervals() {
-    for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 
 /**
