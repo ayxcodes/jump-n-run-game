@@ -1,3 +1,7 @@
+/**
+ * Represents an Endboss character in the game, which extends the MovableObject class.
+ * It defines specific behavior and animation for the Endboss character.
+ */
 class Endboss extends MovableObject {
     y = 80;
     height = 350;
@@ -39,6 +43,10 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
 
+    /**
+     * Creates an instance of the Endboss and initializes its images and position.
+     * The Endboss is placed at a predefined x position and begins walking animation.
+     */
     constructor() {
         super().loadImage(this.imagesWalking[0]);
         this.loadImages(this.imagesWalking);
@@ -51,6 +59,10 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Defines the offset values for collision detection.
+     * @type {{top: number, bottom: number, left: number, right: number}}
+     */
     offset = {
         top: 60,
         bottom: 20,
@@ -58,6 +70,10 @@ class Endboss extends MovableObject {
         right: 20
     };
 
+    /**
+     * Starts the Endboss's movement and animation cycles.
+     * The Endboss moves left and performs walking animation at regular intervals.
+     */
     animate() {
         setInterval(() => {
             this.moveLeft();

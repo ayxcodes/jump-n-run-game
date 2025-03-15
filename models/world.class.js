@@ -1,3 +1,7 @@
+/**
+ * Represents the game world, managing all game elements such as the character, enemies, collectibles, and the game state.
+ * Handles the rendering, physics, and interactions of the game world.
+ */
 class World {
     ctx;
     canvas;
@@ -12,6 +16,11 @@ class World {
     characterEnergyBar = new characterEnergyBar();
     endbossEnergyBar = new endbossEnergyBar();
 
+
+    /**
+     * Creates an instance of the World.
+     * @param {HTMLCanvasElement} canvas - The canvas element used for rendering the game world.
+     */
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -22,10 +31,16 @@ class World {
         this.run();
     }
 
+    /**
+     * Sets the world for the character, linking it to the current game world.
+     */
     setWorld() {
         this.character.world = this;
     }
 
+    /**
+     * Generates coins in a series of arcs across the game world.
+     */
     generateCoins() {
         let totalWidth = 5000;
         let numArcs = 5;
@@ -42,6 +57,9 @@ class World {
         }
     }
 
+    /**
+     * Starts the game loop, checking collisions and throwable objects at regular intervals.
+     */
     run() {
         setInterval(() => {
             this.checkCollisions();
@@ -49,6 +67,9 @@ class World {
         }, 200);
     }
 
+    /**
+     * Checks if the character collides with any enemies, handling appropriate reactions such as enemy death or character damage.
+     */
     checkCollisions() {
         this.level.enemies.forEach((enemy, index) => {
             if (this.character.isColliding(enemy, index) && this.character.isAboveGround() && this.character.speedY <= 0) {
@@ -69,6 +90,9 @@ class World {
         });
     }
 
+    /**
+     * Checks if the player is attempting to throw a bottle and if there are any bottles available.
+     */
     checkThrowableObjects() {
         if (this.keyboard.D) {
             if (this.bottleCount.amount > 0) {
@@ -79,6 +103,9 @@ class World {
         }
     }
 
+    /**
+     * Renders the game world to the canvas, redrawing all game objects.
+     */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
@@ -94,6 +121,9 @@ class World {
         });
     }
 
+    /**
+     * Adds various dynamic components (background objects, clouds, coins, etc.) to the map.
+     */
     addComponents() {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
@@ -103,6 +133,9 @@ class World {
         this.addObjectsToMap(this.throwableObjects);
     }
 
+    /**
+     * Adds fixed objects like UI elements (energy bars, coin count) to the map.
+     */
     addFixedObjects() {
         this.addToMap(this.characterEnergyBar);
         this.addToMap(this.coinCount);
@@ -112,12 +145,20 @@ class World {
         }
     }
 
+    /**
+     * Adds a list of objects to the game world map.
+     * @param {Array} objects - The list of objects to be added to the map.
+     */
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);
         });
     }
 
+    /**
+     * Draws a given object to the map, flipping its image if necessary.
+     * @param {Object} mo - The object to be drawn to the map.
+     */
     addToMap(mo) {
         if(mo.otherDirection) {
             this.flipImage(mo);
@@ -128,6 +169,10 @@ class World {
         }
     }
 
+    /**
+     * Flips an image horizontally for objects facing the opposite direction.
+     * @param {Object} mo - The object whose image needs to be flipped.
+     */
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -135,11 +180,18 @@ class World {
         mo.x = mo.x * -1;
     }
 
+    /**
+     * Restores the flipped image to its original orientation.
+     * @param {Object} mo - The object whose image needs to be restored.
+     */
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
 
+    /**
+     * Ends the game and displays the Game Over screen.
+     */
     gameOver() {
         clearInterval(this.run);
         showGameOver();

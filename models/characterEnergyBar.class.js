@@ -1,3 +1,8 @@
+/**
+ * Represents the character's energy bar.
+ * Extends the StatusBar class and provides specific functionality
+ * for displaying the character's energy with corresponding images.
+ */
 class characterEnergyBar extends StatusBar {
     percentage = 100;
     images = [
@@ -9,6 +14,11 @@ class characterEnergyBar extends StatusBar {
         'img/7_statusbars/1_statusbar/2_statusbar_health/100.png'
     ];
 
+    /**
+     * Creates an instance of the characterEnergyBar class.
+     * Loads the energy bar images, sets its initial
+     * position on the screen, and initializes the energy percentage.
+     */
     constructor() {
         super().loadImages(this.images);
         this.x = 30;

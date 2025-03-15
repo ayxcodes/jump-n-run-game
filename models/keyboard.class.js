@@ -1,3 +1,7 @@
+/**
+ * Class representing a keyboard input handler for both physical keyboards and touch devices.
+ * It listens for key and touch events to update movement states for the game.
+ */
 class Keyboard {
     RIGHT = false;
     LEFT = false;

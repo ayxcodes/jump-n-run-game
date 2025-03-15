@@ -1,3 +1,8 @@
+/**
+ * Represents a character in the game, extending the MovableObject class.
+ * The character can perform various actions like walking, jumping, falling, getting hurt, and dying.
+ * Handles movement based on keyboard input and changes animations based on character states.
+ */
 class Character extends MovableObject {
     world;
     y = 30;
@@ -53,6 +58,10 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D_51.png'
     ];
 
+    /**
+     * Defines the offset values for collision detection.
+     * @type {{top: number, bottom: number, left: number, right: number}}
+     */
     offset = {
         top: 120,
         bottom: 20,
@@ -60,6 +69,9 @@ class Character extends MovableObject {
         right: 35
     };
 
+    /**
+     * Initializes a new character instance.
+     */
     constructor() {
         super().loadImage(this.imagesIdle[0]);
         this.loadImages(this.imagesIdle);
@@ -74,6 +86,9 @@ class Character extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Starts the character animation loop.
+     */
     animate() {
         setInterval(() => {
             this.characterMoving();
@@ -84,6 +99,9 @@ class Character extends MovableObject {
         }, 50);
     }
 
+    /**
+     * Handles character movement based on user input.
+     */
     characterMoving() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEnd_x) {
             this.moveRight();
@@ -99,6 +117,9 @@ class Character extends MovableObject {
         this.world.camera_x = -this.x + 100;
     }
 
+    /**
+     * Plays the correct animation based on character state.
+     */
     playAnimationCharacter() {
         if (this.isDead()) {
             this.playDeadAnimation();
@@ -113,6 +134,9 @@ class Character extends MovableObject {
         this.checkCollectables(this.world.level.bottles);
     }
     
+    /**
+     * Initiates the jump sequence.
+     */
     startJump() {
         if (this.isJumping) return;
         this.isJumping = true;
@@ -130,6 +154,9 @@ class Character extends MovableObject {
         }, 50);
     }
     
+    /**
+     * Handles the jump animation sequence.
+     */
     playJumpAnimation() {
         if (this.speedY > 0) {
             this.img = this.imageCache[this.imagesJumping[1]];
@@ -143,6 +170,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Plays the death animation and triggers game over.
+     */
     playDeadAnimation() {
         let index = 0;
         setInterval(() => {
@@ -155,12 +185,20 @@ class Character extends MovableObject {
         }, 400);
     }
 
+    /**
+     * Checks for collectible items and collects them if applicable.
+     * @param {Array} objects - Array of collectible objects.
+     */
     checkCollectables(objects) {
         objects.forEach((object) => {
             object.collect(this);
         });
     }
 
+    /**
+     * Collects an item and updates the respective counters.
+     * @param {object} item - The item to be collected.
+     */
     collectItem(item) {
         if (item instanceof Coin) {
             this.world.coinCount.amount = this.world.coinCount.amount + 1;
