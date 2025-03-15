@@ -8,7 +8,7 @@ function getSettingsTemplate() {
         <div id="settingsMenu" class="settingsMenu">
             <h2>Settings</h2>
             <div class="settingsLinks">
-                <a onclick="showSound()">Sounds</a>
+                <a onclick="showSounds()">Sounds</a>
                 <a onclick="showControls()">Controls</a>
                 <a onclick="showImprint()">Imprint</a>
                 <a onclick="closeSettings()">Close</a>
@@ -27,6 +27,7 @@ function getSoundTemplate() {
         <div id="settingsMenu" class="settingsMenu">
             <h2>Sound</h2>
             <button id="sounds" class="soundBtn" onclick="toggleSound()">Sound off</button>
+            <button id="music" class="musicBtn" onclick="toggleMusic()">Music off</button>
             <a onclick="showSettings()">Back</a>
         </div>
     `;

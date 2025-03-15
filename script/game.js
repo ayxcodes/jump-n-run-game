@@ -13,13 +13,13 @@ const overlay = document.getElementById("overlaySettings");
 function startGame() {
     showCanvas();
     initLevel();
-    initializeWorld();
+    initWorld();
 }
 
 /**
  * Initializes the world with the canvas and keyboard.
  */
-function initializeWorld() {
+function initWorld() {
     world = new World(canvas, keyboard);
 }
 
@@ -153,7 +153,11 @@ function stopGame() {
 
 }
 
-function toggleSound() {
+function toggleSounds() {
+
+}
+
+function toggleMusic() {
 
 }
 

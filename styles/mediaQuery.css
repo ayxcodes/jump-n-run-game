@@ -13,6 +13,19 @@
 }
 
 /*
+ * Devices with max. width 420px.
+ */
+ @media only screen and (max-width: 420px) {
+    h1 {
+        font-size: 48px;
+    }
+
+    .rotateDevice {
+        height: 400px;
+    }
+}
+
+/*
  * Devices with max. height 480px.
  */
 @media only screen and (max-height: 480px) {
@@ -94,7 +107,8 @@
         box-shadow: -4px 4px 0 #9A3A18;
     }
 
-    .soundBtn:hover {
+    .soundBtn:hover,
+    .musicBtn:hover {
         cursor: inherit !important;
         color: rgba(100, 20, 5);
         background-color: transparent;

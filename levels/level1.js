@@ -1,5 +1,16 @@
 let level1;
 
+/**
+ * Initializes the game level by creating a new Level instance.
+ *
+ * The following elements are included:
+ * - Bottles: 15 instances of Bottle objects.
+ * - Enemies: 7 Chickens, 8 SmallChickens, and 1 Endboss.
+ * - Clouds: 8 instances of Cloud objects.
+ * - Background: Multiple layers of background objects with different images and positions.
+ *
+ * This function assigns the created Level instance to the global variable `level1`.
+ */
 function initLevel() {
     level1 = new Level(
         [],

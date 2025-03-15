@@ -185,7 +185,8 @@ img.fullscreenSettings {
     position: relative;
 }
 
-.soundBtn {
+.soundBtn,
+.musicBtn {
     margin: 15px;
     font-size: 24px;
     color: rgb(100, 20, 5);
@@ -272,7 +273,8 @@ img.active:hover {
     box-shadow: -2px 2px 0 #9A3A18;
 }
 
-.soundBtn:hover {
+.soundBtn:hover,
+.musicBtn:hover {
     cursor: pointer;
     color: white;
     background-color: rgba(100, 20, 5);
