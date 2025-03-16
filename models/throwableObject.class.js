@@ -54,36 +54,11 @@ class ThrowableObject extends MovableObject {
     throw() {
         this.speedY = 25;
         this.applyGravity();
-        let throwInterval = setInterval(() => {
+        setInterval(() => {
             this.x += 10;
-            this.checkCollisionBottle();
         }, 25);
 
         this.animateRotation();
-    }
-
-    /**
-     * Checks for collisions with enemies in the game world.
-     * If a collision is detected, it applies the appropriate effect, such as killing the enemy or starting the splash animation.
-     */
-    checkCollisionBottle() {
-        this.world.level.enemies.forEach((enemy, index) => {
-            if (this.isColliding(enemy, index) && !this.splashAnimationPlaying) {
-                if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
-                    enemy.img = enemy.imageCache[enemy.imageDead[0]];
-                    enemy.isDead = true;
-
-                    setTimeout(() => {
-                        this.world.level.enemies.splice(index, 1);
-                    }, 200);
-                }
-                this.playSplashAnimation();
-            }
-        });
-
-        if (this.y >= 330) {
-            this.playSplashAnimation();
-        }
     }
 
     /**

@@ -126,7 +126,7 @@ class Character extends MovableObject {
      */
     playAnimationCharacter() {
         if (this.isDead()) {
-            this.playDeadAnimation();
+            this.characterDead();
         } else if (this.isHurt()) {
             this.playAnimation(this.imagesHurt);
         } else if (this.isJumping || this.isAboveGround()) {
@@ -169,7 +169,6 @@ class Character extends MovableObject {
             let fallingIndex = Math.min(Math.floor(Math.abs(this.speedY) / 10), this.imagesFalling.length - 1);
             this.img = this.imageCache[this.imagesFalling[fallingIndex]];
         }
-
         if (!this.isAboveGround()) {
             this.isJumping = false;
         }
@@ -178,7 +177,7 @@ class Character extends MovableObject {
     /**
      * Plays the death animation and triggers game over.
      */
-    playDeadAnimation() {
+    characterDead() {
         let index = 0;
         setInterval(() => {
             this.img = this.imageCache[this.imagesDead[index]];

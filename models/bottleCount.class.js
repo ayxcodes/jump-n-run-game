@@ -3,7 +3,7 @@
  * Extends DrawableObject to render a visual representation of the collected bottles.
  */
 class BottleCount extends DrawableObject {
-    amount = 0;
+    amount = 4;
     image = [
         'img/7_statusbars/2_icons/icon_salsa_bottle.png'
     ];

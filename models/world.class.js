@@ -61,17 +61,15 @@ class World {
      */
     run() {
         setInterval(() => {
-            this.checkCollisions();
+            this.checkCollisions(this.character);
             this.checkThrowableObjects();
         }, 200);
     }
 
-    /**
-     * Checks if the character collides with any enemies, handling appropriate reactions such as enemy death or character damage.
-     */
-    checkCollisions() {
+
+    checkCollisions(mo) {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isColliding(enemy, index) && this.character.isAboveGround() && this.character.speedY <= 0) {
+            if (mo.isColliding(enemy, index) && mo.isAboveGround() && mo.speedY <= 0) {
                 if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
                     enemy.img = enemy.imageCache[enemy.imageDead[0]];
                     enemy.isDead = true;
@@ -80,13 +78,41 @@ class World {
                         this.level.enemies.splice(index, 1);
                     }, 200);
 
-                    this.character.jump();
+                    mo.jump();
                 }
-            } else if (!enemy.dead && this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.characterEnergyBar.setPercentage(this.character.energy);
+            } else if (!enemy.dead && mo.isColliding(enemy)) {
+                mo.hit();
+                this.characterEnergyBar.setPercentage(mo.energy);
             }
         });
+    }
+
+        /**
+     * Checks for collisions with enemies in the game world.
+     * If a collision is detected, it applies the appropriate effect, such as killing the enemy or starting the splash animation.
+     */
+    checkCollisionBottle(mo) {
+        this.level.enemies.forEach((enemy, index) => {
+            if (mo.isColliding(enemy, index) && !mo.splashAnimationPlaying) {
+                if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
+                    enemy.img = enemy.imageCache[enemy.imageDead[0]];
+                    enemy.isDead = true;
+
+                    setTimeout(() => {
+                        this.level.enemies.splice(index, 1);
+                    }, 200);
+                }
+                if (enemy instanceof Endboss) {
+                    this.endboss.hit();
+                    this.endbossEnergyBar.setPercentage(this.endboss.energy);
+                }
+                mo.playSplashAnimation();
+            }
+        });
+
+        if (mo.y >= 330) {
+            mo.playSplashAnimation();
+        }
     }
 
     /**
@@ -98,6 +124,9 @@ class World {
                 let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 120);
                 this.throwableObjects.push(bottle);
                 this.bottleCount.amount = this.bottleCount.amount - 1;
+                setInterval(() => {
+                    this.checkCollisionBottle(bottle);
+                }, 25);
             }
         }
     }

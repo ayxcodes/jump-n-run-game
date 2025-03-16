@@ -106,11 +106,7 @@ class MovableObject extends DrawableObject{
      * @param {number} damage - The amount of energy to reduce.
      */
     hit() {
-        if (this instanceof Endboss) {
-            this.energy -= 40;
-        } else {
-            this.energy -= 5;
-        }
+        this.energy -= 5;
         if (this.energy < 0) {
             this.energy = 0;
         } else {

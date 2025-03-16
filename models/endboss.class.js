@@ -6,6 +6,8 @@ class Endboss extends MovableObject {
     y = 80;
     height = 350;
     width = 350;
+    encountered = false;
+    showEndbossEnergyBar = false;
     imagesWalking = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
         'img/4_enemie_boss_chicken/1_walk/G2.png',
@@ -55,7 +57,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.imagesHurt);
         this.loadImages(this.imagesDead);
         
-        this.x = 5500;
+        this.x = 500;
         this.animate();
     }
 
@@ -77,6 +79,7 @@ class Endboss extends MovableObject {
     animate() {
         setInterval(() => {
             this.moveLeft();
+            this.checkCharacterDistance();
         }, 1000/60);
 
         setInterval(() => {
@@ -87,13 +90,39 @@ class Endboss extends MovableObject {
     /**
      * Plays the correct animation based on endboss state.
      */
-        playAnimationEndboss() {
-            if (this.isDead()) {
-                this.playAnimation(this.imagesDead);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.imagesHurt);
-            } else {
-                this.playAnimation(this.imagesWalking);
-            }
+    playAnimationEndboss() {
+        if (this.isDead()) {
+            this.endbossDead();
+        } else if (this.isHurt()) {
+            this.playAnimation(this.imagesHurt);
+        } else {
+            this.playAnimation(this.imagesWalking);
         }
+    }
+
+    endbossDead() {
+        let index = 0;
+        setInterval(() => {
+            this.img = this.imageCache[this.imagesDead[index]];
+            index++;
+    
+            if (index >= this.imagesDead.length) {
+                gameWon();
+            }
+        }, 200);
+    }
+
+    /**
+     * Checks the distance between the Endboss and the character.
+    */
+    checkCharacterDistance() {
+        this.character = world.character;
+        this.distance = Math.abs(this.character.x - this.x);
+        if (this.distance < 200) {
+            this.encountered = true;
+            this.showEndbossEnergyBar = true;
+        } else if (this.distance > 300) {
+            this.encountered = false;
+        }
+    }
 }
