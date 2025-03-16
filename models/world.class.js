@@ -68,20 +68,23 @@ class World {
     }
 
     /**
-     * Checks for collisions between the given game object and enemies in the level.
-     * If the object collides with an enemy while being above it, the enemy is defeated and the object jumps.
-     * If the object collides with a live enemy from the side, it takes damage.
+     * Checks for collisions between the given object (mo) and the enemies in the level.
+     * If a collision occurs, determines whether the object is above the enemy and processes the collision accordingly.
+     * If the object is above the enemy, the enemy is killed, and the object jumps.
+     * If not, the object takes damage, and the energy bar is updated.
      *
-     * @param {Object} mo - The moving object (e.g., the player character) to check for collisions.
+     * @param {Object} mo - The object to check for collisions with enemies (e.g., player or character).
      */
     checkCollisions(mo) {
         this.level.enemies.forEach((enemy, index) => {
-            if (mo.isColliding(enemy, index) && mo.isAboveEnemy(enemy)) {
-                this.chickenDead(enemy, index);
-                mo.jump();
-            } else if (!enemy.dead && mo.isColliding(enemy)) {
-                mo.hit();
-                this.characterEnergyBar.setPercentage(mo.energy);
+            if (!enemy.dead && mo.isColliding(enemy)) {
+                if (mo.isAboveEnemy(enemy)) {
+                    this.chickenDead(enemy, index);
+                    mo.jump();
+                } else {
+                    mo.hit();
+                    this.characterEnergyBar.setPercentage(mo.energy);
+                }
             }
         });
     }

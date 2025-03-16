@@ -266,14 +266,17 @@ class Character extends MovableObject {
     }
 
     /**
-     * Checks if the object is above the given enemy.
+     * Determines if the current object is positioned above the given enemy.
+     * Checks if the vertical overlap between the object and enemy is positive and within the enemy's height,
+     * and whether the object's vertical speed is negative (indicating upward movement).
      *
-     * @param {Object} enemy - The enemy object to compare against.
-     * @param {number} enemy.y - The y-coordinate of the enemy.
+     * @param {Object} enemy - The enemy object to check against.
+     * @param {number} enemy.y - The vertical position of the enemy.
      * @param {number} enemy.height - The height of the enemy.
-     * @returns {boolean} - Returns true if the object is above the enemy and moving upwards, otherwise false.
+     * @returns {boolean} True if the object is above the enemy, false otherwise.
      */
     isAboveEnemy(enemy) {
-        return this.y + this.height < enemy.y + enemy.height && this.speedY < 0;
-    }
+        const verticalOverlap = this.y + this.height - enemy.y;
+        return verticalOverlap > 0 && verticalOverlap < enemy.height && this.speedY < 0;
+    }    
 }
