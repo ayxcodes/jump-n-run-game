@@ -21,14 +21,18 @@ class ThrowableObject extends MovableObject {
     /**
      * Creates an instance of a throwable object at the specified position.
      * Loads the initial rotation images, sets up collision detection, and starts the throwing animation.
+     * @param {number} x - The x-coordinate where the object will be placed.
+     * @param {number} y - The y-coordinate where the object will be placed.
+     * @param {number} direction - The direction in which the object is thrown (1 for right, -1 for left).
      */
-    constructor(x, y) {
+    constructor(x, y, direction) {
         super();
         this.loadImage(this.imagesRotation[0]);
         this.loadImages(this.imagesRotation);
         this.loadImages(this.imagesSplash);
         this.x = x;
         this.y = y;
+        this.direction = direction;
         this.height = 80;
         this.width = 80;
         this.world = world;
@@ -47,20 +51,20 @@ class ThrowableObject extends MovableObject {
     };
 
     /**
-     * Starts the throwing motion for the object.
-     * The object is affected by gravity and moves horizontally.
-     * It checks for collisions with enemies during the throw.
+     * Starts the throwing motion for the object in the correct direction.
+     * The object is affected by gravity and moves horizontally based on the character's direction.
+     * @param {number} direction - The direction in which the object is thrown (1 for right, -1 for left).
      */
     throw() {
         this.speedY = 25;
         this.applyGravity();
         setInterval(() => {
-            this.x += 10;
+            this.x += 10 * this.direction;
         }, 25);
-
+    
         this.animateRotation();
     }
-
+    
     /**
      * Animates the rotation of the object while it is in the air.
      * Continuously updates the object's image from the rotation image array.

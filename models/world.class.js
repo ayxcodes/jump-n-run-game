@@ -116,20 +116,21 @@ class World {
     }
 
     /**
-     * Checks if the player is attempting to throw a bottle and if there are any bottles available.
+     * Checks if the player is attempting to throw a bottle and determines the direction of the throw.
+     * If the character is facing right, the bottle is thrown to the right; if facing left, it is thrown to the left.
      */
     checkThrowableObjects() {
-        if (this.keyboard.D) {
-            if (this.bottleCount.amount > 0) {
-                let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 120);
-                this.throwableObjects.push(bottle);
-                this.bottleCount.amount = this.bottleCount.amount - 1;
-                setInterval(() => {
-                    this.checkCollisionBottle(bottle);
-                }, 25);
-            }
+        if (this.keyboard.D && this.bottleCount.amount > 0) {
+            let direction = this.character.otherDirection ? -1 : 1; // Richtung bestimmen
+            let bottle = new ThrowableObject(this.character.x + (direction * 60), this.character.y + 120, direction);
+            this.throwableObjects.push(bottle);
+            this.bottleCount.amount--;
+            setInterval(() => {
+                this.checkCollisionBottle(bottle);
+            }, 25);
         }
     }
+    
 
     /**
      * Renders the game world to the canvas, redrawing all game objects.

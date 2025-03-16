@@ -14,16 +14,6 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/1_walk/G3.png',
         'img/4_enemie_boss_chicken/1_walk/G4.png'
     ];
-    imagesAlert = [
-        'img/4_enemie_boss_chicken/2_alert/G5.png',
-        'img/4_enemie_boss_chicken/2_alert/G6.png',
-        'img/4_enemie_boss_chicken/2_alert/G7.png',
-        'img/4_enemie_boss_chicken/2_alert/G8.png',
-        'img/4_enemie_boss_chicken/2_alert/G9.png',
-        'img/4_enemie_boss_chicken/2_alert/G10.png',
-        'img/4_enemie_boss_chicken/2_alert/G11.png',
-        'img/4_enemie_boss_chicken/2_alert/G12.png'
-    ];
     imagesAttack = [
         'img/4_enemie_boss_chicken/3_attack/G13.png',
         'img/4_enemie_boss_chicken/3_attack/G14.png',
@@ -52,11 +42,9 @@ class Endboss extends MovableObject {
     constructor() {
         super().loadImage(this.imagesWalking[0]);
         this.loadImages(this.imagesWalking);
-        this.loadImages(this.imagesAlert);
         this.loadImages(this.imagesAttack);
         this.loadImages(this.imagesHurt);
         this.loadImages(this.imagesDead);
-        
         this.x = 500;
         this.animate();
     }
@@ -73,8 +61,8 @@ class Endboss extends MovableObject {
     };
 
     /**
-     * Starts the Endboss's movement and animation cycles.
-     * The Endboss moves left and performs walking animation at regular intervals.
+     * Starts the endboss animation loop
+     * and checks the distance to the character.
      */
     animate() {
         setInterval(() => {
@@ -84,19 +72,21 @@ class Endboss extends MovableObject {
 
         setInterval(() => {
             this.playAnimationEndboss();
-        }, 500);
+        }, 200);
     }
 
     /**
-     * Plays the correct animation based on endboss state.
+     * Plays the appropriate animation for the Endboss based on its current state.
      */
     playAnimationEndboss() {
-        if (this.isDead()) {
-            this.endbossDead();
-        } else if (this.isHurt()) {
-            this.playAnimation(this.imagesHurt);
-        } else {
+        if (!this.isDead() && !this.isHurt() && !this.encountered) {
             this.playAnimation(this.imagesWalking);
+        } else if (this.isHurt() && !this.isDead()) {
+            this.playAnimation(this.imagesHurt);
+        } else if (this.isDead()) {
+            this.endbossDead();
+        } else if (this.encountered) {
+            this.playAnimation(this.imagesAttack);
         }
     }
 
@@ -113,16 +103,20 @@ class Endboss extends MovableObject {
     }
 
     /**
-     * Checks the distance between the Endboss and the character.
-    */
+     * Checks the distance between the endboss and the character.
+     * If the endboss is close to the player (less than 300 units), it begins attacking and shows its energy bar.
+     * If the endboss is far away, it moves at a slower speed and does not engage in the attack.
+     */
     checkCharacterDistance() {
         this.character = world.character;
         this.distance = Math.abs(this.character.x - this.x);
-        if (this.distance < 200) {
+        if (this.distance < 300) {
             this.encountered = true;
             this.showEndbossEnergyBar = true;
+            this.speed = 0.5;
         } else if (this.distance > 300) {
             this.encountered = false;
+            this.speed = 0.15;
         }
     }
 }

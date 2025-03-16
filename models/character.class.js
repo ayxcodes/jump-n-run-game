@@ -55,11 +55,7 @@ class Character extends MovableObject {
     ];
     imagesDead = [
         'img/2_character_pepe/5_dead/D_51.png',
-        'img/2_character_pepe/5_dead/D_52.png',
-        'img/2_character_pepe/5_dead/D_53.png',
-        'img/2_character_pepe/5_dead/D_54.png',
-        'img/2_character_pepe/5_dead/D_55.png',
-        'img/2_character_pepe/5_dead/D_56.png',
+        'img/2_character_pepe/5_dead/D_52.png'
     ];
 
     /**
