@@ -80,7 +80,6 @@ class Endboss extends MovableObject {
      * Plays the appropriate animation for the Endboss based on its current state.
      */
     playAnimationEndboss() {
-        console.log("DÖÖÖÖÖNERGYYYY ", this.energy)
         if (this.isDead()) {
             this.endbossDead();
         } else if (this.isHurt()) {

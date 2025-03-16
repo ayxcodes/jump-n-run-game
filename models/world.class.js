@@ -13,8 +13,8 @@ class World {
     character = new Character();
     coinCount = new CoinCount();
     bottleCount = new BottleCount();
-    characterEnergyBar = new characterEnergyBar();
     endbossEnergyBar = new endbossEnergyBar();
+    characterEnergyBar = new characterEnergyBar();
 
     /**
      * Creates an instance of the World.

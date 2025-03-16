@@ -6,7 +6,6 @@ const startScreen = document.getElementById("startScreen");
 const endScreen = document.getElementById("endScreen");
 const playBtn = document.getElementById("playBtn");
 const settings = document.getElementById("settings");
-const sound = document.getElementById("sound");
 const overlay = document.getElementById("overlaySettings");
 
 /**
@@ -206,14 +205,18 @@ function toggleButton(buttonId) {
     });
 }
 
-function toggleSound() {    
-    if (audio.paused) {
-        audio.play();
-        button.src = "img/sound-on.png";
-    } else {
-        audio.pause();
-        button.src = "img/sound-off.png";
-    }
+function toggleSoundImg() {
+    const sounds = document.getElementById("sounds");
+
+    soundManager.toggleMute();
+    sounds.src = soundManager.muted ? "img/sound-off.png" : "img/sound-on.png";
+}
+
+function toggleSoundBtn() {
+    const sound = document.getElementById("sound");
+
+    soundManager.toggleMute();
+    sound.innerHTML = soundManager.muted ? "Sound off" : "Sound on";
 }
 
 /**

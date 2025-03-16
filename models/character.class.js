@@ -105,49 +105,45 @@ class Character extends MovableObject {
     }
 
     /**
-     * Handles character movement, including right, left, and jump actions.
-     * Also updates the camera position based on the character's location.
+     * Handles character movement based on user input.
      */
     characterMoving() {
-        this.characterMoveRight();
-        this.characterMoveLeft();
-        this.characterJump();
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEnd_x) {
+            this.characterMoveRight();
+        }
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.characterMoveLeft();
+        }
+        if (this.world.keyboard.SPACE && !this.isAboveGround() && !this.isJumping) {
+            this.characterJump();
+        }
         this.world.camera_x = -this.x + 100;
     }
 
     /**
-     * Moves the character to the right if the right arrow key is pressed
-     * and the character has not reached the end of the level.
+     * Moves the character to the right
      */
     characterMoveRight() {
-        if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEnd_x) {
-            this.moveRight();
-            this.otherDirection = false;
-            this.lastMove = new Date().getTime();
-        }
+        this.moveRight();
+        this.otherDirection = false;
+        this.lastMove = new Date().getTime();
     }
 
     /**
-     * Moves the character to the left if the left arrow key is pressed
-     * and the character is not at the beginning of the level.
+     * Moves the character to the left.
      */
     characterMoveLeft() {
-        if (this.world.keyboard.LEFT && this.x > 0) {
-            this.moveLeft();
-            this.otherDirection = true;
-            this.lastMove = new Date().getTime();
-        }
+        this.moveLeft();
+        this.otherDirection = true;
+        this.lastMove = new Date().getTime();
     }
 
     /**
-     * Makes the character jump if the space key is pressed,
-     * the character is on the ground, and is not already jumping.
+     * Makes the character jump.
      */
     characterJump() {
-        if (this.world.keyboard.SPACE && !this.isAboveGround() && !this.isJumping) {
-            this.startJump();
-            this.lastMove = new Date().getTime();
-        }
+        this.startJump();
+        this.lastMove = new Date().getTime();
     }
 
     /**
@@ -278,5 +274,5 @@ class Character extends MovableObject {
     isAboveEnemy(enemy) {
         const verticalOverlap = this.y + this.height - enemy.y;
         return verticalOverlap > 0 && verticalOverlap < enemy.height && this.speedY < 0;
-    }    
+    }
 }
