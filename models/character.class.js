@@ -9,6 +9,7 @@ class Character extends MovableObject {
     speed = 10;
     width = 140;
     height = 300;
+    lastMove = 0;
     imagesIdle = [
         'img/2_character_pepe/1_idle/idle/I_1.png',
         'img/2_character_pepe/1_idle/idle/I_6.png',
@@ -55,7 +56,10 @@ class Character extends MovableObject {
     ];
     imagesDead = [
         'img/2_character_pepe/5_dead/D_51.png',
-        'img/2_character_pepe/5_dead/D_52.png'
+        'img/2_character_pepe/5_dead/D_52.png',
+        'img/2_character_pepe/4_hurt/H_41.png',
+        'img/2_character_pepe/4_hurt/H_42.png',
+        'img/2_character_pepe/4_hurt/H_43.png'
     ];
 
     /**
@@ -129,6 +133,10 @@ class Character extends MovableObject {
             this.playJumpAnimation();
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(this.imagesWalking);
+        } else if (this.characterIsSleeping()) {
+            this.playAnimation(this.imagesSleeping);
+        } else {
+            this.loadImage(this.imagesIdle[0]);
         }
         
         this.checkCollectables(this.world.level.coins);
@@ -206,5 +214,15 @@ class Character extends MovableObject {
             this.world.bottleCount.amount = this.world.bottleCount.amount + 1;
         }
         item.removeFromCanvas();
+    }
+
+    /**
+     * Checks if the character is in a sleeping state based on inactivity time.
+     * @returns {boolean} True if the character is sleeping, otherwise false.
+     */
+    characterIsSleeping() {
+        let timepassed = new Date().getTime() - this.lastMove;
+        timepassed = timepassed / 1000;
+        return timepassed > 10 && timepassed < 3600;
     }
 }

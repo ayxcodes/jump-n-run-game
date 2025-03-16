@@ -79,14 +79,16 @@ class Endboss extends MovableObject {
      * Plays the appropriate animation for the Endboss based on its current state.
      */
     playAnimationEndboss() {
-        if (!this.isDead() && !this.isHurt() && !this.encountered) {
-            this.playAnimation(this.imagesWalking);
-        } else if (this.isHurt() && !this.isDead()) {
-            this.playAnimation(this.imagesHurt);
-        } else if (this.isDead()) {
+        console.log("DÖÖÖÖÖNERGYYYY ", this.energy)
+        if (this.isDead()) {
             this.endbossDead();
+        } else if (this.isHurt()) {
+            this.playAnimation(this.imagesHurt);
+            
         } else if (this.encountered) {
             this.playAnimation(this.imagesAttack);
+        } else {
+            this.playAnimation(this.imagesWalking);
         }
     }
 
@@ -95,7 +97,7 @@ class Endboss extends MovableObject {
         setInterval(() => {
             this.img = this.imageCache[this.imagesDead[index]];
             index++;
-    
+            console.log(this.img)
             if (index >= this.imagesDead.length) {
                 gameWon();
             }

@@ -92,6 +92,15 @@ class World {
      * If a collision is detected, it applies the appropriate effect, such as killing the enemy or starting the splash animation.
      */
     checkCollisionBottle(mo) {
+        this.chickenDead(mo);
+        this.endbossHurt(mo);
+
+        if (mo.y >= 330) {
+            mo.playSplashAnimation();
+        }
+    }
+
+    chickenDead(mo) {
         this.level.enemies.forEach((enemy, index) => {
             if (mo.isColliding(enemy, index) && !mo.splashAnimationPlaying) {
                 if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
@@ -102,15 +111,15 @@ class World {
                         this.level.enemies.splice(index, 1);
                     }, 200);
                 }
-                if (enemy instanceof Endboss) {
-                    this.endboss.hit();
-                    this.endbossEnergyBar.setPercentage(this.endboss.energy);
-                }
                 mo.playSplashAnimation();
             }
         });
+    }
 
-        if (mo.y >= 330) {
+    endbossHurt(mo) {
+        if (mo.isColliding(this.endboss) && !mo.splashAnimationPlaying) {
+            this.endboss.hit();
+            this.endbossEnergyBar.setPercentage(this.endboss.energy);
             mo.playSplashAnimation();
         }
     }
@@ -143,6 +152,7 @@ class World {
         this.addFixedObjects();
         this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
+        this.addToMap(this.endboss);
         this.ctx.translate(-this.camera_x, 0);
         self = this;
         requestAnimationFrame(function() {

@@ -106,6 +106,7 @@ class MovableObject extends DrawableObject{
      * @param {number} damage - The amount of energy to reduce.
      */
     hit() {
+        //console.log("Object: ", this, " Energy: ", this.energy);
         this.energy -= 5;
         if (this.energy < 0) {
             this.energy = 0;
@@ -131,7 +132,7 @@ class MovableObject extends DrawableObject{
      * @returns {boolean} `true` if the object is dead, `false` otherwise.
      */
     isDead() {
-        return this.energy == 0;
+        return this.energy <= 0;
     }
 
     /**
