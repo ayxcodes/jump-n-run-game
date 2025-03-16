@@ -58,8 +58,9 @@ function getImprintTemplate() {
     return `
         <div id="settingsMenu" class="settingsMenu">
             <h2>Imprint</h2>
-            <p>DA 2025</p>
-            <p>Aylin C.</p>
+            <p>Aylin Celikhan</p>
+            <p>+49 171583280</p>
+            <p>a.cel@gmail.com</p>
             <button class="settingsBtn" onclick="showSettings()">←</button>
         </div>
     `;
