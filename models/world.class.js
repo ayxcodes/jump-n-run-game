@@ -121,7 +121,7 @@ class World {
      */
     checkThrowableObjects() {
         if (this.keyboard.D && this.bottleCount.amount > 0) {
-            let direction = this.character.otherDirection ? -1 : 1; // Richtung bestimmen
+            let direction = this.character.otherDirection ? -1 : 1;
             let bottle = new ThrowableObject(this.character.x + (direction * 60), this.character.y + 120, direction);
             this.throwableObjects.push(bottle);
             this.bottleCount.amount--;
