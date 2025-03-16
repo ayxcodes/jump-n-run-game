@@ -42,6 +42,7 @@ class Bottle extends CollectableObject {
 
     /**
      * Defines the offset values for collision detection.
+     * 
      * @type {{top: number, bottom: number, left: number, right: number}}
      */
     offset = {

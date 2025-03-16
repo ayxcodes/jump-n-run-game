@@ -8,6 +8,7 @@ class backgroundObject extends MovableObject {
 
     /**
      * Creates an instance of BackgroundObject.
+     * 
      * @param {string} imgPath - The path to the background image.
      * @param {number} x - The x-coordinate position of the background object.
      */

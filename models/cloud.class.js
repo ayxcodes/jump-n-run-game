@@ -27,6 +27,7 @@ class Cloud extends MovableObject {
 
     /**
      * Returns a random cloud image from the `images` array.
+     * 
      * @returns {string} - The path to the random cloud image.
      */
     getRandomImage() {

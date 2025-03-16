@@ -18,6 +18,7 @@ class World {
 
     /**
      * Creates an instance of the World.
+     * 
      * @param {HTMLCanvasElement} canvas - The canvas element used for rendering the game world.
      */
     constructor(canvas) {
@@ -66,20 +67,18 @@ class World {
         }, 200);
     }
 
-
+    /**
+     * Checks for collisions between the given game object and enemies in the level.
+     * If the object collides with an enemy while falling, the enemy is defeated and the object jumps.
+     * If the object collides with a live enemy from the side, it takes damage.
+     *
+     * @param {Object} mo - The moving object (e.g., the player character) to check for collisions.
+     */
     checkCollisions(mo) {
         this.level.enemies.forEach((enemy, index) => {
             if (mo.isColliding(enemy, index) && mo.isAboveGround() && mo.speedY <= 0) {
-                if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
-                    enemy.img = enemy.imageCache[enemy.imageDead[0]];
-                    enemy.isDead = true;
-
-                    setTimeout(() => {
-                        this.level.enemies.splice(index, 1);
-                    }, 200);
-
-                    mo.jump();
-                }
+                this.chickenDead(enemy, index);
+                mo.jump();
             } else if (!enemy.dead && mo.isColliding(enemy)) {
                 mo.hit();
                 this.characterEnergyBar.setPercentage(mo.energy);
@@ -87,35 +86,58 @@ class World {
         });
     }
 
-        /**
-     * Checks for collisions with enemies in the game world.
-     * If a collision is detected, it applies the appropriate effect, such as killing the enemy or starting the splash animation.
+    /**
+     * Checks for collisions between the given object (typically a bottle) and other game elements.
+     * If a collision is detected, it handles enemy damage or plays a splash animation when hitting the ground.
+     *
+     * @param {Object} mo - The moving object (e.g., a thrown bottle) to check for collisions.
      */
     checkCollisionBottle(mo) {
-        this.chickenDead(mo);
+        this.bottleColliding(mo);
         this.endbossHurt(mo);
-
         if (mo.y >= 330) {
             mo.playSplashAnimation();
         }
     }
 
-    chickenDead(mo) {
+    /**
+     * Checks if a bottle is colliding with any enemy and triggers the splash animation.
+     * If the bottle hits an enemy, the enemy is marked as dead.
+     * 
+     * @param {object} mo - The moving object (bottle) that may collide with enemies.
+     */
+    bottleColliding(mo) {
         this.level.enemies.forEach((enemy, index) => {
             if (mo.isColliding(enemy, index) && !mo.splashAnimationPlaying) {
-                if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
-                    enemy.img = enemy.imageCache[enemy.imageDead[0]];
-                    enemy.isDead = true;
-
-                    setTimeout(() => {
-                        this.level.enemies.splice(index, 1);
-                    }, 200);
-                }
+                this.chickenDead(enemy, index);
                 mo.playSplashAnimation();
             }
         });
     }
 
+    /**
+     * Marks a chicken as dead and removes it from the enemy list after a short delay.
+     * 
+     * @param {object} enemy - The enemy that was hit (Chicken or SmallChicken).
+     * @param {number} index - The index of the enemy in the enemies array.
+     */
+    chickenDead(enemy, index) {
+        if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
+            enemy.img = enemy.imageCache[enemy.imageDead[0]];
+            enemy.isDead = true;
+
+            setTimeout(() => {
+                this.level.enemies.splice(index, 1);
+            }, 200);
+        }
+    }
+
+    /**
+     * Handles collision with the Endboss, reducing its energy and updating the energy bar.
+     * Triggers the splash animation if a hit is detected.
+     * 
+     * @param {object} mo - The moving object (bottle) that may collide with the Endboss.
+     */
     endbossHurt(mo) {
         if (mo.isColliding(this.endboss) && !mo.splashAnimationPlaying) {
             this.endboss.hit();
@@ -139,7 +161,6 @@ class World {
             }, 25);
         }
     }
-    
 
     /**
      * Renders the game world to the canvas, redrawing all game objects.
@@ -186,6 +207,7 @@ class World {
 
     /**
      * Adds a list of objects to the game world map.
+     * 
      * @param {Array} objects - The list of objects to be added to the map.
      */
     addObjectsToMap(objects) {
@@ -196,6 +218,7 @@ class World {
 
     /**
      * Draws a given object to the map, flipping its image if necessary.
+     * 
      * @param {Object} mo - The object to be drawn to the map.
      */
     addToMap(mo) {
@@ -210,6 +233,7 @@ class World {
 
     /**
      * Flips an image horizontally for objects facing the opposite direction.
+     * 
      * @param {Object} mo - The object whose image needs to be flipped.
      */
     flipImage(mo) {
@@ -221,6 +245,7 @@ class World {
 
     /**
      * Restores the flipped image to its original orientation.
+     * 
      * @param {Object} mo - The object whose image needs to be restored.
      */
     flipImageBack(mo) {

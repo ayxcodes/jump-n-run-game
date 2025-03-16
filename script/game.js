@@ -186,6 +186,11 @@ function toggleScreen(screenId) {
     });
 }
 
+/**
+ * Toggles the visibility of a button by showing the specified button and hiding others.
+ *
+ * @param {string} buttonId - The ID of the button to be displayed.
+ */
 function toggleButton(buttonId) {
     const buttons = ["settings", "sounds"];
 
@@ -201,8 +206,14 @@ function toggleButton(buttonId) {
     });
 }
 
-function toggleSounds() {
-
+function toggleSound() {    
+    if (audio.paused) {
+        audio.play();
+        button.src = "img/sound-on.png";
+    } else {
+        audio.pause();
+        button.src = "img/sound-off.png";
+    }
 }
 
 /**
@@ -250,6 +261,7 @@ function showImprint() {
 
 /**
  * Generates a coin arc in a parabolic path.
+ * 
  * @param {number} startX - The starting X coordinate.
  * @param {number} startY - The starting Y coordinate.
  * @param {number} width - The width of the arc.

@@ -14,6 +14,7 @@ class DrawableObject {
 
     /**
      * Loads an image from the given path.
+     * 
      * @param {string} path - The path to the image file.
      * @returns {void}
      */

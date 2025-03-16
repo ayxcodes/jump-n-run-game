@@ -21,6 +21,7 @@ class ThrowableObject extends MovableObject {
     /**
      * Creates an instance of a throwable object at the specified position.
      * Loads the initial rotation images, sets up collision detection, and starts the throwing animation.
+     * 
      * @param {number} x - The x-coordinate where the object will be placed.
      * @param {number} y - The y-coordinate where the object will be placed.
      * @param {number} direction - The direction in which the object is thrown (1 for right, -1 for left).
@@ -41,6 +42,7 @@ class ThrowableObject extends MovableObject {
 
     /**
      * Defines the offset values for collision detection.
+     * 
      * @type {{top: number, bottom: number, left: number, right: number}}
      */
     offset = {
@@ -53,6 +55,7 @@ class ThrowableObject extends MovableObject {
     /**
      * Starts the throwing motion for the object in the correct direction.
      * The object is affected by gravity and moves horizontally based on the character's direction.
+     * 
      * @param {number} direction - The direction in which the object is thrown (1 for right, -1 for left).
      */
     throw() {

@@ -64,6 +64,7 @@ class Character extends MovableObject {
 
     /**
      * Defines the offset values for collision detection.
+     * 
      * @type {{top: number, bottom: number, left: number, right: number}}
      */
     offset = {
@@ -104,21 +105,49 @@ class Character extends MovableObject {
     }
 
     /**
-     * Handles character movement based on user input.
+     * Handles character movement, including right, left, and jump actions.
+     * Also updates the camera position based on the character's location.
      */
     characterMoving() {
+        this.characterMoveRight();
+        this.characterMoveLeft();
+        this.characterJump();
+        this.world.camera_x = -this.x + 100;
+    }
+
+    /**
+     * Moves the character to the right if the right arrow key is pressed
+     * and the character has not reached the end of the level.
+     */
+    characterMoveRight() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEnd_x) {
             this.moveRight();
             this.otherDirection = false;
+            this.lastMove = new Date().getTime();
         }
+    }
+
+    /**
+     * Moves the character to the left if the left arrow key is pressed
+     * and the character is not at the beginning of the level.
+     */
+    characterMoveLeft() {
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
             this.otherDirection = true;
+            this.lastMove = new Date().getTime();
         }
+    }
+
+    /**
+     * Makes the character jump if the space key is pressed,
+     * the character is on the ground, and is not already jumping.
+     */
+    characterJump() {
         if (this.world.keyboard.SPACE && !this.isAboveGround() && !this.isJumping) {
             this.startJump();
+            this.lastMove = new Date().getTime();
         }
-        this.world.camera_x = -this.x + 100;
     }
 
     /**
@@ -133,14 +162,12 @@ class Character extends MovableObject {
             this.playJumpAnimation();
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(this.imagesWalking);
-        } else if (this.characterIsSleeping()) {
+        } else if (this.isSleeping()) {
             this.playAnimation(this.imagesSleeping);
         } else {
             this.loadImage(this.imagesIdle[0]);
         }
-        
-        this.checkCollectables(this.world.level.coins);
-        this.checkCollectables(this.world.level.bottles);
+        this.collectableItems();
     }
     
     /**
@@ -195,6 +222,7 @@ class Character extends MovableObject {
 
     /**
      * Checks for collectible items and collects them if applicable.
+     * 
      * @param {Array} objects - Array of collectible objects.
      */
     checkCollectables(objects) {
@@ -204,7 +232,17 @@ class Character extends MovableObject {
     }
 
     /**
+     * Checks and collects all available collectable items in the current level.
+     * This includes coins and bottles.
+     */
+    collectableItems() {
+        this.checkCollectables(this.world.level.coins);
+        this.checkCollectables(this.world.level.bottles);
+    }
+
+    /**
      * Collects an item and updates the respective counters.
+     * 
      * @param {object} item - The item to be collected.
      */
     collectItem(item) {
@@ -218,11 +256,12 @@ class Character extends MovableObject {
 
     /**
      * Checks if the character is in a sleeping state based on inactivity time.
+     * 
      * @returns {boolean} True if the character is sleeping, otherwise false.
      */
-    characterIsSleeping() {
+    isSleeping() {
         let timepassed = new Date().getTime() - this.lastMove;
         timepassed = timepassed / 1000;
-        return timepassed > 10 && timepassed < 3600;
+        return timepassed > 5 && timepassed < 3600;
     }
 }
