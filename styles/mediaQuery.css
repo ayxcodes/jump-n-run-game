@@ -2,21 +2,19 @@
  * Devices with max. width 720px.
  */
 @media only screen and (max-width: 720px) {
-    canvas {
-        width: 100%;
+    .gameScreen {
+        display: none;
     }
 
-    .gameScreen,
-    .startScreen,
-    .endScreen {
-        width: 100%;
+    .rotateDevice {
+        display: flex;
     }
 }
 
 /*
- * Devices with max. width 420px.
+ * Devices with max. height 420px.
  */
- @media only screen and (max-width: 420px) {
+ @media only screen and (max-height: 420px) {
     h1 {
         font-size: 48px;
     }
@@ -42,12 +40,7 @@
     .startScreen {
         height: 100vh;
     }
-}
 
-/*
- * Devices with max. height 480px.
- */
-@media(max-height: 480px) {
     .gameScreen {
         height: 100%;
         width: 100%;
