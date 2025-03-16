@@ -227,12 +227,4 @@ class World {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
-
-    /**
-     * Ends the game and displays the Game Over screen.
-     */
-    gameOver() {
-        clearInterval(this.run);
-        showGameOver();
-    }
 }

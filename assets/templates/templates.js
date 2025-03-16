@@ -27,7 +27,6 @@ function getSoundTemplate() {
         <div id="settingsMenu" class="settingsMenu">
             <h2>Sound</h2>
             <button id="sounds" class="soundBtn" onclick="toggleSound()">Sounds off</button>
-            <button id="music" class="musicBtn" onclick="toggleMusic()">Music off</button>
             <button class="settingsBtn" onclick="showSettings()">←</button>
         </div>
     `;

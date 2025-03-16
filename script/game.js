@@ -6,6 +6,7 @@ const startScreen = document.getElementById("startScreen");
 const endScreen = document.getElementById("endScreen");
 const playBtn = document.getElementById("playBtn");
 const settings = document.getElementById("settings");
+const sound = document.getElementById("sound");
 const overlay = document.getElementById("overlaySettings");
 
 /**
@@ -30,6 +31,7 @@ function initWorld() {
 function showCanvas() {
     toggleScreen("canvas");
     playBtn.classList.add("dNone");
+    toggleButton("sounds");
 }
 
 /**
@@ -38,6 +40,7 @@ function showCanvas() {
 function showStart() {
     toggleScreen("startScreen");
     playBtn.classList.remove("dNone");
+    toggleButton("settings");
 }
 
 /**
@@ -91,6 +94,7 @@ function applyFullscreenStyles(img) {
     img.src = "img/fullscreen-off.png";
     img.classList.add("active");
     settings.classList.add("fullscreenSettings");
+    sounds.classList.add("fullscreenSounds");
     updateButtonStyles("fullscreenBtn", "btn");
 }
 
@@ -101,6 +105,7 @@ function removeFullscreenStyles(img) {
     img.src = "img/fullscreen-on.png";
     img.classList.remove("active");
     settings.classList.remove("fullscreenSettings");
+    sounds.classList.remove("fullscreenSounds");
     updateButtonStyles("btn", "fullscreenBtn");
 }
 
@@ -147,6 +152,7 @@ function showLostScreen() {
     toggleScreen("endScreen");
     endScreen.innerHTML = ``;
     endScreen.innerHTML += getLostScreenTemplate();
+    toggleButton("settings");
 }
 
 /**
@@ -157,6 +163,7 @@ function showWonScreen() {
     toggleScreen("endScreen");
     endScreen.innerHTML = ``;
     endScreen.innerHTML += getWonScreenTemplate();
+    toggleButton("settings");
 }
 
 /**
@@ -168,7 +175,7 @@ function toggleScreen(screenId) {
     const screens = ["startScreen", "endScreen", "canvas"];
     
     screens.forEach(id => {
-        const element = document.getElementById(id);
+        let element = document.getElementById(id);
         if (element) {
             if (id === screenId) {
                 element.classList.remove("dNone");
@@ -179,11 +186,22 @@ function toggleScreen(screenId) {
     });
 }
 
-function toggleSounds() {
+function toggleButton(buttonId) {
+    const buttons = ["settings", "sounds"];
 
+    buttons.forEach(id => {
+        let element = document.getElementById(id);
+        if (element) {
+            if (id === buttonId) {
+                element.classList.remove("dNone");
+            } else {
+                element.classList.add("dNone");
+            }
+        }
+    });
 }
 
-function toggleMusic() {
+function toggleSounds() {
 
 }
 

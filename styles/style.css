@@ -137,16 +137,26 @@ a {
 }
 
 img.settings,
+img.sounds,
 img.fullscreenSettings {
     position: absolute;
     transition: transform 0.3s ease-in-out;
 }
 
-img.settings {
+img.settings,
+img.sounds {
     top: 20px;
     right: 20px;
+}
+
+img.settings {
     width: 40px;
     height: 40px;
+}
+
+img.sounds {
+    width: 50px;
+    height: 50px;
 }
 
 img.fullscreenSettings {
@@ -154,6 +164,13 @@ img.fullscreenSettings {
     right: 30px;
     width: 60px;
     height: 60px;
+}
+
+img.fullscreenSounds {
+    top: 30px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
 }
 
 .fullScreen {
