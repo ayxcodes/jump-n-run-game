@@ -55,10 +55,10 @@ class Endboss extends MovableObject {
      * @type {{top: number, bottom: number, left: number, right: number}}
      */
     offset = {
-        top: 60,
-        bottom: 20,
-        left: 40,
-        right: 20
+        top: 160,
+        bottom: 120,
+        left: 140,
+        right: 120
     };
 
     /**
@@ -93,16 +93,15 @@ class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Triggers the end boss death animation.
+     * After a short delay, the game has been won.
+     */
     endbossDead() {
-        let index = 0;
-        setInterval(() => {
-            this.img = this.imageCache[this.imagesDead[index]];
-            index++;
-            console.log(this.img)
-            if (index >= this.imagesDead.length) {
-                gameWon();
-            }
-        }, 200);
+        this.playAnimation(this.imagesDead);
+        setTimeout(() => {
+            gameWon();
+        }, 1000);
     }
 
     /**

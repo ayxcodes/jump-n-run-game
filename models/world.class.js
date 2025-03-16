@@ -69,14 +69,14 @@ class World {
 
     /**
      * Checks for collisions between the given game object and enemies in the level.
-     * If the object collides with an enemy while falling, the enemy is defeated and the object jumps.
+     * If the object collides with an enemy while being above it, the enemy is defeated and the object jumps.
      * If the object collides with a live enemy from the side, it takes damage.
      *
      * @param {Object} mo - The moving object (e.g., the player character) to check for collisions.
      */
     checkCollisions(mo) {
         this.level.enemies.forEach((enemy, index) => {
-            if (mo.isColliding(enemy, index) && mo.isAboveGround() && mo.speedY <= 0) {
+            if (mo.isColliding(enemy, index) && mo.isAboveEnemy(enemy)) {
                 this.chickenDead(enemy, index);
                 mo.jump();
             } else if (!enemy.dead && mo.isColliding(enemy)) {
@@ -174,6 +174,7 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
         this.addToMap(this.endboss);
+        this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
         self = this;
         requestAnimationFrame(function() {
@@ -190,7 +191,6 @@ class World {
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableObjects);
     }
 
     /**

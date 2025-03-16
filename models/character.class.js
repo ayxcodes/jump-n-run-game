@@ -264,4 +264,16 @@ class Character extends MovableObject {
         timepassed = timepassed / 1000;
         return timepassed > 5 && timepassed < 3600;
     }
+
+    /**
+     * Checks if the object is above the given enemy.
+     *
+     * @param {Object} enemy - The enemy object to compare against.
+     * @param {number} enemy.y - The y-coordinate of the enemy.
+     * @param {number} enemy.height - The height of the enemy.
+     * @returns {boolean} - Returns true if the object is above the enemy and moving upwards, otherwise false.
+     */
+    isAboveEnemy(enemy) {
+        return this.y + this.height < enemy.y + enemy.height && this.speedY < 0;
+    }
 }
