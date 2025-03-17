@@ -15,7 +15,9 @@ class World {
     bottleCount = new BottleCount();
     endbossEnergyBar = new endbossEnergyBar();
     characterEnergyBar = new characterEnergyBar();
+    hurtSound = new Audio("assets/audio/ouch.mp3");
     stompSound = new Audio("assets/audio/stomp.mp3");
+    shatteredGlassSound = new Audio("assets/audio/shattered-glass.mp3");
 
     /**
      * Creates an instance of the World.
@@ -84,6 +86,7 @@ class World {
                     mo.jump();
                 } else {
                     mo.hit();
+                    this.playHurtSound();
                     this.characterEnergyBar.setPercentage(mo.energy);
                 }
             }
@@ -99,11 +102,13 @@ class World {
     checkCollisionBottle(mo) {
         this.bottleColliding(mo);
         this.endbossHurt(mo);
-        if (mo.y >= 330) {
-            mo.playSplashAnimation();
+        
+        if (mo.y >= 330 && !mo.splashAnimationPlaying) { 
+            this.bottleSplash(mo);
+            return true;
         }
+        return false;
     }
-
     /**
      * Checks if a bottle is colliding with any enemy and triggers the splash animation.
      * If the bottle hits an enemy, the enemy is marked as dead.
@@ -114,7 +119,7 @@ class World {
         this.level.enemies.forEach((enemy, index) => {
             if (mo.isColliding(enemy, index) && !mo.splashAnimationPlaying) {
                 this.chickenDead(enemy, index);
-                mo.playSplashAnimation();
+                this.bottleSplash(mo);
             }
         });
     }
@@ -129,6 +134,7 @@ class World {
         if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
             enemy.img = enemy.imageCache[enemy.imageDead[0]];
             enemy.isDead = true;
+            this.playStompSound();
 
             setTimeout(() => {
                 this.level.enemies.splice(index, 1);
@@ -146,7 +152,7 @@ class World {
         if (mo.isColliding(this.endboss) && !mo.splashAnimationPlaying) {
             this.endboss.hit();
             this.endbossEnergyBar.setPercentage(this.endboss.energy);
-            mo.playSplashAnimation();
+            this.bottleSplash(mo);
         }
     }
 
@@ -160,9 +166,22 @@ class World {
             let bottle = new ThrowableObject(this.character.x + (direction * 60), this.character.y + 120, direction);
             this.throwableObjects.push(bottle);
             this.bottleCount.amount--;
-            setInterval(() => {
-                this.checkCollisionBottle(bottle);
+            let collisionInterval = setInterval(() => {
+                if (this.checkCollisionBottle(bottle)) {
+                    clearInterval(collisionInterval);
+                }
             }, 25);
+        }
+    }
+
+    /**
+     * Plays a splash animation for an object and a shattered glass sound.
+     */
+    bottleSplash(mo) {
+        if (!mo.splashAnimationPlaying) {
+            mo.splashAnimationPlaying = true;
+            mo.playSplashAnimation();
+            this.playShatteredGlassSound();
         }
     }
 
@@ -255,5 +274,26 @@ class World {
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
+    }
+
+    /**
+     * Plays sound when character is hurt.
+     */
+    playHurtSound() {
+        this.hurtSound.play();
+    }
+
+    /**
+     * Plays sound when stomping en enemy.
+     */
+    playStompSound() {
+        this.stompSound.play();
+    }
+
+    /**
+     * Plays sound when bottle splashes.
+     */
+    playShatteredGlassSound() {
+        this.shatteredGlassSound.play();
     }
 }
