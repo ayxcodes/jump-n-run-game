@@ -13,6 +13,7 @@ class Character extends MovableObject {
     jumpSound = new Audio("assets/audio/jump.mp3");
     walkingSound = new Audio("assets/audio/walking.mp3");
     collectCoinSound = new Audio("assets/audio/coin.mp3");
+    gameLostSound = new Audio("assets/audio/game-lost.mp3");
     collectBottleSound = new Audio("assets/audio/bottle.mp3");
     imagesIdle = [
         'img/2_character_pepe/1_idle/idle/I_1.png',
@@ -219,6 +220,7 @@ class Character extends MovableObject {
     
             if (index >= this.imagesDead.length) {
                 gameLost();
+                this.playGameLostSound();
             }
         }, 400);
     }
@@ -298,6 +300,13 @@ class Character extends MovableObject {
      */
     playJumpSound() {
         this.jumpSound.play();
+    }
+
+    /**
+     * Plays losing game sound.
+     */
+    playGameLostSound() {
+        this.gameLostSound.play();
     }
 
     /**

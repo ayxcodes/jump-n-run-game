@@ -8,6 +8,7 @@ class Endboss extends MovableObject {
     width = 350;
     encountered = false;
     showEndbossEnergyBar = false;
+    gameWonSound = new Audio("assets/audio/game-won.mp3");
     imagesWalking = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
         'img/4_enemie_boss_chicken/1_walk/G2.png',
@@ -100,6 +101,7 @@ class Endboss extends MovableObject {
         this.playAnimation(this.imagesDead);
         setTimeout(() => {
             gameWon();
+            this.playGameWonSound();
         }, 1000);
     }
 
@@ -119,5 +121,12 @@ class Endboss extends MovableObject {
             this.encountered = false;
             this.speed = 0.15;
         }
+    }
+
+    /**
+     * Plays winning game sound.
+     */
+    playGameWonSound() {
+        this.gameWonSound.play();
     }
 }

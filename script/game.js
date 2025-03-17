@@ -14,40 +14,38 @@ function toggleSoundImg() {
     const sounds = document.getElementById("sounds");
 
     toggleMute();
-    sounds.src = soundManager.muted ? "img/sound-off.png" : "img/sound-on.png";
+    sounds.src = isMuted ? "img/sound-off.png" : "img/sound-on.png";
 }
 
 function toggleSoundBtn() {
-    const sound = document.getElementById("sound");
+    const soundBtn = document.getElementById("sound");
 
     toggleMute();
-    sound.innerText = soundManager.muted ? "Sound off" : "Sound on";
+    soundBtn.innerHTML = isMuted ? "Sound on" : "Sound off";
 }
 
 function toggleMute() {
     isMuted = !isMuted;
     allSounds.forEach(sound => {
-        sound.volume = isMuted ? 0 : 0.1;
-        isMuted ? sound.pause() : sound.play().catch(() => {});
+        sound.muted = isMuted;
+        if (isMuted) {
+            sound.pause();
+        } else {
+            sound.play().catch(() => {});
+        }
     });
 }
 
-/**
- * Registriert einen Sound im `allSounds`-Array.
- * @param {HTMLAudioElement} audioElement - Der Sound, der registriert werden soll.
- */
 function initSound(audioElement) {
     allSounds.push(audioElement);
 }
 
-/**
- * Registriert alle Sounds des Spiels.
- */
 function initSounds() {
     if (!world) return;
     initSound(world.hurtSound);
     initSound(world.stompSound);
     initSound(world.shatteredGlassSound);
+    initSound(world.endboss.gameWonSound);
     initCharacterSounds();
 }
 
@@ -57,7 +55,7 @@ function initSounds() {
 function initCharacterSounds() {
     if (!world.character) return;
 
-    ["walkingSound", "jumpSound", "collectCoinSound", "collectBottleSound"].forEach(sound => 
+    ["walkingSound", "jumpSound", "collectCoinSound", "collectBottleSound", "gameLostSound"].forEach(sound => 
         initSound(world.character[sound])
     );
 }
@@ -69,6 +67,10 @@ function startGame() {
     showCanvas();
     initLevel();
     initWorld();
+    initSounds();
+    if (isMuted) {
+        toggleMute();  
+    }
 }
 
 /**
@@ -179,15 +181,6 @@ function updateButtonStyles(addClass, removeClass) {
 function gameLost() {
     clearAllIntervals();
     showLostScreen();
-    playLostSound();
-}
-
-/**
- * Plays the losing game sound.
- */
-function playLostSound() {
-    const gameLostSound = new Audio("assets/audio/game-lost.mp3");
-    gameLostSound.play();
 }
 
 /**
@@ -197,15 +190,6 @@ function playLostSound() {
 function gameWon() {
     clearAllIntervals();
     showWonScreen();
-    playWonSound();
-}
-
-/**
- * Plays the winning game sound.
- */
-function playWonSound() {
-    const gameWonSound = new Audio("assets/audio/game-won.mp3");
-    gameWonSound.play();
 }
 
 /**
