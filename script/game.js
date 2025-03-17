@@ -48,7 +48,6 @@ function initSounds() {
     initSound(world.hurtSound);
     initSound(world.stompSound);
     initSound(world.shatteredGlassSound);
-    initSound(world.endboss.wonSound);
     initCharacterSounds();
 }
 
@@ -58,7 +57,7 @@ function initSounds() {
 function initCharacterSounds() {
     if (!world.character) return;
 
-    ["walkingSound", "jumpSound", "collectCoinSound", "collectBottleSound", "lostSound"].forEach(sound => 
+    ["walkingSound", "jumpSound", "collectCoinSound", "collectBottleSound"].forEach(sound => 
         initSound(world.character[sound])
     );
 }
@@ -175,20 +174,38 @@ function updateButtonStyles(addClass, removeClass) {
 
 /**
  * Handles the game lost scenario by clearing all active intervals 
- * and displaying the lost screen.
+ * and displaying the lost screen and playing the losing sound.
  */
 function gameLost() {
     clearAllIntervals();
     showLostScreen();
+    playLostSound();
+}
+
+/**
+ * Plays the losing game sound.
+ */
+function playLostSound() {
+    const gameLostSound = new Audio("assets/audio/game-lost.mp3");
+    gameLostSound.play();
 }
 
 /**
  * Handles the game won scenario by clearing all active intervals 
- * and displaying the winning screen.
+ * and displaying the winning screen and playing the winning sound.
  */
 function gameWon() {
     clearAllIntervals();
     showWonScreen();
+    playWonSound();
+}
+
+/**
+ * Plays the winning game sound.
+ */
+function playWonSound() {
+    const gameWonSound = new Audio("assets/audio/game-won.mp3");
+    gameWonSound.play();
 }
 
 /**
