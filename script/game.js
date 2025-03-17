@@ -1,4 +1,6 @@
 let world;
+let allSounds = [];
+let isMuted = false;
 let keyboard = new Keyboard();
 let canvas = document.getElementById('canvas');
 const gameScreen = document.getElementById("gameScreen");
@@ -7,6 +9,59 @@ const endScreen = document.getElementById("endScreen");
 const playBtn = document.getElementById("playBtn");
 const settings = document.getElementById("settings");
 const overlay = document.getElementById("overlaySettings");
+
+function toggleSoundImg() {
+    const sounds = document.getElementById("sounds");
+
+    toggleMute();
+    sounds.src = soundManager.muted ? "img/sound-off.png" : "img/sound-on.png";
+}
+
+function toggleSoundBtn() {
+    const sound = document.getElementById("sound");
+
+    toggleMute();
+    sound.innerText = soundManager.muted ? "Sound off" : "Sound on";
+}
+
+function toggleMute() {
+    isMuted = !isMuted;
+    allSounds.forEach(sound => {
+        sound.volume = isMuted ? 0 : 0.1;
+        isMuted ? sound.pause() : sound.play().catch(() => {});
+    });
+}
+
+/**
+ * Registriert einen Sound im `allSounds`-Array.
+ * @param {HTMLAudioElement} audioElement - Der Sound, der registriert werden soll.
+ */
+function initSound(audioElement) {
+    allSounds.push(audioElement);
+}
+
+/**
+ * Registriert alle Sounds des Spiels.
+ */
+function initSounds() {
+    if (!world) return;
+    initSound(world.hurtSound);
+    initSound(world.stompSound);
+    initSound(world.shatteredGlassSound);
+    initSound(world.endboss.wonSound);
+    initCharacterSounds();
+}
+
+/**
+ * Initializes character sounds.
+ */
+function initCharacterSounds() {
+    if (!world.character) return;
+
+    ["walkingSound", "jumpSound", "collectCoinSound", "collectBottleSound", "lostSound"].forEach(sound => 
+        initSound(world.character[sound])
+    );
+}
 
 /**
  * Starts the game by displaying the canvas and initializing the world.
@@ -203,20 +258,6 @@ function toggleButton(buttonId) {
             }
         }
     });
-}
-
-function toggleSoundImg() {
-    const sounds = document.getElementById("sounds");
-
-    soundManager.toggleMute();
-    sounds.src = soundManager.muted ? "img/sound-off.png" : "img/sound-on.png";
-}
-
-function toggleSoundBtn() {
-    const sound = document.getElementById("sound");
-
-    soundManager.toggleMute();
-    sound.innerHTML = soundManager.muted ? "Sound off" : "Sound on";
 }
 
 /**

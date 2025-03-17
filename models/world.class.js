@@ -15,6 +15,7 @@ class World {
     bottleCount = new BottleCount();
     endbossEnergyBar = new endbossEnergyBar();
     characterEnergyBar = new characterEnergyBar();
+    stompSound = new Audio("assets/audio/stomp.mp3");
 
     /**
      * Creates an instance of the World.

@@ -10,6 +10,10 @@ class Character extends MovableObject {
     width = 140;
     height = 300;
     lastMove = 0;
+    jumpSound = new Audio("assets/audio/jump.mp3");
+    walkingSound = new Audio("assets/audio/walking.mp3");
+    collectCoinSound = new Audio("assets/audio/coin.mp3");
+    collectBottleSound = new Audio("assets/audio/bottle.mp3");
     imagesIdle = [
         'img/2_character_pepe/1_idle/idle/I_1.png',
         'img/2_character_pepe/1_idle/idle/I_6.png',
@@ -125,6 +129,7 @@ class Character extends MovableObject {
      */
     characterMoveRight() {
         this.moveRight();
+        this.playWalkingSound();
         this.otherDirection = false;
         this.lastMove = new Date().getTime();
     }
@@ -134,6 +139,7 @@ class Character extends MovableObject {
      */
     characterMoveLeft() {
         this.moveLeft();
+        this.playWalkingSound();
         this.otherDirection = true;
         this.lastMove = new Date().getTime();
     }
@@ -143,6 +149,7 @@ class Character extends MovableObject {
      */
     characterJump() {
         this.startJump();
+        this.playJumpSound();
         this.lastMove = new Date().getTime();
     }
 
@@ -237,15 +244,18 @@ class Character extends MovableObject {
     }
 
     /**
-     * Collects an item and updates the respective counters.
+     * Collects an item, plays the collect sound
+     * and updates the respective counters.
      * 
      * @param {object} item - The item to be collected.
      */
     collectItem(item) {
         if (item instanceof Coin) {
             this.world.coinCount.amount = this.world.coinCount.amount + 1;
+            this.playCollectCoinSound();
         } else if (item instanceof Bottle) {
             this.world.bottleCount.amount = this.world.bottleCount.amount + 1;
+            this.playCollectBottleSound();
         }
         item.removeFromCanvas();
     }
@@ -274,5 +284,35 @@ class Character extends MovableObject {
     isAboveEnemy(enemy) {
         const verticalOverlap = this.y + this.height - enemy.y;
         return verticalOverlap > 0 && verticalOverlap < enemy.height && this.speedY < 0;
+    }
+
+    /**
+     * Plays sound when walking.
+     */
+    playWalkingSound() {
+        this.walkingSound.play();
+    }
+
+    /**
+     * Plays sound when jumping.
+     */
+    playJumpSound() {
+        this.jumpSound.play();
+    }
+
+    /**
+     * Plays sound when collecting a bottle.
+     */
+    playCollectBottleSound() {
+        this.collectBottleSound.currentTime = 0;
+        this.collectBottleSound.play();
+    }
+
+    /**
+     * Plays sound when collecting a coin.
+     */
+    playCollectCoinSound() {
+        this.collectCoinSound.currentTime = 0;
+        this.collectCoinSound.play();
     }
 }
