@@ -292,44 +292,52 @@ img.fullscreenSounds {
 /*
  * Hover styles
  */
-a:hover {
+a:hover,
+img.settings:hover,
+img.fullscreenSettings:hover,
+img.inactive:hover,
+img.active:hover, 
+.btn:hover,
+.fullscreenBtn:hover,
+.soundBtn:hover,
+.musicBtn:hover,
+.settingsBtn:hover,
+.sounds:hover {
     cursor: pointer;
+}
+
+
+a:hover {
     text-decoration: underline;
 }
 
 img.settings:hover,
 img.fullscreenSettings:hover {
-    cursor: pointer;
     transform: rotate(90deg)
 }
 
 img.inactive:hover {
     width: 40px;
     height: 40px;
-    cursor: pointer;
 }
 
 img.active:hover {
     width: 45px;
     height: 45px;
-    cursor: pointer;
 }
 
 .btn:hover,
 .fullscreenBtn:hover {
-    cursor: pointer;
     transform: translateY(2px);
     box-shadow: -2px 2px 0 #9A3A18;
 }
 
 .soundBtn:hover,
 .musicBtn:hover {
-    cursor: pointer;
     color: white;
     background-color: #9A3A18;
 }
 
 .settingsBtn:hover {
-    cursor: pointer;
     font-size: 25px;
 }
