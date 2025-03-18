@@ -2,38 +2,43 @@ let world;
 let allSounds = [];
 let isMuted = false;
 let keyboard = new Keyboard();
+let previouslyPlayingSounds = [];
 let canvas = document.getElementById('canvas');
-const gameScreen = document.getElementById("gameScreen");
-const startScreen = document.getElementById("startScreen");
-const endScreen = document.getElementById("endScreen");
 const playBtn = document.getElementById("playBtn");
 const settings = document.getElementById("settings");
+const endScreen = document.getElementById("endScreen");
+const gameScreen = document.getElementById("gameScreen");
+const startScreen = document.getElementById("startScreen");
 const overlay = document.getElementById("overlaySettings");
 
-function toggleSoundImg() {
-    const sounds = document.getElementById("sounds");
-
-    toggleMute();
-    sounds.src = isMuted ? "img/sound-off.png" : "img/sound-on.png";
-}
-
-function toggleSoundBtn() {
+function toggleSoundUI() {
+    const soundImg = document.getElementById("sounds");
     const soundBtn = document.getElementById("sound");
 
     toggleMute();
-    soundBtn.innerHTML = isMuted ? "Sound on" : "Sound off";
+    if (soundImg) {
+        soundImg.src = isMuted ? "img/sound-off.png" : "img/sound-on.png";
+    }
+    if (soundBtn) {
+        soundBtn.innerHTML = isMuted ? "Sounds off" : "Sounds on";
+    }
 }
+
 
 function toggleMute() {
     isMuted = !isMuted;
-    allSounds.forEach(sound => {
-        sound.muted = isMuted;
-        if (isMuted) {
+
+    if (isMuted) {
+        previouslyPlayingSounds = allSounds.filter(sound => !sound.paused);
+        allSounds.forEach(sound => {
+            sound.muted = true;
             sound.pause();
-        } else {
-            sound.play().catch(() => {});
-        }
-    });
+        });
+    } else {
+        allSounds.forEach(sound => sound.muted = false);
+        previouslyPlayingSounds.forEach(sound => sound.play().catch(() => {}));
+        previouslyPlayingSounds = [];
+    }
 }
 
 function initSound(audioElement) {
@@ -60,16 +65,17 @@ function initCharacterSounds() {
     );
 }
 
-/**
- * Starts the game by displaying the canvas and initializing the world.
- */
 function startGame() {
     showCanvas();
     initLevel();
     initWorld();
     initSounds();
+
     if (isMuted) {
-        toggleMute();  
+        allSounds.forEach(sound => {
+            sound.muted = true;
+            sound.pause();
+        });
     }
 }
 
@@ -93,9 +99,10 @@ function showCanvas() {
  * Displays the start screen and shows the start screen elements.
  */
 function showStart() {
+    toggleMute();
+    toggleButton("settings");
     toggleScreen("startScreen");
     playBtn.classList.remove("dNone");
-    toggleButton("settings");
 }
 
 /**
@@ -288,6 +295,7 @@ function showSettings() {
  */
 function showSound() {
     showOverlay(getSoundTemplate());
+    toggleSoundUI();
 }
 
 /**
