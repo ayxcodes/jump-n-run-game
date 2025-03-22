@@ -70,15 +70,12 @@ class World {
         }, 200);
     }
 
-    /**
-     * Checks for collisions between the given object (mo) and the enemies in the level.
-     * If a collision occurs, determines whether the object is above the enemy and processes the collision accordingly.
-     * If the object is above the enemy, the enemy is killed, and the object jumps.
-     * If not, the object takes damage, and the energy bar is updated.
-     *
-     * @param {Object} mo - The object to check for collisions with enemies (e.g., player or character).
-     */
     checkCollisions(mo) {
+        this.checkCollisionChicken(mo);
+        this.checkCollisionEndboss(mo);
+    }
+
+    checkCollisionChicken(mo) {
         this.level.enemies.forEach((enemy, index) => {
             if (!enemy.dead && mo.isColliding(enemy)) {
                 if (mo.isAboveEnemy(enemy)) {
@@ -91,6 +88,14 @@ class World {
                 }
             }
         });
+    }
+
+    checkCollisionEndboss(mo) {
+        if (mo.isColliding(this.endboss)) {
+            mo.hit();
+            this.playHurtSound();
+            this.characterEnergyBar.setPercentage(mo.energy);
+        }
     }
 
     /**
@@ -109,6 +114,7 @@ class World {
         }
         return false;
     }
+    
     /**
      * Checks if a bottle is colliding with any enemy and triggers the splash animation.
      * If the bottle hits an enemy, the enemy is marked as dead.

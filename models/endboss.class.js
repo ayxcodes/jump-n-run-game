@@ -6,6 +6,8 @@ class Endboss extends MovableObject {
     y = 80;
     height = 350;
     width = 350;
+    alerted = false;
+    isAngry = false;
     encountered = false;
     showEndbossEnergyBar = false;
     gameWonSound = new Audio("assets/audio/game-won.mp3");
@@ -14,6 +16,16 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/1_walk/G2.png',
         'img/4_enemie_boss_chicken/1_walk/G3.png',
         'img/4_enemie_boss_chicken/1_walk/G4.png'
+    ];
+    imagesAlert = [
+        'img/4_enemie_boss_chicken/2_alert/G5.png',
+        'img/4_enemie_boss_chicken/2_alert/G6.png',
+        'img/4_enemie_boss_chicken/2_alert/G7.png',
+        'img/4_enemie_boss_chicken/2_alert/G8.png',
+        'img/4_enemie_boss_chicken/2_alert/G9.png',
+        'img/4_enemie_boss_chicken/2_alert/G10.png',
+        'img/4_enemie_boss_chicken/2_alert/G11.png',
+        'img/4_enemie_boss_chicken/2_alert/G12.png',
     ];
     imagesAttack = [
         'img/4_enemie_boss_chicken/3_attack/G13.png',
@@ -43,6 +55,7 @@ class Endboss extends MovableObject {
     constructor() {
         super().loadImage(this.imagesWalking[0]);
         this.loadImages(this.imagesWalking);
+        this.loadImages(this.imagesAlert);
         this.loadImages(this.imagesAttack);
         this.loadImages(this.imagesHurt);
         this.loadImages(this.imagesDead);
@@ -68,13 +81,20 @@ class Endboss extends MovableObject {
      */
     animate() {
         setInterval(() => {
-            this.moveLeft();
+            this.moveEndboss();
             this.checkCharacterDistance();
+            this.checkDamage();
         }, 1000/60);
 
         setInterval(() => {
             this.playAnimationEndboss();
-        }, 200);
+        }, 400);
+    }
+
+    moveEndboss() {
+        if (!this.encountered || this.alerted) {
+            this.moveLeft();
+        }
     }
 
     /**
@@ -85,12 +105,18 @@ class Endboss extends MovableObject {
             this.endbossDead();
         } else if (this.isHurt()) {
             this.playAnimation(this.imagesHurt);
-            
-        } else if (this.encountered) {
-            this.playAnimation(this.imagesAttack);
+        } else if (!this.alerted && this.encountered) {
+            this.playAnimationAlert();
+        } else if(this.isAngry) {
+            this.playAnimation(this.imagesAttack); 
         } else {
             this.playAnimation(this.imagesWalking);
         }
+    }
+
+    playAnimationAlert() {
+        this.alerted = true;
+        this.playAnimation(this.imagesAlert);
     }
 
     /**
@@ -105,21 +131,21 @@ class Endboss extends MovableObject {
         }, 1000);
     }
 
-    /**
-     * Checks the distance between the endboss and the character.
-     * If the endboss is close to the player (less than 300 units), it begins attacking and shows its energy bar.
-     * If the endboss is far away, it moves at a slower speed and does not engage in the attack.
-     */
     checkCharacterDistance() {
         this.character = world.character;
         this.distance = Math.abs(this.character.x - this.x);
-        if (this.distance < 300) {
+        
+        if (this.distance < 550 && !this.encountered) {
             this.encountered = true;
             this.showEndbossEnergyBar = true;
-            this.speed = 0.5;
-        } else if (this.distance > 300) {
-            this.encountered = false;
-            this.speed = 0.15;
+            this.speed = 0.8;
+        }
+    }
+
+    checkDamage() {
+        if (this.energy < 100 && !this.isAngry) {
+            this.isAngry = true;
+            this.speed = 2;
         }
     }
 

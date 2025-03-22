@@ -17,6 +17,10 @@ class Character extends MovableObject {
     collectBottleSound = new Audio("assets/audio/bottle.mp3");
     imagesIdle = [
         'img/2_character_pepe/1_idle/idle/I_1.png',
+        'img/2_character_pepe/1_idle/idle/I_2.png',
+        'img/2_character_pepe/1_idle/idle/I_3.png',
+        'img/2_character_pepe/1_idle/idle/I_4.png',
+        'img/2_character_pepe/1_idle/idle/I_5.png',
         'img/2_character_pepe/1_idle/idle/I_6.png',
         'img/2_character_pepe/1_idle/idle/I_7.png',
         'img/2_character_pepe/1_idle/idle/I_8.png',
@@ -204,9 +208,6 @@ class Character extends MovableObject {
             let fallingIndex = Math.min(Math.floor(Math.abs(this.speedY) / 10), this.imagesFalling.length - 1);
             this.img = this.imageCache[this.imagesFalling[fallingIndex]];
         }
-        if (!this.isAboveGround()) {
-            this.isJumping = false;
-        }
     }
 
     /**
@@ -270,7 +271,7 @@ class Character extends MovableObject {
     isSleeping() {
         let timepassed = new Date().getTime() - this.lastMove;
         timepassed = timepassed / 1000;
-        return timepassed > 5 && timepassed < 3600;
+        return timepassed > 10 && timepassed < 3600;
     }
 
     /**

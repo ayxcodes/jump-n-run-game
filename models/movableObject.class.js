@@ -108,7 +108,7 @@ class MovableObject extends DrawableObject{
      */
     hit() {
         if (this instanceof Endboss) {
-            this.energy -= 35;
+            this.energy -= 15;
         } else {
             this.energy -= 5;
         }
