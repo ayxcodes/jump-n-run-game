@@ -92,11 +92,7 @@ a {
     background-image: url("../img/startscreen.png");
 }
 
-.endScreenWon {
-    width: 100%;
-    height: 100%;
-}
-
+.endScreenWon,
 .endScreenLost {
     width: 100%;
     height: 100%;
@@ -120,14 +116,9 @@ a {
     left: 20px;
 }
 
-.playAgain {
-    bottom: 17px;
-    left: 200px;
-}
-
 .back {
     bottom: 17px;
-    right: 200px;
+    left: 200px;
 }
 
 .fullscreenBtn {
