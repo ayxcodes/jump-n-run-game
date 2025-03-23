@@ -293,7 +293,9 @@ class Character extends MovableObject {
      * Plays sound when walking.
      */
     playWalkingSound() {
-        this.walkingSound.play();
+        if (this.y == 130) {
+            this.walkingSound.play();
+        }
     }
 
     /**
