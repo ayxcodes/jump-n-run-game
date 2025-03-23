@@ -131,7 +131,7 @@ class Endboss extends MovableObject {
         setTimeout(() => {
             gameWon();
             this.playGameWonSound();
-        }, 1500);
+        }, 1000);
     }
 
     checkCharacterDistance() {

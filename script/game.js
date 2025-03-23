@@ -1,9 +1,7 @@
-let world;
-let allSounds = [];
+let world, backgroundMusic;
+let allSounds = [], previouslyPlayingSounds = [];
 let isMuted = false;
-let backgroundMusic;
 let keyboard = new Keyboard();
-let previouslyPlayingSounds = [];
 let canvas = document.getElementById('canvas');
 const playBtn = document.getElementById("playBtn");
 const settings = document.getElementById("settings");
@@ -12,16 +10,15 @@ const gameScreen = document.getElementById("gameScreen");
 const startScreen = document.getElementById("startScreen");
 const overlay = document.getElementById("overlaySettings");
 
+function toggleSound() {
+    toggleMute();
+    toggleSoundUI();
+}
+
 function toggleSoundUI() {
     const soundImg = document.getElementById("sounds");
-    const soundBtn = document.getElementById("sound");
-
-    toggleMute();
     if (soundImg) {
         soundImg.src = isMuted ? "img/sound-off.png" : "img/sound-on.png";
-    }
-    if (soundBtn) {
-        soundBtn.innerHTML = isMuted ? "Sounds off" : "Sounds on";
     }
 }
 
@@ -29,34 +26,54 @@ function toggleMute() {
     isMuted = !isMuted;
 
     if (isMuted) {
-        previouslyPlayingSounds = allSounds.filter(sound => !sound.paused);
-        allSounds.forEach(sound => {
-            sound.muted = true;
-            sound.pause();
-        });
-        if (backgroundMusic) {
-            backgroundMusic.muted = true;
-            backgroundMusic.pause();
-        }
+        muteAllSounds();
+        muteBackgroundMusic();
     } else {
-        allSounds.forEach(sound => sound.muted = false);
-        previouslyPlayingSounds.forEach(sound => sound.play().catch(() => {}));
-        previouslyPlayingSounds = [];
-        if (backgroundMusic) {
-            backgroundMusic.muted = false;
-            backgroundMusic.play().catch(() => {});
-        }
+        unmuteAllSounds();
     }
+}
+
+function unmuteAllSounds() {
+    unmuteSounds();
+    if (backgroundMusic) {
+        unmuteBackgroundMusic();
+    }
+}
+
+function muteAllSounds() {
+    previouslyPlayingSounds = allSounds.filter(sound => !sound.paused);
+    allSounds.forEach(sound => {
+        muteSounds(sound);
+    });
+}
+
+function muteSounds(sound) {
+    sound.muted = true;
+    sound.pause();
+}
+
+function unmuteSounds() {
+    allSounds.forEach(sound => sound.muted = false);
+    previouslyPlayingSounds.forEach(sound => sound.play().catch(() => {}));
+    previouslyPlayingSounds = [];
+}
+
+function muteBackgroundMusic() {
+    backgroundMusic.muted = true;
+    backgroundMusic.pause();
+}
+
+function unmuteBackgroundMusic() {
+    backgroundMusic.muted = false;
+    backgroundMusic.play().catch(() => {});
 }
 
 function checkMute() {
     if (isMuted) {
         allSounds.forEach(sound => {
-            sound.muted = true;
-            sound.pause();
+            muteSounds(sound);
         });
-        backgroundMusic.muted = true;
-        backgroundMusic.pause();
+        muteBackgroundMusic();
     }
 }
 
@@ -84,11 +101,11 @@ function stopBackgroundMusic() {
     if (backgroundMusic) {
         backgroundMusic.pause();
         backgroundMusic.currentTime = 0;
+        backgroundMusic = null;
     }
 }
 
 function initSound(audioElement) {
-    allSounds = [];
     audioElement.volume = 0.1;
     allSounds.push(audioElement);
 }
@@ -147,7 +164,6 @@ function showCanvas() {
  * Displays the start screen and shows the start screen elements.
  */
 function showStart() {
-    toggleMute();
     toggleButton("settings");
     toggleScreen("startScreen");
     playBtn.classList.remove("dNone");
@@ -338,14 +354,6 @@ function closeSettings() {
  */
 function showSettings() {
     showOverlay(getSettingsTemplate());
-}
-
-/**
- * Displays the sound settings overlay.
- */
-function showSound() {
-    showOverlay(getSoundTemplate());
-    toggleSoundUI();
 }
 
 /**

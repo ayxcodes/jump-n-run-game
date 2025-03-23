@@ -8,26 +8,10 @@ function getSettingsTemplate() {
         <div id="settingsMenu" class="settingsMenu">
             <h2>Settings</h2>
             <div class="settingsLinks">
-                <a onclick="showSound()">Sounds</a>
                 <a onclick="showControls()">Controls</a>
                 <a onclick="showImprint()">Imprint</a>
                 <button class="settingsBtn" onclick="closeSettings()">X</button>
             </div>
-        </div>
-    `;
-}
-
-/**
- * Generates the HTML template for the sound section.
- *
- * @returns {string} The HTML template as a string.
- */
-function getSoundTemplate() {
-    return `
-        <div id="settingsMenu" class="settingsMenu">
-            <h2>Sounds</h2>
-            <button id="sound" class="soundBtn" onclick="toggleSoundUI()"></button>
-            <button class="settingsBtn" onclick="showSettings()">←</button>
         </div>
     `;
 }
