@@ -15,7 +15,10 @@
     <div id="gameScreen" class="gameScreen">
         <div id="startScreen" class="startScreen"></div>
 
-        <div id="endScreen" class="endScreen dNone"></div>
+        <div id="endScreen" class="endScreen dNone">
+            <img class="endScreenLost" src="img/lost_endscreen.png" />
+            <button id="back" class="back btn" onclick="showStart()">Back to start</button>
+        </div>
         
         <canvas id="canvas" width="720px" height="480px" class="dNone"></canvas>
 
