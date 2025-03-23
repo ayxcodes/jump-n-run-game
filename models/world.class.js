@@ -62,6 +62,97 @@ class World {
     }
 
     /**
+     * Renders the game world to the canvas, redrawing all game objects.
+     */
+    draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.translate(this.camera_x, 0);
+        this.addComponents();
+        this.ctx.translate(-this.camera_x, 0);
+        this.addFixedObjects();
+        this.ctx.translate(this.camera_x, 0);
+        this.addToMap(this.character);
+        this.addToMap(this.endboss);
+        this.addObjectsToMap(this.throwableObjects);
+        this.ctx.translate(-this.camera_x, 0);
+        self = this;
+        requestAnimationFrame(function() {
+            self.draw();
+        });
+    }
+
+    /**
+     * Adds various dynamic components (background objects, clouds, coins, etc.) to the map.
+     */
+    addComponents() {
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.enemies);
+    }
+
+    /**
+     * Adds fixed objects like UI elements (energy bars, coin count) to the map.
+     */
+    addFixedObjects() {
+        this.addToMap(this.characterEnergyBar);
+        this.addToMap(this.coinCount);
+        this.addToMap(this.bottleCount);
+        if (this.endboss.showEndbossEnergyBar) {
+            this.addToMap(this.endbossEnergyBar);
+        }
+    }
+
+    /**
+     * Adds a list of objects to the game world map.
+     * 
+     * @param {Array} objects - The list of objects to be added to the map.
+     */
+    addObjectsToMap(objects) {
+        objects.forEach(o => {
+            this.addToMap(o);
+        });
+    }
+
+    /**
+     * Draws a given object to the map, flipping its image if necessary.
+     * 
+     * @param {Object} mo - The object to be drawn to the map.
+     */
+    addToMap(mo) {
+        if(mo.otherDirection) {
+            this.flipImage(mo);
+        }
+        mo.draw(this.ctx);
+        if(mo.otherDirection) {
+            this.flipImageBack(mo);
+        }
+    }
+
+    /**
+     * Flips an image horizontally for objects facing the opposite direction.
+     * 
+     * @param {Object} mo - The object whose image needs to be flipped.
+     */
+    flipImage(mo) {
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale(-1, 1);
+        mo.x = mo.x * -1;
+    }
+
+    /**
+     * Restores the flipped image to its original orientation.
+     * 
+     * @param {Object} mo - The object whose image needs to be restored.
+     */
+    flipImageBack(mo) {
+        mo.x = mo.x * -1;
+        this.ctx.restore();
+    }
+
+    /**
      * Starts the game loop, checking collisions and throwable objects at regular intervals.
      */
     run() {
@@ -71,11 +162,20 @@ class World {
         }, 80);
     }
 
+    /**
+     * Checks for collisions between the given moving object and game entities.
+     * @param {Object} mo - The moving object (e.g., the player character).
+     */
     checkCollisions(mo) {
         this.checkCollisionChicken(mo);
         this.checkCollisionEndboss(mo);
     }
 
+    /**
+     * Checks if the moving object collides with any chickens in the level.
+     * If the player is above the enemy, the enemy dies; otherwise, the player takes damage.
+     * @param {Object} mo - The moving object (e.g., the player character).
+     */
     checkCollisionChicken(mo) {
         this.level.enemies.forEach((enemy, index) => {
             if (!enemy.dead && mo.isColliding(enemy)) {
@@ -89,12 +189,22 @@ class World {
         });
     }
 
+    /**
+     * Checks if the moving object collides with the Endboss.
+     * If a collision occurs, the player takes damage.
+     * @param {Object} mo - The moving object (e.g., the player character).
+     */
     checkCollisionEndboss(mo) {
         if (mo.isColliding(this.endboss)) {
             this.characterHurt(mo);
         }
     }
 
+    /**
+     * Handles when the character takes damage.
+     * Reduces the character's energy and plays a hurt sound.
+     * @param {Object} mo - The moving object (e.g., the player character).
+     */
     characterHurt(mo) {
         mo.hit();
         this.playHurtSound();
@@ -196,119 +306,28 @@ class World {
     }
 
     /**
-     * Renders the game world to the canvas, redrawing all game objects.
-     */
-    draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.camera_x, 0);
-        this.addComponents();
-        this.ctx.translate(-this.camera_x, 0);
-        this.addFixedObjects();
-        this.ctx.translate(this.camera_x, 0);
-        this.addToMap(this.character);
-        this.addToMap(this.endboss);
-        this.addObjectsToMap(this.throwableObjects);
-        this.ctx.translate(-this.camera_x, 0);
-        self = this;
-        requestAnimationFrame(function() {
-            self.draw();
-        });
-    }
-
-    /**
-     * Adds various dynamic components (background objects, clouds, coins, etc.) to the map.
-     */
-    addComponents() {
-        this.addObjectsToMap(this.level.backgroundObjects);
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.bottles);
-        this.addObjectsToMap(this.level.enemies);
-    }
-
-    /**
-     * Adds fixed objects like UI elements (energy bars, coin count) to the map.
-     */
-    addFixedObjects() {
-        this.addToMap(this.characterEnergyBar);
-        this.addToMap(this.coinCount);
-        this.addToMap(this.bottleCount);
-        if (this.endboss.showEndbossEnergyBar) {
-            this.addToMap(this.endbossEnergyBar);
-        }
-    }
-
-    /**
-     * Adds a list of objects to the game world map.
-     * 
-     * @param {Array} objects - The list of objects to be added to the map.
-     */
-    addObjectsToMap(objects) {
-        objects.forEach(o => {
-            this.addToMap(o);
-        });
-    }
-
-    /**
-     * Draws a given object to the map, flipping its image if necessary.
-     * 
-     * @param {Object} mo - The object to be drawn to the map.
-     */
-    addToMap(mo) {
-        if(mo.otherDirection) {
-            this.flipImage(mo);
-        }
-        mo.draw(this.ctx);
-        if(mo.otherDirection) {
-            this.flipImageBack(mo);
-        }
-    }
-
-    /**
-     * Flips an image horizontally for objects facing the opposite direction.
-     * 
-     * @param {Object} mo - The object whose image needs to be flipped.
-     */
-    flipImage(mo) {
-        this.ctx.save();
-        this.ctx.translate(mo.width, 0);
-        this.ctx.scale(-1, 1);
-        mo.x = mo.x * -1;
-    }
-
-    /**
-     * Restores the flipped image to its original orientation.
-     * 
-     * @param {Object} mo - The object whose image needs to be restored.
-     */
-    flipImageBack(mo) {
-        mo.x = mo.x * -1;
-        this.ctx.restore();
-    }
-
-    /**
-     * Plays sound when character is hurt.
+     * Plays sound effect for the character getting hurt.
      */
     playHurtSound() {
         this.hurtSound.play();
     }
 
     /**
-     * Plays sound when endboss is hit.
+     * Plays sound effect for the endboss getting hit.
      */
     playEndbossHitSound() {
         this.endbossHit.play();
     }
 
     /**
-     * Plays sound when stomping en enemy.
+     * Plays sound effect for stomping en enemy.
      */
     playStompSound() {
         this.stompSound.play();
     }
 
     /**
-     * Plays sound when bottle splashes.
+     * Plays sound effect for a bottle splashing.
      */
     playShatteredGlassSound() {
         this.shatteredGlassSound.play();

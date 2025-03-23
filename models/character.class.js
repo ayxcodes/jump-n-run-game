@@ -102,6 +102,7 @@ class Character extends MovableObject {
 
     /**
      * Starts the character animation loop.
+     * Runs two intervals: one for movement handling and another for animation updates.
      */
     animate() {
         setInterval(() => {
@@ -115,6 +116,8 @@ class Character extends MovableObject {
 
     /**
      * Handles character movement based on user input.
+     * Moves the character left, right, or makes it jump.
+     * Updates the camera position accordingly.
      */
     characterMoving() {
         if (this.isDead()) return;
@@ -132,7 +135,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Moves the character to the right
+     * Moves the character to the right.
+     * Updates movement direction, plays walking sound, and records last movement time.
      */
     characterMoveRight() {
         this.moveRight();
@@ -143,6 +147,7 @@ class Character extends MovableObject {
 
     /**
      * Moves the character to the left.
+     * Updates movement direction, plays walking sound, and records last movement time.
      */
     characterMoveLeft() {
         this.moveLeft();
@@ -152,7 +157,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Makes the character jump.
+     * Initiates the character's jump action.
+     * Starts the jumping process and plays the jump sound.
      */
     characterJump() {
         this.startJump();
@@ -161,7 +167,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Plays the correct animation based on character state.
+     * Plays the appropriate animation based on the character's current state.
+     * Determines if the character is dead, hurt, jumping, walking, idle, or in a long idle state.
      */
     playAnimationCharacter() {
         if (this.isDead()) {
@@ -183,7 +190,8 @@ class Character extends MovableObject {
     }
     
     /**
-     * Initiates the jump sequence.
+     * Starts the jump sequence by switching through jump images.
+     * Once the animation is complete, the actual jump action is executed.
      */
     startJump() {
         if (this.isJumping) return;
@@ -203,7 +211,8 @@ class Character extends MovableObject {
     }
     
     /**
-     * Handles the jump animation sequence.
+     * Displays the jump animation based on the character's vertical speed.
+     * Uses different images for ascending and falling states.
      */
     playJumpAnimation() {
         if (this.speedY > 0) {
@@ -215,7 +224,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Plays the death animation and triggers game over.
+     * Plays the death animation and triggers the game over sequence.
+     * Calls the gameLost() function and plays a game over sound.
      */
     characterDead() {
         let index = 0;
@@ -231,9 +241,9 @@ class Character extends MovableObject {
     }
 
     /**
-     * Checks for collectible items and collects them if applicable.
+     * Checks for collectible items and triggers their collection if applicable.
      * 
-     * @param {Array} objects - Array of collectible objects.
+     * @param {Array} objects - Array of collectible objects in the game world.
      */
     checkCollectables(objects) {
         objects.forEach((object) => {
@@ -242,7 +252,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Checks and collects all available collectable items in the current level.
+     * Collects all available collectible items in the current level.
      * This includes coins and bottles.
      */
     collectableItems() {
@@ -251,10 +261,9 @@ class Character extends MovableObject {
     }
 
     /**
-     * Collects an item, plays the collect sound
-     * and updates the respective counters.
+     * Collects an item, updates the inventory count, and plays the corresponding sound.
      * 
-     * @param {object} item - The item to be collected.
+     * @param {Object} item - The item to be collected (Coin or Bottle).
      */
     collectItem(item) {
         if (item instanceof Coin) {
@@ -268,19 +277,20 @@ class Character extends MovableObject {
     }
     
     /**
-    * Checks if the character is in an idle state based on inactivity time.
-    * 
-    * @returns {boolean} True if the character is in idle, otherwise false.
-    */
+     * Checks if the character is in an idle state based on inactivity time.
+     * 
+     * @returns {boolean} True if the character has been idle for 10-12 seconds, false otherwise.
+     */
    isIdle() {
        let timepassed = new Date().getTime() - this.lastMove;
        timepassed = timepassed / 1000;
        return timepassed > 10 && timepassed < 12;
    }
+
     /**
-     * Checks if the character is in an long idle state based on inactivity time.
+     * Checks if the character is in a long idle state based on inactivity time.
      * 
-     * @returns {boolean} True if the character is in long idle, otherwise false.
+     * @returns {boolean} True if the character has been idle for more than 12 seconds, false otherwise.
      */
     isLongIdle() {
         let timepassed = new Date().getTime() - this.lastMove;
@@ -289,14 +299,13 @@ class Character extends MovableObject {
     }
 
     /**
-     * Determines if the current object is positioned above the given enemy.
-     * Checks if the vertical overlap between the object and enemy is positive and within the enemy's height,
-     * and whether the object's vertical speed is negative (indicating upward movement).
+     * Determines if the character is above a given enemy.
+     * The function checks vertical positioning and movement direction.
      *
      * @param {Object} enemy - The enemy object to check against.
      * @param {number} enemy.y - The vertical position of the enemy.
      * @param {number} enemy.height - The height of the enemy.
-     * @returns {boolean} True if the object is above the enemy, false otherwise.
+     * @returns {boolean} True if the character is above the enemy, false otherwise.
      */
     isAboveEnemy(enemy) {
         const verticalOverlap = this.y + this.height - enemy.y;
@@ -304,7 +313,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Plays sound when walking.
+     * Plays the walking sound if the character is on the ground.
      */
     playWalkingSound() {
         if (this.y == 130) {
@@ -313,21 +322,22 @@ class Character extends MovableObject {
     }
 
     /**
-     * Plays sound when jumping.
+     * Plays the jump sound effect.
      */
     playJumpSound() {
         this.jumpSound.play();
     }
 
     /**
-     * Plays losing game sound.
+     * Plays the sound effect when the game is lost.
      */
     playGameLostSound() {
         this.gameLostSound.play();
     }
 
     /**
-     * Plays sound when collecting a bottle.
+     * Plays the sound effect when collecting a bottle.
+     * Resets the sound to allow quick consecutive plays.
      */
     playCollectBottleSound() {
         this.collectBottleSound.currentTime = 0;
@@ -335,7 +345,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Plays sound when collecting a coin.
+     * Plays the sound effect when collecting a coin.
+     * Resets the sound to allow quick consecutive plays.
      */
     playCollectCoinSound() {
         this.collectCoinSound.currentTime = 0;

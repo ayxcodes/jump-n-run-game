@@ -75,9 +75,9 @@ class Endboss extends MovableObject {
         right: 120
     };
 
-    /**
-     * Starts the endboss animation loop
-     * and checks the distance to the character.
+     /**
+     * Starts the endboss animation loop and checks the distance to the character.
+     * The movement and animation updates occur at different intervals.
      */
     animate() {
         setInterval(() => {
@@ -91,6 +91,10 @@ class Endboss extends MovableObject {
         }, 500);
     }
 
+    /**
+     * Moves the endboss to the left if it is not dead.
+     * Stops movement when the endboss is alerted or has encountered the player.
+     */
     moveEndboss() {
         if (this.isDead()) {
             return;
@@ -102,6 +106,7 @@ class Endboss extends MovableObject {
 
     /**
      * Plays the appropriate animation for the Endboss based on its current state.
+     * Animations change depending on whether the boss is dead, hurt, alerted, angry, or walking.
      */
     playAnimationEndboss() {
         if (this.isDead()) {
@@ -117,14 +122,18 @@ class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Triggers the alert animation for the endboss.
+     * Sets the boss to an alerted state.
+     */
     playAnimationAlert() {
         this.alerted = true;
         this.playAnimation(this.imagesAlert);
     }
 
     /**
-     * Triggers the end boss death animation.
-     * After a short delay, the game has been won.
+     * Triggers the endboss death animation.
+     * After a short delay, the game is marked as won, and the winning sound plays.
      */
     endbossDead() {
         this.playAnimation(this.imagesDead);
@@ -134,6 +143,11 @@ class Endboss extends MovableObject {
         }, 1000);
     }
 
+    /**
+     * Checks the distance between the endboss and the character.
+     * If the character is within 450 pixels, the boss encounters the character,
+     * and its energy bar becomes visible while its speed increases.
+     */
     checkCharacterDistance() {
         this.character = world.character;
         this.distance = Math.abs(this.character.x - this.x);
@@ -145,6 +159,11 @@ class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Checks if the endboss has taken damage and updates its behavior accordingly.
+     * If its energy drops below 100, the boss becomes angry, increasing its speed
+     * and altering the music speed and volume.
+     */
     checkDamage() {
         if (this.energy < 100 && !this.isAngry) {
             this.isAngry = true;
@@ -155,7 +174,7 @@ class Endboss extends MovableObject {
     }
 
     /**
-     * Plays winning game sound.
+     * Plays the sound effect for winning the game.
      */
     playGameWonSound() {
         this.gameWonSound.play();

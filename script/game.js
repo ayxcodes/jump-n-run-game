@@ -10,11 +10,17 @@ const gameScreen = document.getElementById("gameScreen");
 const startScreen = document.getElementById("startScreen");
 const overlay = document.getElementById("overlaySettings");
 
+/**
+ * Toggles sound by muting or unmuting all sounds and updating the UI.
+ */
 function toggleSound() {
     toggleMute();
     toggleSoundUI();
 }
 
+/**
+ * Updates the sound icon in the UI based on the mute state.
+ */
 function toggleSoundUI() {
     const soundImg = document.getElementById("sounds");
     if (soundImg) {
@@ -22,9 +28,11 @@ function toggleSoundUI() {
     }
 }
 
+/**
+ * Toggles the mute state and applies necessary changes to sound playback.
+ */
 function toggleMute() {
     isMuted = !isMuted;
-
     if (isMuted) {
         muteAllSounds();
         muteBackgroundMusic();
@@ -33,6 +41,9 @@ function toggleMute() {
     }
 }
 
+/**
+ * Unmutes all sounds, including background music if available.
+ */
 function unmuteAllSounds() {
     unmuteSounds();
     if (backgroundMusic) {
@@ -40,6 +51,9 @@ function unmuteAllSounds() {
     }
 }
 
+/**
+ * Mutes all currently playing sounds and stores them for later resumption.
+ */
 function muteAllSounds() {
     previouslyPlayingSounds = allSounds.filter(sound => !sound.paused);
     allSounds.forEach(sound => {
@@ -47,27 +61,43 @@ function muteAllSounds() {
     });
 }
 
+/**
+ * Mutes a specific sound by setting it to muted and pausing it.
+ * @param {HTMLAudioElement} sound - The sound element to mute.
+ */
 function muteSounds(sound) {
     sound.muted = true;
     sound.pause();
 }
 
+/**
+ * Unmutes all sounds that were previously playing before being muted.
+ */
 function unmuteSounds() {
     allSounds.forEach(sound => sound.muted = false);
     previouslyPlayingSounds.forEach(sound => sound.play().catch(() => {}));
     previouslyPlayingSounds = [];
 }
 
+/**
+ * Mutes and pauses the background music if available.
+ */
 function muteBackgroundMusic() {
     backgroundMusic.muted = true;
     backgroundMusic.pause();
 }
 
+/**
+ * Unmutes and resumes playback of the background music.
+ */
 function unmuteBackgroundMusic() {
     backgroundMusic.muted = false;
     backgroundMusic.play().catch(() => {});
 }
 
+/**
+ * Checks if sounds should be muted and applies the mute state accordingly.
+ */
 function checkMute() {
     if (isMuted) {
         allSounds.forEach(sound => {
@@ -77,18 +107,29 @@ function checkMute() {
     }
 }
 
+/**
+ * Changes the playback speed of the background music.
+ * @param {number} speed - The playback speed (e.g., 1.0 for normal speed).
+ */
 function changeMusicSpeed(speed) {
     if (backgroundMusic) {
         backgroundMusic.playbackRate = speed;
     }
 }
 
+/**
+ * Adjusts the volume of the background music.
+ * @param {number} volume - The volume level (0.0 to 1.0).
+ */
 function changeMusicVolume(volume) {
     if (backgroundMusic) {
         backgroundMusic.volume = volume;
     }
 }
 
+/**
+ * Initializes the background music with predefined settings.
+ */
 function initBackgroundMusic() {
     backgroundMusic = new Audio("assets/audio/background-music.mp3");
     backgroundMusic.loop = true;
@@ -97,6 +138,9 @@ function initBackgroundMusic() {
     backgroundMusic.play().catch(() => {});
 }
 
+/**
+ * Stops and resets the background music.
+ */
 function stopBackgroundMusic() {
     if (backgroundMusic) {
         backgroundMusic.pause();
@@ -105,17 +149,27 @@ function stopBackgroundMusic() {
     }
 }
 
+/**
+ * Initializes a given audio element with a default volume and adds it to the sound list.
+ * @param {HTMLAudioElement} audioElement - The audio element to initialize.
+ */
 function initSound(audioElement) {
     audioElement.volume = 0.1;
     allSounds.push(audioElement);
 }
 
+/**
+ * Initializes all game sounds if the world is defined.
+ */
 function initSounds() {
     if (!world) return;
     initWorldSounds();
     initCharacterSounds();
 }
 
+/**
+ * Initializes sound effects related to the game world.
+ */
 function initWorldSounds() {
     initSound(world.hurtSound);
     initSound(world.stompSound);
@@ -125,7 +179,7 @@ function initWorldSounds() {
 }
 
 /**
- * Initializes character sounds.
+ * Initializes sound effects related to the game character.
  */
 function initCharacterSounds() {
     if (!world.character) return;
@@ -135,6 +189,9 @@ function initCharacterSounds() {
     );
 }
 
+/**
+ * Starts the game by setting up the environment, sounds, and background music.
+ */
 function startGame() {
     showCanvas();
     initLevel();
