@@ -297,7 +297,6 @@ img.active:hover,
     cursor: pointer;
 }
 
-
 a:hover {
     text-decoration: underline;
 }
@@ -305,16 +304,6 @@ a:hover {
 img.settings:hover,
 img.fullscreenSettings:hover {
     transform: rotate(90deg)
-}
-
-img.inactive:hover {
-    width: 40px;
-    height: 40px;
-}
-
-img.active:hover {
-    width: 45px;
-    height: 45px;
 }
 
 .btn:hover,
