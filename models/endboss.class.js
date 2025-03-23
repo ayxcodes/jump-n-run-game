@@ -88,10 +88,13 @@ class Endboss extends MovableObject {
 
         setInterval(() => {
             this.playAnimationEndboss();
-        }, 400);
+        }, 500);
     }
 
     moveEndboss() {
+        if (this.isDead()) {
+            return;
+        }
         if (!this.encountered || this.alerted) {
             this.moveLeft();
         }
@@ -128,14 +131,14 @@ class Endboss extends MovableObject {
         setTimeout(() => {
             gameWon();
             this.playGameWonSound();
-        }, 1000);
+        }, 1500);
     }
 
     checkCharacterDistance() {
         this.character = world.character;
         this.distance = Math.abs(this.character.x - this.x);
         
-        if (this.distance < 550 && !this.encountered) {
+        if (this.distance < 450 && !this.encountered) {
             this.encountered = true;
             this.showEndbossEnergyBar = true;
             this.speed = 0.8;

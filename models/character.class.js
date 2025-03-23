@@ -27,7 +27,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/idle/I_9.png',
         'img/2_character_pepe/1_idle/idle/I_10.png'
     ];
-    imagesSleeping = [
+    imagesLongIdle = [
         'img/2_character_pepe/1_idle/long_idle/I_11.png',
         'img/2_character_pepe/1_idle/long_idle/I_12.png',
         'img/2_character_pepe/1_idle/long_idle/I_13.png',
@@ -89,7 +89,7 @@ class Character extends MovableObject {
     constructor() {
         super().loadImage(this.imagesIdle[0]);
         this.loadImages(this.imagesIdle);
-        this.loadImages(this.imagesSleeping);
+        this.loadImages(this.imagesLongIdle);
         this.loadImages(this.imagesWalking);
         this.loadImages(this.imagesJumping);
         this.loadImages(this.imagesFalling);
@@ -172,8 +172,10 @@ class Character extends MovableObject {
             this.playJumpAnimation();
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(this.imagesWalking);
-        } else if (this.isSleeping()) {
-            this.playAnimation(this.imagesSleeping);
+        } else if (this.isIdle()) {
+            this.playAnimation(this.imagesIdle);
+        } else if (this.isLongIdle()) {
+            this.playAnimation(this.imagesLongIdle);
         } else {
             this.loadImage(this.imagesIdle[0]);
         }
@@ -264,16 +266,26 @@ class Character extends MovableObject {
         }
         item.removeFromCanvas();
     }
-
+    
     /**
-     * Checks if the character is in a sleeping state based on inactivity time.
+    * Checks if the character is in an idle state based on inactivity time.
+    * 
+    * @returns {boolean} True if the character is in idle, otherwise false.
+    */
+   isIdle() {
+       let timepassed = new Date().getTime() - this.lastMove;
+       timepassed = timepassed / 1000;
+       return timepassed > 10 && timepassed < 12;
+   }
+    /**
+     * Checks if the character is in an long idle state based on inactivity time.
      * 
-     * @returns {boolean} True if the character is sleeping, otherwise false.
+     * @returns {boolean} True if the character is in long idle, otherwise false.
      */
-    isSleeping() {
+    isLongIdle() {
         let timepassed = new Date().getTime() - this.lastMove;
         timepassed = timepassed / 1000;
-        return timepassed > 10 && timepassed < 3600;
+        return timepassed > 12 && timepassed < 3600;
     }
 
     /**
