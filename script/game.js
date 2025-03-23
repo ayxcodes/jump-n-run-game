@@ -88,6 +88,7 @@ function stopBackgroundMusic() {
 }
 
 function initSound(audioElement) {
+    allSounds = [];
     audioElement.volume = 0.1;
     allSounds.push(audioElement);
 }

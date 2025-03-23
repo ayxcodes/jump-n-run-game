@@ -68,7 +68,7 @@ class World {
         setInterval(() => {
             this.checkCollisions(this.character);
             this.checkThrowableObjects();
-        }, 200);
+        }, 80);
     }
 
     checkCollisions(mo) {
@@ -180,7 +180,7 @@ class World {
                 if (this.checkCollisionBottle(bottle)) {
                     clearInterval(collisionInterval);
                 }
-            }, 25);
+            }, 80);
         }
     }
 

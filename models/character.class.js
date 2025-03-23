@@ -110,7 +110,7 @@ class Character extends MovableObject {
     
         setInterval(() => {
             this.playAnimationCharacter();
-        }, 50);
+        }, 100);
     }
 
     /**
@@ -197,7 +197,7 @@ class Character extends MovableObject {
                 clearInterval(jumpInterval);
                 this.jump();
             }
-        }, 50);
+        }, 1000 / 60);
     }
     
     /**
