@@ -17,6 +17,7 @@ class World {
     characterEnergyBar = new characterEnergyBar();
     hurtSound = new Audio("assets/audio/ouch.mp3");
     stompSound = new Audio("assets/audio/stomp.mp3");
+    endbossHit = new Audio("assets/audio/endboss-angry.mp3");
     shatteredGlassSound = new Audio("assets/audio/shattered-glass.mp3");
 
     /**
@@ -157,6 +158,7 @@ class World {
     endbossHurt(mo) {
         if (mo.isColliding(this.endboss) && !mo.splashAnimationPlaying) {
             this.endboss.hit();
+            this.playEndbossHitSound();
             this.endbossEnergyBar.setPercentage(this.endboss.energy);
             this.bottleSplash(mo);
         }
@@ -287,6 +289,13 @@ class World {
      */
     playHurtSound() {
         this.hurtSound.play();
+    }
+
+    /**
+     * Plays sound when endboss is hit.
+     */
+    playEndbossHitSound() {
+        this.endbossHit.play();
     }
 
     /**

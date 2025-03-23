@@ -1,6 +1,7 @@
 let world;
 let allSounds = [];
 let isMuted = false;
+let backgroundMusic;
 let keyboard = new Keyboard();
 let previouslyPlayingSounds = [];
 let canvas = document.getElementById('canvas');
@@ -24,7 +25,6 @@ function toggleSoundUI() {
     }
 }
 
-
 function toggleMute() {
     isMuted = !isMuted;
 
@@ -34,24 +34,63 @@ function toggleMute() {
             sound.muted = true;
             sound.pause();
         });
+        if (backgroundMusic) {
+            backgroundMusic.muted = true;
+            backgroundMusic.pause();
+        }
     } else {
         allSounds.forEach(sound => sound.muted = false);
         previouslyPlayingSounds.forEach(sound => sound.play().catch(() => {}));
         previouslyPlayingSounds = [];
+        if (backgroundMusic) {
+            backgroundMusic.muted = false;
+            backgroundMusic.play().catch(() => {});
+        }
+    }
+}
+
+function checkMute() {
+    if (isMuted) {
+        allSounds.forEach(sound => {
+            sound.muted = true;
+            sound.pause();
+        });
+        backgroundMusic.muted = true;
+        backgroundMusic.pause();
+    }
+}
+
+function initBackgroundMusic() {
+    backgroundMusic = new Audio("assets/audio/background-music.mp3");
+    backgroundMusic.loop = true;
+    backgroundMusic.volume = 0.05;
+    backgroundMusic.play().catch(() => {});
+}
+
+function stopBackgroundMusic() {
+    if (backgroundMusic) {
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
     }
 }
 
 function initSound(audioElement) {
+    audioElement.volume = 0.1;
     allSounds.push(audioElement);
 }
 
 function initSounds() {
     if (!world) return;
+    initWorldSounds();
+    initCharacterSounds();
+}
+
+function initWorldSounds() {
     initSound(world.hurtSound);
     initSound(world.stompSound);
+    initSound(world.endbossHit);
     initSound(world.shatteredGlassSound);
     initSound(world.endboss.gameWonSound);
-    initCharacterSounds();
 }
 
 /**
@@ -70,13 +109,8 @@ function startGame() {
     initLevel();
     initWorld();
     initSounds();
-
-    if (isMuted) {
-        allSounds.forEach(sound => {
-            sound.muted = true;
-            sound.pause();
-        });
-    }
+    initBackgroundMusic();
+    checkMute();
 }
 
 /**
@@ -188,6 +222,7 @@ function updateButtonStyles(addClass, removeClass) {
 function gameLost() {
     clearAllIntervals();
     showLostScreen();
+    stopBackgroundMusic();
 }
 
 /**
@@ -197,6 +232,7 @@ function gameLost() {
 function gameWon() {
     clearAllIntervals();
     showWonScreen();
+    stopBackgroundMusic();
 }
 
 /**
