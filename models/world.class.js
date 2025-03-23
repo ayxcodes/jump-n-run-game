@@ -83,9 +83,7 @@ class World {
                     this.chickenDead(enemy, index);
                     mo.jump();
                 } else {
-                    mo.hit();
-                    this.playHurtSound();
-                    this.characterEnergyBar.setPercentage(mo.energy);
+                    this.characterHurt(mo);
                 }
             }
         });
@@ -93,10 +91,14 @@ class World {
 
     checkCollisionEndboss(mo) {
         if (mo.isColliding(this.endboss)) {
-            mo.hit();
-            this.playHurtSound();
-            this.characterEnergyBar.setPercentage(mo.energy);
+            this.characterHurt(mo);
         }
+    }
+
+    characterHurt(mo) {
+        mo.hit();
+        this.playHurtSound();
+        this.characterEnergyBar.setPercentage(mo.energy);
     }
 
     /**
