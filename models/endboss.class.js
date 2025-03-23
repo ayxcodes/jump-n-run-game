@@ -146,6 +146,8 @@ class Endboss extends MovableObject {
         if (this.energy < 100 && !this.isAngry) {
             this.isAngry = true;
             this.speed = 2;
+            changeMusicSpeed(1.2);
+            changeMusicVolume(0.1);
         }
     }
 

@@ -60,10 +60,23 @@ function checkMute() {
     }
 }
 
+function changeMusicSpeed(speed) {
+    if (backgroundMusic) {
+        backgroundMusic.playbackRate = speed;
+    }
+}
+
+function changeMusicVolume(volume) {
+    if (backgroundMusic) {
+        backgroundMusic.volume = volume;
+    }
+}
+
 function initBackgroundMusic() {
     backgroundMusic = new Audio("assets/audio/background-music.mp3");
     backgroundMusic.loop = true;
     backgroundMusic.volume = 0.05;
+    backgroundMusic.playbackRate = 0.9;
     backgroundMusic.play().catch(() => {});
 }
 
