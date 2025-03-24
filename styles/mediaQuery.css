@@ -1,5 +1,5 @@
 /*
- * Devices with max. width 720px.
+ * Devices with max. width 400px.
  */
 @media only screen and (max-width: 400px) {
     .gameScreen {
@@ -8,48 +8,21 @@
 
     .rotateDevice {
         display: flex;
-    }
-}
-
-/*
- * Devices with max. height 420px.
- */
- @media only screen and (max-height: 300px) {
-    h1 {
-        font-size: 48px;
-    }
-
-    .rotateDevice {
         height: 400px;
     }
+
+    h1 {
+        font-size: 56px;
+    }
 }
 
 /*
- * Devices with max. height 480px.
+ * Touch devices with max. width 1000px.
  */
-@media only screen and (max-height: 480px) {
-    canvas {
-        height: 100vh;
-    }
-
-    h1 {
-        display: none;
-    }
-
-    .gameScreen,
-    .startScreen {
-        height: 100vh;
-    }
-
+@media (pointer: coarse) and (max-width: 1000px) {
     .gameScreen {
-        height: 100%;
-        width: 100%;
-    }
-
-    .startScreen,
-    .endScreen {
-        background-repeat: no-repeat;
-        background-size: cover;
+        max-width: 100vw;
+        max-height: 100vh;
     }
 }
 
@@ -109,24 +82,6 @@
 
     .settingsBtn:hover {
         font-size: 20px;
-    }
-}
-
-/*
- * Touch devices with landscape orientation and max. width 720px.
- */
-@media (pointer: coarse) and (orientation: landscape) and (max-width: 650px) {
-    .fullScreen {
-        display: none;
-    }
-}
-
-/*
- * Touch devices with landscape orientation and max. height 480px.
- */
-@media (pointer: coarse) and (orientation: landscape) and (max-height: 300px) {
-    .fullScreen {
-        display: none;
     }
 }
 

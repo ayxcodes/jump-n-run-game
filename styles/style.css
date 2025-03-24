@@ -65,8 +65,10 @@ a {
 }
 
 .gameScreen {
-    width: 720px;
-    height: 480px;
+    width: 100vw;
+    max-width: 720px;
+    height: calc(100vw * (480 / 720));
+    max-height: 480px;
 }
 
 .gameScreen,
