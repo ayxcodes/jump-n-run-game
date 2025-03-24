@@ -3,6 +3,8 @@
 Welcome to my very first Jump 'n' Run Game! This is a classic side-scrolling platformer built with JavaScript, HTML and CSS.
 This game is a solo project and I built it as part of my web developer training program at Developer Akademie.
 
+![Game Screenshot](img/preview.png)
+
 ## 🚀 Features
 - Smooth 2D side-scrolling platformer gameplay
 - Collectible items
