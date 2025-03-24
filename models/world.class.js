@@ -9,6 +9,7 @@ class World {
     camera_x = 0;
     level = level1;
     throwableObjects = [];
+    canThrowBottle = true;
     endboss = new Endboss();
     character = new Character();
     coinCount = new CoinCount();
@@ -275,23 +276,68 @@ class World {
             this.bottleSplash(mo);
         }
     }
-
+    
     /**
-     * Checks if the player is attempting to throw a bottle and determines the direction of the throw.
-     * If the character is facing right, the bottle is thrown to the right; if facing left, it is thrown to the left.
+     * Checks if a throwable object (bottle) can be thrown.
+     * If the conditions are met, it initiates the bottle-throwing process.
      */
     checkThrowableObjects() {
-        if (this.keyboard.D && this.bottleCount.amount > 0) {
-            let direction = this.character.otherDirection ? -1 : 1;
-            let bottle = new ThrowableObject(this.character.x + (direction * 60), this.character.y + 120, direction);
-            this.throwableObjects.push(bottle);
-            this.bottleCount.amount--;
-            let collisionInterval = setInterval(() => {
-                if (this.checkCollisionBottle(bottle)) {
-                    clearInterval(collisionInterval);
-                }
-            }, 80);
+        if (this.keyboard.D && this.bottleCount.amount > 0 && this.canThrowBottle) {
+            this.throwBottle();
         }
+    }
+
+    /**
+     * Handles the process of throwing a bottle.
+     * - Disables further throws temporarily.
+     * - Creates a new bottle object.
+     * - Adds the bottle to the game world.
+     * - Starts collision monitoring.
+     * - Initiates the throw cooldown.
+     */
+    throwBottle() {
+        this.canThrowBottle = false; 
+        let bottle = this.createThrowableObject();
+        this.throwableObjects.push(bottle);
+        this.bottleCount.amount--;
+        this.monitorBottleCollision(bottle);
+        this.startThrowCooldown();
+    }
+
+    /**
+     * Creates and returns a new throwable object (bottle).
+     * The direction of the throw is determined based on the character's orientation.
+     * 
+     * @returns {ThrowableObject} The newly created bottle object.
+     */
+    createThrowableObject() {
+        let direction = this.character.otherDirection ? -1 : 1;
+        return new ThrowableObject(this.character.x + (direction * 60), this.character.y + 120, direction);
+    }
+
+
+    /**
+     * Monitors collisions for a thrown bottle.
+     * This function repeatedly checks if the bottle collides with an enemy or the ground.
+     * 
+     * @param {ThrowableObject} bottle - The bottle object being monitored.
+     */
+    monitorBottleCollision(bottle) {
+        let collisionInterval = setInterval(() => {
+            if (this.checkCollisionBottle(bottle)) {
+                clearInterval(collisionInterval);
+            }
+        }, 80);
+    }
+
+    /**
+     * Starts a cooldown period to prevent immediate consecutive bottle throws.
+     * After the cooldown period, throwing is re-enabled.
+     */
+    startThrowCooldown() {
+        setTimeout(() => {
+            this.canThrowBottle = true;
+        }, 1500);
     }
 
     /**
