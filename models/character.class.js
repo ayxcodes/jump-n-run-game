@@ -277,7 +277,7 @@ class Character extends MovableObject {
     /**
      * Checks if the character is in a long idle state based on inactivity time.
      * 
-     * @returns {boolean} True if the character has been idle for more than 12 seconds, false otherwise.
+     * @returns {boolean} True if the character has been idle for more than 10 seconds, false otherwise.
      */
     isLongIdle() {
         let timepassed = new Date().getTime() - this.lastMove;
