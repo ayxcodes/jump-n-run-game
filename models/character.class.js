@@ -179,12 +179,10 @@ class Character extends MovableObject {
             this.playJumpAnimation();
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(this.imagesWalking);
-        } else if (this.isIdle()) {
-            this.playAnimation(this.imagesIdle);
         } else if (this.isLongIdle()) {
             this.playAnimation(this.imagesLongIdle);
         } else {
-            this.loadImage(this.imagesIdle[0]);
+            this.playAnimation(this.imagesIdle);
         }
         this.collectableItems();
     }
@@ -275,17 +273,6 @@ class Character extends MovableObject {
         }
         item.removeFromCanvas();
     }
-    
-    /**
-     * Checks if the character is in an idle state based on inactivity time.
-     * 
-     * @returns {boolean} True if the character has been idle for 10-12 seconds, false otherwise.
-     */
-   isIdle() {
-       let timepassed = new Date().getTime() - this.lastMove;
-       timepassed = timepassed / 1000;
-       return timepassed > 10 && timepassed < 12;
-   }
 
     /**
      * Checks if the character is in a long idle state based on inactivity time.
@@ -295,7 +282,7 @@ class Character extends MovableObject {
     isLongIdle() {
         let timepassed = new Date().getTime() - this.lastMove;
         timepassed = timepassed / 1000;
-        return timepassed > 12 && timepassed < 3600;
+        return timepassed > 10 && timepassed < 3600;
     }
 
     /**
