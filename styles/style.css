@@ -43,12 +43,13 @@ h1 {
 }
 
 h2 {
+    margin: 20px;
     font-size: 38px;
 }
 
 p {
     margin: 8px;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 a {
@@ -194,9 +195,10 @@ img.fullscreenSounds {
     z-index: 1;
 }
 
-.settingsMenu {
-    width: 260px;
-    height: 300px;
+.settingsMenu,
+.settingsControls,
+.settingsImprint {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -209,6 +211,21 @@ img.fullscreenSounds {
     font-family: 'markin', Arial, Helvetica, sans-serif;
 }
 
+.settingsMenu {
+    width: 260px;
+    height: 200px;
+}
+
+.settingsControls {
+    width: 260px;
+    height: 240px;
+}
+
+.settingsImprint {
+    width: 350px;
+    height: 280px;
+}
+
 .settingsLinks {
     gap: 10px;
     display: flex;
@@ -216,11 +233,13 @@ img.fullscreenSounds {
 }
 
 .settingsBtn {
+    position: absolute;
+    top: 15px;
+    left: 15px;
     color: #9A3A18;
     font-size: 20px;
     background: transparent;
     border: none;
-    transition: 0.3s;
 }
 
 .activeGame {
@@ -299,8 +318,9 @@ img.active:hover,
     cursor: pointer;
 }
 
-a:hover {
-    text-decoration: underline;
+a:hover,
+.settingsBtn:hover {
+    color: #682912;
 }
 
 img.settings:hover,
@@ -318,8 +338,4 @@ img.fullscreenSettings:hover {
 .musicBtn:hover {
     color: white;
     background-color: #9A3A18;
-}
-
-.settingsBtn:hover {
-    font-size: 25px;
 }

@@ -10,8 +10,8 @@ function getSettingsTemplate() {
             <div class="settingsLinks">
                 <a onclick="showControls()">Controls</a>
                 <a onclick="showImprint()">Imprint</a>
-                <button class="settingsBtn" onclick="closeSettings()">X</button>
             </div>
+            <button class="settingsBtn" onclick="closeSettings()">x</button>
         </div>
     `;
 }
@@ -23,7 +23,7 @@ function getSettingsTemplate() {
  */
 function getControlsTemplate() {
     return `
-        <div id="settingsMenu" class="settingsMenu">
+        <div id="settingsMenu" class="settingsControls">
             <h2>Controls</h2>
             <p>◄/► = Walk</p>
             <p>SPACE = Jump</p>
@@ -40,11 +40,11 @@ function getControlsTemplate() {
  */
 function getImprintTemplate() {
     return `
-        <div id="settingsMenu" class="settingsMenu">
+        <div id="settingsMenu" class="settingsImprint">
             <h2>Imprint</h2>
-            <p>Aylin Celikhan</p>
-            <p>+49 171583280</p>
-            <p>a.cel@gmail.com</p>
+            <p>Information according to § 5 DDG</p>
+            <p>Aylin Celikhan<br>38118 Braunschweig<br></p>
+            <p><strong>Contact:</strong><br>a.celikhan@outlook.de</br></p>
             <button class="settingsBtn" onclick="showSettings()">←</button>
         </div>
     `;

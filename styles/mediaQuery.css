@@ -1,4 +1,52 @@
 /*
+ * Devices with max. width 520px.
+ */
+@media only screen and (max-width: 520px) {
+    h2 {
+        margin: 15px;
+        font-size: 24px;
+    }
+
+    p {
+        margin: 4px;
+        font-size: 16px;
+    }
+
+    a {
+        font-size: 18px;
+    }
+
+    .settingsMenu {
+        width: 200px;
+        height: 150px;
+    }
+    
+    .settingsControls {
+        width: 200px;
+        height: 170px;
+    }
+    
+    .settingsImprint {
+        width: 280px;
+        height: 210px;
+    }
+
+    .btn {
+        font-size: 24px;
+    }
+
+    img.settings {
+        width: 35px;
+        height: 35px;
+    }
+
+    .inactive {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+/*
  * Devices with max. width 400px.
  */
 @media only screen and (max-width: 400px) {
@@ -59,8 +107,9 @@
          cursor: inherit !important;
      }
 
-    a:hover {
-        text-decoration: none;
+    a:hover,
+    .settingsBtn:hover {
+        color: #9A3A18;
     }
 
     img.settings:hover,
@@ -78,10 +127,6 @@
     .musicBtn:hover {
         color: rgba(100, 20, 5);
         background-color: transparent;
-    }
-
-    .settingsBtn:hover {
-        font-size: 20px;
     }
 }
 
