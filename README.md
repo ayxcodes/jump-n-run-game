@@ -25,6 +25,8 @@ This game is a solo project and I built it as part of my web developer training 
 - **Collect** salsa bottles and coins
 - **Reach** the end of the level
 - **Fight** the endboss to win!
+  
+![Game Screenshot](img/preview2.png)
 
 ## 📂 Installation & Local Setup
 If you want to run the game locally:
