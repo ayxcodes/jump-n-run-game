@@ -49,4 +49,4 @@ This project is open-source and available under the MIT License.
 
 ---
 
-Enjoy the game and have fun! 🎮
+## Enjoy the game! 🎮
